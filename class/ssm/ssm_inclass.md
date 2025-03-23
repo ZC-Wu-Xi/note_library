@@ -7,7 +7,9 @@
 - 在Spring框架之下，bean类是通过Spring核心配置文件管理，一
   般将其命名为`applicationContext..xml`
 
-### `<bean>`配置
+### bean的装配
+
+#### `<bean>`配置
 
 - `<beans>`标签：描述Spring核心配置文件约束。
 - `<bean>`标签：声明bean对象。
@@ -16,7 +18,10 @@
     路径
   - **`property`子标签：为该bean所给定的属性注入值**
 
-### 案例
+#### 基于xml的bean装配
+
+- 基于set方法注入
+- 基于有参构造方法注入
 
 javaBean：
 
@@ -74,3 +79,41 @@ public class TestWuZhaoCheng {
 }
 ```
 
+#### 基于注解的bean装配
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+">
+    <!--    使用context命名空间，开启注解处理器-->
+        <context:annotation-config/>
+    <!--    使用context命名空间，配置包扫描-->
+        <context:component-scan base-package="com.xi.yanshi"/>
+    
+</beans>
+```
+
+```java
+@Component
+public class HelloHuaYu {
+    public void print() {
+        System.out.println("hello HuaYu");
+    }
+}
+```
+
+```java
+public class TestHelloHuaYu {
+    public static void main(String[] args) {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        HelloHuaYu helloHuaYu = (HelloHuaYu) context.getBean("helloHuaYu");
+        helloHuaYu.print();
+    }
+}
+```
