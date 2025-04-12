@@ -18,6 +18,7 @@ bean的后置处理器:
 `Config.java`
 
 ```java
+package com.xi.service
 @ComponentScan
 @Configuration
 public class ConfigClass {

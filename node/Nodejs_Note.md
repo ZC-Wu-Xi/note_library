@@ -2172,8 +2172,6 @@ nvm 的使用非常的简单，跟 npm 的使用方法类似
 
 ## 八. express 框架
 
-> 该部分目前不打算更新
-
 ### 1. express 介绍
 
 express 是一个基于 Node.js 平台的极简、灵活的 WEB 应用开发框架，官方网址：https://www.expressjs. com.cn/

@@ -3,8 +3,6 @@ author: 汐
 mail: 1302344595@qq.com
 ---
 
-> 该笔记不再维护
-
 # MySQL笔记
 
 # DDL
