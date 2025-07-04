@@ -44,6 +44,8 @@ b.a = a;
 
 这里不会对Bean的生命周期进行详细的描述，只描述一下大概的过程。
 
+详细的生命周期见：[SpringIOCAOP及事务](./SpringIOCAOP及事务.md)
+
 Bean的生命周期指的就是：在Spring中，Bean是如何生成的？
 
 被Spring管理的对象叫做Bean。Bean的生成步骤如下：
@@ -83,9 +85,9 @@ ABean创建-->依赖了B属性-->触发BBean创建--->B依赖了A属性--->需�
 
 **先稍微解释一下这三个缓存的作用，后面详细分析：**
 
-- **singletonObjects**中缓存的是已经经历了完整生命周期的bean对象。
-- **earlySingletonObjects**比singletonObjects多了一个early，表示缓存的是早期的bean对象。早期是什么意思？表示Bean的生命周期还没走完就把这个Bean放入了earlySingletonObjects。
-- **singletonFactories**中缓存的是ObjectFactory，表示对象工厂，表示用来创建早期bean对象的工厂。
+- `singletonObjects`：一级缓存也叫**单例池**，日常实际获取Bean的地方,保存的都是**经历完整生命周期的**Bean对象。
+- `earlySingletonObjects`：**二级缓存**，存放发生**循环依赖时提前AOP的代理对象** 即还没进行属性填充的bean对象，即Bean的**生命周期还没走完**就把这个Bean放入了earlySingletonObjects（真正作用：解决循环依赖时生成的代理对象，以保证单例），比singletonObjects多了一个early
+- `singletonFactories`：**三级缓存**，缓存的是ObjectFactory，即存放**早期bean对象的工厂**，里面保存的都是刚实例化的普通对象，准备进行的一个提前 AOP 的操作 即`map.put("aService","一个操作")`（真正作用：打破循环依赖）
 
 ## 解决循环依赖思路分析
 
@@ -95,45 +97,45 @@ ABean创建-->依赖了B属性-->触发BBean创建--->B依赖了A属性--->需�
 
 A创建时--->需要B---->B去创建--->需要A，从而产生了循环
 
-![image.png](./Spring循环依赖Img/1592471211638.png)
+![image.png](./assets/Spring循环依赖Img/1592471211638.png)
 
 那么如何打破这个循环，加个中间人（缓存）
-![image.png](./Spring循环依赖Img/1592471597769.png)
+![image.png](./assets/Spring循环依赖Img/1592471597769.png)
 
 A的Bean在创建过程中，在进行依赖注入之前，先把A的原始Bean放入缓存（提早暴露，只要放到缓存了，其他Bean需要时就可以从缓存中拿了），放入缓存后，再进行依赖注入，此时A的Bean依赖了B的Bean，如果B的Bean不存在，则需要创建B的Bean，而创建B的Bean的过程和A一样，也是先创建一个B的原始对象，然后把B的原始对象提早暴露出来放入缓存中，然后在对B的原始对象进行依赖注入A，此时能从缓存中拿到A的原始对象（虽然是A的原始对象，还不是最终的Bean），B的原始对象依赖注入完了之后，B的生命周期结束，那么A的生命周期也能结束。
 
 因为整个过程中，都只有一个A原始对象，所以对于B而言，就算在属性注入时，注入的是A原始对象，也没有关系，因为A原始对象在后续的生命周期中在堆中没有发生变化。
 
-从上面这个分析过程中可以得出，只需要一个缓存就能解决循环依赖了，那么为什么Spring中还需要**singletonFactories**呢？
+从上面这个分析过程中可以得出，只需要一个缓存就能解决循环依赖了，那么为什么Spring中还需要**singletonFactories**(三级缓存)呢？
 
 这是难点，基于上面的场景想一个问题：如果A的原始对象注入给B的属性之后，A的原始对象进行了AOP产生了一个代理对象，此时就会出现，对于A而言，它的Bean对象其实应该是AOP之后的代理对象，而B的a属性对应的并不是AOP之后的代理对象，这就产生了冲突。
 
 **B依赖的A和最终的A不是同一个对象**。
 
-AOP就是通过一个BeanPostProcessor来实现的，这个BeanPostProcessor就是AnnotationAwareAspectJAutoProxyCreator，它的父类是AbstractAutoProxyCreator，而在Spring中AOP利用的要么是JDK动态代理，要么CGLib的动态代理，所以如果给一个类中的某个方法设置了切面，那么这个类最终就需要生成一个代理对象。
+AOP就是通过一个BeanPostProcessor来实现的，这个BeanPostProcessor就是AnnotationAwareAspectJAutoProxyCreator，它的父类是AbstractAutoProxyCreator，而在Spring中AOP利用的要么是JDK动态代理，要么CGLib的动态代理，所以**如果给一个类中的某个方法设置了切面，那么这个类最终就需要生成一个代理对象。**
 
-一般过程就是：A类--->生成一个普通对象-->属性注入-->基于切面生成一个代理对象-->把代理对象放入singletonObjects单例池中。
+一般过程就是：A类--->生成一个普通对象-->属性注入-->基于切面生成一个代理对象-->把代理对象放入singletonObjects单例池(一级缓存)中。
 
 而AOP可以说是Spring中除开IOC的另外一大功能，而循环依赖又是属于IOC范畴的，所以这两大功能想要并存，Spring需要特殊处理。
 
-如何处理的，就是利用了第三级缓存**singletonFactories**。
+如何处理的，就是利用了第三级缓存**singletonFactories(三级缓存)**。
 
-首先，singletonFactories中存的是某个beanName对应的ObjectFactory，在bean的生命周期中，生成完原始对象之后，就会构造一个ObjectFactory存入singletonFactories中。这个ObjectFactory是一个函数式接口，所以支持Lambda表达式：**() -> getEarlyBeanReference(beanName, mbd, bean)**
+首先，singletonFactories(三级缓存)中存的是某个beanName对应的ObjectFactory，在bean的生命周期中，生成完原始对象之后，就会构造一个ObjectFactory存入singletonFactories(三级缓存)中。这个ObjectFactory是一个函数式接口，所以支持Lambda表达式：**`() -> getEarlyBeanReference(beanName, mbd, bean)`**
 
-上面的Lambda表达式就是一个ObjectFactory，执行该Lambda表达式就会去执行getEarlyBeanReference方法，而该方法如下：
+**上面的Lambda表达式就是一个ObjectFactory**，执行该Lambda表达式就会去执行getEarlyBeanReference方法，而该方法如下：
 
 ```java
 protected Object getEarlyBeanReference(String beanName, RootBeanDefinition mbd, Object bean) {
- Object exposedObject = bean;
- if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
-  for (BeanPostProcessor bp : getBeanPostProcessors()) {
-   if (bp instanceof SmartInstantiationAwareBeanPostProcessor) {
-    SmartInstantiationAwareBeanPostProcessor ibp = (SmartInstantiationAwareBeanPostProcessor) bp;
-    exposedObject = ibp.getEarlyBeanReference(exposedObject, beanName);
-   }
-  }
- }
- return exposedObject;
+    Object exposedObject = bean;
+    if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
+        for (BeanPostProcessor bp : getBeanPostProcessors()) {
+            if (bp instanceof SmartInstantiationAwareBeanPostProcessor) {
+                SmartInstantiationAwareBeanPostProcessor ibp = (SmartInstantiationAwareBeanPostProcessor) bp;
+                exposedObject = ibp.getEarlyBeanReference(exposedObject, beanName);
+            }
+        }
+    }
+    return exposedObject;
 }
 ```
 
@@ -163,7 +165,7 @@ public Object getEarlyBeanReference(Object bean, String beanName) {
 
 那么，什么时候会调用getEarlyBeanReference方法呢？回到循环依赖的场景中
 
-![image.png](./Spring循环依赖Img/1592539097062.png)
+[![image.png](./assets/Spring循环依赖Img/1592539097062.png)](./assets/Spring循环依赖Img/1592539097062.png)
 
 **左边文字**：
 这个ObjectFactory就是上文说的labmda表达式，中间有getEarlyBeanReference方法，注意存入singletonFactories时并不会执行lambda表达式，也就是不会执行getEarlyBeanReference方法
@@ -179,14 +181,118 @@ public Object getEarlyBeanReference(Object bean, String beanName) {
 
 **整个循环依赖解决完毕。**
 
+## 解决循环依赖思路分析(另一个讲法)
+
+循环依赖的代码
+
+```java
+public class AService {
+    @Autowired
+    private BService bService;
+}
+
+@Component
+public class BService {
+    @Autowired
+    private AService aService;
+
+}
+```
+
+![image.png](./assets/Spring循环依赖Img/1737284360509-53b1cd5a-dde6-4d7e-96f3-d752fbba1f98.webp)
+
+**学习循环依赖之前，需要[三级缓存](##三级缓存)**
+
+### 正常情况
+
+**正常情况下**，`AService` 依赖注入 `BService`，先从单例池中获取，获取不到就先创建`BService`，然后再把`BService`注入；最后`AService` 执行 AOP 创建代理对象，添加到单例池结束。
+
+![img](./assets/Spring循环依赖Img/1737292928169-456273d4-8cf2-4a43-b77c-782642297d54.png)
+
+### 出现循环依赖
+
+如果`AService` 依赖注入 `BService`，先从单例池(一级缓存)中获取，获取不到就先创建`BService`，
+
+但是 创建`BService`过程中，同样要注入`AService` ，而`AService` 还没有创建好，这时候就**发生了循环依赖**。
+
+所以我们会在一开始创建一个Set集合来存放正在创建中的AService的名字；
+
+并且在创建好 `AService`普通对象后，还要把这个普通对象添加到缓存中。
+
+当BService创建时需要依赖注入 `AService`，当然此时**从单例池中**肯定**获取不到**，就先查询**Set集合中是否存在AService**，**存在**则说明**出现了循环依赖**，所以就要**从另一个缓存中拿到 `AService`的普通对象，来提前创建`AService`的代理对象。**
+
+将这个`AService`的代理对象依赖注入，并且存到另一个缓存中。`BService`成功创建。
+
+**`BService`成功创建好后，`AService`也能顺利注入好`BService`，然后再执行一次 AOP 创建代理对象吗？**
+
+![image.png](./assets/Spring循环依赖Img/1737296365877-6e74a906-9a38-4306-9d37-3d282d9c96e8.webp)
+
+**显然不是。**而是会**添加一个判断**，判断缓存中是否已经存在 `AService`的代理对象了，而这个缓存就是**二级缓存`earlySingletonObjects`，用来存放发生循环依赖时提前AOP的代理对象**
+
+如果二级缓存中已经有了，就不需要再创建代理对象了，直接添加到单例池中，然后删除二级缓存、删除三级缓存、删除set集合的名字。
+
+**而这边的三级缓存 `singletonFactories`存放的真的都是实例化后生成的普通对象吗？**
+
+![image.png](./assets/Spring循环依赖Img/1737296342175-2b919036-5791-4f7f-afdc-031f6482126b.webp)
+
+其实三级缓存中只是存了一个操作，而这个操作真正的执行是在发生循环依赖时，才会发生。
+
+`AbstractAutowireCapableBeanFactory`类搜索`addSingletonFactory()`就能找到这个代码。他的操作就是：提前进行 AOP 创建代理对象，将代理对象存到二级缓存中。
+
+我们模拟一下将操作存到 map，然后获取的时候执行 map 里的行为：
+
+```java
+// map集合存一个lambda表达式
+public static void main(String[] args) {
+    Map<Object, Object> map = new HashMap<>();
+    map.put("a", (Runnable) () -> System.out.println("你好,我是一个线程"));
+    Object a = map.get("a");
+    System.out.println("开始执行线程");
+    System.out.println("=============");
+    ((Runnable)a).run();
+}
+```
+
+![image.png](./assets/Spring循环依赖Img/1737296287746-a1fc17c9-d29f-4649-82b2-41132855ddbb.webp)
+
+
+
 ## 总结
+
+### 总结三级缓存
 
 至此，总结一下三级缓存：
 
 1. **singletonObjects**：缓存经过了**完整生命周期**的bean
 2. **earlySingletonObjects**：缓存**未经过完整生命周期的bean**，如果某个bean出现了循环依赖，就会**提前**把这个暂时未经过完整生命周期的bean放入earlySingletonObjects中，这个bean如果要经过AOP，那么就会把代理对象放入earlySingletonObjects中，否则就是把原始对象放入earlySingletonObjects，但是不管怎么样，就是是代理对象，代理对象所代理的原始对象也是没有经过完整生命周期的，所以放入earlySingletonObjects我们就可以统一认为是**未经过完整生命周期的bean。**
-3. **singletonFactories**：缓存的是一个ObjectFactory，也就是一个Lambda表达式。在每个Bean的生成过程中，经过**实例化**得到一个原始对象后，都会提前基于原始对象暴露一个Lambda表达式，并保存到三级缓存中，这个Lambda表达式**可能用到，也可能用不到**，如果当前Bean没有出现循环依赖，那么这个Lambda表达式没用，当前bean按照自己的生命周期正常执行，执行完后直接把当前bean放入singletonObjects中，如果当前bean在依赖注入时发现出现了循环依赖（当前正在创建的bean被其他bean依赖了），则从三级缓存中拿到Lambda表达式，并执行Lambda表达式得到一个对象，并把得到的对象放入二级缓存（(如果当前Bean需要AOP，那么执行lambda表达式，得到就是对应的代理对象，如果无需AOP，则直接得到一个原始对象)）。
+3. **singletonFactories**：缓存的是一个ObjectFactory，也就是一个Lambda表达式。在每个Bean的生成过程中，经过**实例化**得到一个原始对象后，都会提前基于原始对象暴露一个Lambda表达式，并保存到三级缓存中，这个Lambda表达式**可能用到，也可能用不到**。
+   - **如果当前Bean没有出现循环依赖**，那么这个Lambda表达式**没用**，当前bean按照自己的生命周期正常执行，执行完后直接把当前bean放入singletonObjects中。
+   - **如果当前bean在依赖注入时发现出现了循环依赖**（当前正在创建的bean被其他bean依赖了），则从三级缓存中拿到Lambda表达式，并执行Lambda表达式得到一个对象，并把得到的对象放入二级缓存
+     - 如果当前Bean需要AOP，那么执行lambda表达式，得到就是对应的代理对象
+     - 如果无需AOP，则直接得到一个原始对象)）。
 4. 其实还要一个缓存，就是**earlyProxyReferences**，它用来记录某个原始对象是否进行过AOP了。
+
+### 循环依赖流程总结
+
+开始进行 AService 的生命周期：
+
+**1）创建一个 set 集合，存放正在创建中的AService的名字（用于判断创建bean时是否出现循环依赖）**
+
+**2）实例化AService对象获取一个普通对象；将普通对象放到三级缓存中（注意：这个三级缓存里面存的是一个 lambda 表达式的操作，这边并不会执行）**
+
+**3）依赖注入 BService，先从单例池中获取，获取不到则创建BService 的 bean 对象**
+
+**开始进行BService的生命周期：**
+
+- A. 实例化BService获取一个普通对象
+- B. 属性填充aService，从单例池中获取不到，就查询 set 集合是否存在aService名字，存在说明出现了循环依赖；
+  先从二级缓存中获取代理对象，获取不到就执行三级缓存中的操作（执行提前AOP 创建代理对象，并将aService代理对象放到二级缓存中）
+- C. 一系列初始化的操作（AOP生成代理对象）
+- D. 将bService的代理对象添加到单例池（一级缓存）
+
+**4）一些列初始化操作，如果已经提前aop就不再创建代理对象，直接从二级缓存中获取aService代理对象**
+
+**5）将aService添加到单例池，并删除二级缓存aService的代理对象，删除set 集合中的 AService 名称**
 
 ### 反向分析一下singletonFactories
 
@@ -203,3 +309,16 @@ public Object getEarlyBeanReference(Object bean, String beanName) {
 2. 真正发现某个bean出现了循环依赖时：按现在Spring源码的流程来说，就是getSingleton(String beanName, boolean allowEarlyReference)中，是在这个方法中判断出来了当前获取的这个bean在创建中，就表示获取的这个bean出现了循环依赖，那在这个方法中该如何拿到原始对象呢？更加重要的是，该如何拿到AOP之后的代理对象呢？难道在这个方法中去循环调用BeanPostProcessor的初始化后的方法吗？不是做不到，不太合适，代码太丑。**最关键的是在这个方法中该如何拿到原始对象呢？**还是得需要一个Map，预习把这个Bean实例化后的对象存在这个Map中，那这样的话还不如直接用第一种方案，但是第一种又直接打破了Bean生命周期的设计。
 
 所以，我们可以发现，现在Spring所用的singletonFactories，为了调和不同的情况，在singletonFactories中存的是lambda表达式，这样的话，只有在出现了循环依赖的情况，才会执行lambda表达式，才会进行AOP，也就说只有在出现了循环依赖的情况下才会打破Bean生命周期的设计，如果一个Bean没有出现循环依赖，那么它还是遵守了Bean的生命周期的设计的。
+
+### 题外话：为什么 spring 解决了循环依赖，启动还是会报错呢？
+
+因为在2.6.0版本后，就默认关闭循环依赖的开关。
+
+其实循环依赖说到底是因为编写代码不规范导致的，为了约束代码规范，于是spring官方默认关闭了开关，但仍然保留开启循环依赖
+
+```yaml
+spring:
+	main:
+		allow-circular-references:true
+```
+

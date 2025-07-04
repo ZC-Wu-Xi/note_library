@@ -3854,7 +3854,7 @@ Vue.component('组件的名字', 组件对象);
 </script>
 ```
 
-## 02. 组件嵌套
+## 03. 组件嵌套
 
 ```html
 <div id="root"></div>
@@ -3919,7 +3919,11 @@ Vue.component('组件的名字', 组件对象);
 </script>
 ```
 
-## 03. vm实例与vc组件
+嵌套结构： 这种结构更加贴切实际项目的开发  
+
+ <img src="./vueImg/image-20250613215249352.png" alt="image-20250613215249352" style="zoom:67%;" />
+
+## 04. vm实例与vc组件
 
 ### 1. vm（Vue Instance）
 
@@ -4158,57 +4162,68 @@ VueComponent.prototype.__proto__ = Vue.prototype
 </script>
 ```
 
-## 04. 单文件组件
+## 05. 单文件组件
 
 一个组件对一个单独的文件
 
-1. **什么是单文件组件？**
+### 理论
 
-   - 一个文件对应一个组件（之前我们所学的是非单文件组件，一个 HTML 文件中定义了多个组件）。
-   - 单文件组件的名字通常是：`x.vue`，这是 Vue 框架规定的，只有 Vue 框架能够认识，浏览器无法直接打开运行。需要 Vue 框架进行编译，将 `x.vue` 最终编译为浏览器能识别的 HTML、JS、CSS。
-   -  单文件组件的文件名命名规范和组件名的命名规范相同：
-     1. 全部小写：`userlist`
-     2. 首字母大写，后面全部小写：`Userlist`
-     3. kebab-case 命名法：`user-list`
-     4. CamelCase 命名法：`UserList`（我们使用这种方式，和 Vue 开发者工具呼应）。
+**什么是单文件组件？**
 
-2. **`x.vue` 文件的内容包括三块：**
+- 一个文件对应一个组件（之前我们所学的是非单文件组件，一个 HTML 文件中定义了多个组件）。
+- 单文件组件的名字通常是：`x.vue`，这是 Vue 框架规定的，只有 Vue 框架能够认识，浏览器无法直接打开运行。需要 Vue 框架进行编译，将 `x.vue` 最终编译为浏览器能识别的 HTML、JS、CSS。
+-  单文件组件的文件名命名规范和组件名的命名规范相同：
+  1. 全部小写：`userlist`
+  2. 首字母大写，后面全部小写：`Userlist`
+  3. kebab-case 命名法：`user-list`
+  4. CamelCase 命名法：`UserList`（我们使用这种方式，和 Vue 开发者工具呼应）。
 
-   - 结构：`<template>HTML代码</template>`
-   - 交互：`<script>JS代码</script>`
-   - 样式：`<style>CSS代码</style>`
+---
 
-3. **export 和 import，ES6 的模块化语法。**
+**`x.vue` 文件的内容包括三块：**
 
-   - 使用`export`
-     导出（暴露）组件，在需要使用组件的`x.vue`文件中使用 `import`导入组件：
+- 结构：`<template>HTML代码</template>`
+- 交互：`<script>JS代码</script>`
+- 样式：`<style>CSS代码</style>`
 
-     - 默认导入和导出：
+---
 
-       - `export default {}`
-       - `import 任意名称 from '模块标识符'`
+**export 和 import，ES6 的模块化语法。**
 
-     - 按需导入和导出：
+**使用`export`**导出（暴露）组件，在需要使用组件的`x.vue`文件中使用 `import`导入组件：
 
-       - `export {a, b}`
-       - `import {a, b} from '模块标识符'`
+- 默认导入和导出：
 
-     - 分别导出：
+  - `export default {}`
+  - `import 任意名称 from '模块标识符'`
 
-       ```
-       javascriptexport var name = 'zhangsan';  
-       export function sayHi() {}  
-       ```
+- 按需导入和导出：
 
-4. **VSCode 工具可以安装一些插件，这样在编写 `x.vue` 的时候有提示。例如：vetur 插件。**
+  - `export {a, b}`
+  - `import {a, b} from '模块标识符'`
 
-   -  使用该插件之后，有高亮显示，并且也可以通过输入 `<v` 生成代码。
+- 分别导出：
 
-5. **把之前“组件嵌套”的例子修改为单文件组件**
+  ```
+  javascriptexport var name = 'zhangsan';  
+  export function sayHi() {}  
+  ```
 
-记住一个要领：不管是单文件组件还是非单文件组件，永远都包括三步：创建组件、注册组件、使用组件。
+---
 
-创建 `vm` 的代码就不是一个组件了，这个 JS 代码写到一个 JS 文件中即可，一般这个起名：`main.js`。寓意：入口。
+**VSCode 工具可以安装一些插件，这样在编写 `x.vue` 的时候有提示。例如：vetur 插件。**
+
+-  使用该插件之后，有高亮显示，并且也可以通过输入 `<v` 生成代码。
+
+---
+
+### 演示
+
+**把之前“组件嵌套”的例子修改为单文件组件**
+
+记住一个要领：不管是单文件组件还是非单文件组件，永远都**包括三步：**<u>创建组件、注册组件、使用组件</u>。
+
+**创建 `vm` 的代码**就不是一个组件了，这个 JS 代码写到一个 JS 文件中即可，**一般这个起名：`main.js`**。寓意：入口。
 
 **代码执行原理：**
 
@@ -4241,7 +4256,7 @@ VueComponent.prototype.__proto__ = Vue.prototype
     import X from './X.vue'
     import Y from './Y.vue'
     export default {
-        // 注册组件
+        // 注册XY组件
         components : {X, Y}
     }
 </script>
@@ -4342,7 +4357,7 @@ new Vue({
 </script>
 ```
 
-## 05. vue脚手架
+## 06. vue脚手架
 
 **确保npm能用（安装Node.js）**
 
@@ -4365,12 +4380,22 @@ Vue的脚手架（Vue CLI: Command Line Interface）是Vue官方提供的标准�
 
 - 第一步：**安装脚手架**（全局方式：表示只需要做一次即可）
 
-  - `npm install -g @vue/cli `
+  - ```shell
+    npm install -g @vue/cli
+    ```
+
   - 安装完成后，重新打开DOS命令窗口，输入`vue`命令可用表示成功了
 
 - 第二步：**创建项目**（项目中自带脚手架环境，自带一个HelloWorld案例）
 
-  - 切换到要创建项目的目录，然后使用 `vue create vue_pro`
+  - 切换到要创建项目的目录，然后使用 
+
+    ```shell
+    vue create vue_pro
+    ```
+
+
+     ![image-20250613201014232](./vueImg/image-20250613201014232.png)
 
   - 这里选择Vue2，
 
@@ -4378,15 +4403,1604 @@ Vue的脚手架（Vue CLI: Command Line Interface）是Vue官方提供的标准�
     - eslint：负责语法检查的。
 
     回车之后，就开始创建项目，创建脚手架环境（内置了webpack loader），自动生成HelloWorld案例。
+    ![image-20250613201035807](./vueImg/image-20250613201035807.png)
 
 - 第三步：编译Vue程序，自动将生成html css js放入内置服务器，自动启动服务。
 
-  - dos命令窗口中切换到项目根：`cd vue_pro`
+  - dos命令窗口中切换到项目根：
+    ```shell
+    cd vue_pro
+    ```
   - 执行：`npm run serve`，这一步会编译HelloWorld案例
+    
+    ![image-20250613201101247](./vueImg/image-20250613201101247.png)
     `ctrl + c`停止服务
   - 打开浏览器，访问：http://localhost:8080
+    <img src="./vueImg/image-20250613201112561.png" alt="image-20250613201112561" style="zoom:67%;" />
+    ![image-20250613201131008](./vueImg/image-20250613201131008.png)
 
 ### 认识脚手架结构
+
+使用 VSCode 将 vue_pro 项目打开：  
+
+![image-20250613201234730](./vueImg/image-20250613201234730.png)
+
+package.json： 包的说明书（包的名字， 包的版本， 依赖哪些库） 。 该文件里有 webpack 的短命令：
+
+- serve（启动内置服务器）
+- build 命令是最后一次的编译， 生成 html css js， 给后端人员
+- lint 做语法检查的。
+
+### 分析 HelloWorld 程序  
+
+```html
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <!-- 让IE浏览器启用最高渲染标准。IE8是不支持Vue的 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 开启移动虚拟窗口（理想视口） -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- 设置页签图标 -->
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <!-- 设置标题 -->
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <!-- 当浏览器不支持JS语言的时候，显示提示信息 -->
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <!-- 容器 -->
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
+```
+
+可以看到在 index.html 中只有一个容器。 没有引入 vue.js， 也没有引入 main.js。**Vue 脚手架可以自动找到 `main.js` 文件**。 （所以 main.js 文件名不要修改， 位置也不要随便移动）
+
+```js
+// main.js
+// 等同于引入vue.js
+import Vue from 'vue'
+
+// 引入app组件(根组件)以及该组件下的所有子组件
+import App from './App.vue'
+
+//关闭生产提示信息
+Vue.config.productionTip = false
+
+// 创建Vue实例
+new Vue({
+  render: h => h(App), // 将 render 函数更换为template 配置项会报错。 说明引入的 Vue 无法进行模板编译， Vue 脚手架默认引入的是精简版的 Vue， 这个精简版的 Vue 缺失模板编译器。
+}).$mount('#app')
+```
+
+接下来就是将之前写的程序拷贝到脚手架中， 进行测试。需要拷贝过来的是： App.vue、 X.vue、 Y.vue、 X1.vue、 Y1.vue。
+
+main.js 和 index.html 都不需要拷贝了， 因为脚手架中有。
+
+ <img src="./vueImg/image-20250613202100472.png" alt="image-20250613202100472" style="zoom:50%;" />
+
+只需要将 App.vue 中的路径修改一下即可：  
+
+```vue
+<template>
+    <div>
+        <User></User>
+        <Vip></Vip>
+    </div>
+</template>
+
+<script>
+    import User from './components/User.vue'
+    import Vip  from './components/Vip.vue'
+    export default {
+        name : 'App',
+        // 注册组件
+        components : {User, Vip}
+    }
+</script>
+```
+
+打开 VSCode 终端： ctrl + `在终端中执行： 
+
+```shell
+npm run serve
+```
+
+报错了  
+
+![image-20250613202235467](./vueImg/image-20250613202235467.png)
+
+导致这个错误的原因是： **组件的名字应该由多单词组成**。 这是 eslint 进行的 es 语法检测。解决这个问题有**两种方案：**  
+
+1. 第一种： 把所有组件的名字修改一下。
+
+2. 第二种： 在 vue.config.js 文件中进行脚手架的默认配置。 配置如下：
+   ```js
+   const { defineConfig } = require('@vue/cli-service')
+   module.exports = defineConfig({
+     transpileDependencies: true,
+     lintOnSave : false,/* 保存时是否用脚手架检查语法，默认为true */
+   })
+   ```
+
+在终端中 ctrl + c 两次， 终止之前的服务， 再次运行命令： 
+
+```sh
+npm run serve  
+```
+
+ <img src="./vueImg/image-20250613202424764.png" alt="image-20250613202424764" style="zoom:67%;" />
+
+ ![image-20250613202437658](./vueImg/image-20250613202437658.png)
+
+
+
+### 脚手架默认配置  
+
+脚手架**默认配置在 vue.config.js 文件中进行**。main.js、 index.html 等都是可以配置的。配置项可以参考[Vue CLI](https://cli.vuejs.org/zh/config/) 官网手册， 如下：
+
+![image-20250613202628522](./vueImg/image-20250613202628522.png)
+
+例如配置这两项：
+
+- 第一个： 保存时不检查语法 `lintOnSave : false`
+- 第二个： 配置入口
+
+```js
+// vue.config.js
+const { defineConfig } = require('@vue/cli-service')
+module.exports = defineConfig({
+  transpileDependencies: true,
+  lintOnSave : false,/* 保存时是否用脚手架检查语法 */
+  // 配置入口
+  pages: {
+    index: {
+      entry: 'src/main.js',
+    }
+  }
+})
+```
+
+### 解释 main.js 中的 render 函数  
+
+将 render 函数更换为： template 配置项， 你会发现它是报错的。 说明引入的 Vue 无法进行模板编译。
+
+**原因：** Vue 脚手架默认引入的是精简版的 Vue， 这个精简版的 Vue 缺失模板编译器。  
+
+![image-20250613203045501](./vueImg/image-20250613203045501.png)
+
+实际引入的 vue.js 文件是： dist/vue.runtime.esm.js（esm 版本是 ES6 模块化版本）
+
+**为什么缺失模板编译器？**
+
+Vue 包含两部分： 一部分是 Vue 的核心， 一部分是模板编译器（模板编译器可能占整个 vue.js 文件的一大部分体积） 。 程序员最终使用 webpack 进行打包的时候， 显然 Vue 中的模板编译器就没有存在的必要了。 **为了缩小体积， 所以在 Vue 脚手架中直接引入的就是一个缺失模板编译器的 vue.js**。这样就会导致 template 无法编译（注意：` <template>`标签可以正常编译[package.json 文件中进行了配置]， 说的是 template 配置项无法编译） 。
+
+**解决这个问题包括两种方式：**
+
+- 第一种方式： 引入一个完整的 vue.js
+
+- 第二种方式： 使用 render 函数关于 render 函数， 完整写法：
+  ```js
+  render(createElement) {
+      // 创建了一个div元素
+      // return createElement('div', 'render函数') // createElement函数可以用来创建元素
+      // 创建一个组件
+      return createElement(App)
+  } 
+  ```
+
+  这个函数被 vue 自动调用， 并且传递过来一个参数 createElement。简写形式可以使用箭头函数：  
+  ```js
+  render: createElement => createElement(App)
+  ```
+
+## 07. props 配置  
+
+### 原理
+
+使用 `props` 配置可以接收其他组件传过来的数据， **让组件的数据变为动态数据。**
+
+三种接收方式：
+
+1. 简单接收
+   ```js
+   props : ['name','age','sex'] 
+   ```
+
+2. 接收时添加类型限制
+   ```json
+   props : {
+       name : String,
+       age : Number,
+       sex : String
+   }
+   ```
+
+3. 收时添加类型限制， 必要性限制， 默认值
+   ```json
+   props : {
+       name : {
+           type : Number,
+           required : true 
+       },
+       age : {
+           type : Number,
+           default : 10
+       }, 
+       sex : {
+           type : String, 
+           default : ‘男’
+       } 
+   }
+   ```
+
+其他组件怎么把数据传过来？
+
+```vue
+<User name="jack" age="20" sex="男"></User>
+```
+
+注意事项：
+
+1. 不要乱接收， 接收的一定是其它组件提供的。
+2. props 接收到的数据不能修改。 （修改之后会报错， 但页面会刷新。 ） 可以找个中间变量来解决。
+
+### 演示
+
+`Car.vue`：
+
+```vue
+<template>
+    <div>
+        <h3>品牌：{{brand}}</h3>
+        <h3>价格：{{cprice}}</h3>
+        <h3>颜色：{{color}}</h3>
+        <button @click="add">价格加1</button>
+    </div>
+</template>
+
+<script>
+export default {
+    name : 'Car',
+    data() {
+        return {
+            cprice : this.price
+        }
+    },
+    methods : {
+        add(){
+            this.cprice++
+        }
+    },
+    /* data() {
+        return {
+            brand : '宝马520',
+            price : 10,
+            color : '黑色'
+        }
+    }, */
+
+    // 在Car这个子组件当中使用props配置项进行数据的接收。
+    // 第一种：简单的接收方式，直接采用数组接收。
+    //props : ['brand','color','price']
+    // 第二种：添加类型限制
+    /* props : {
+        brand : String,
+        color : String,
+        price : Number
+    } */
+    // 第三种：添加类型限制，并且还可以添加默认值，还可以添加必要性
+    // 避免直接更改prop，因为每当父组件重新渲染时，该值都会被覆盖
+    // 注意：不要修改prop中的数据。
+    props : {
+        brand : {
+            type : String,
+            required : true
+        },
+        color : {
+            type : String,
+            default : '红色'
+        },
+        price : {
+            type : Number,
+            required : true
+        }
+    }
+
+}
+</script>
+```
+
+`App.vue`：
+
+```vue
+<template>
+    <div>
+        <h1>{{msg}}</h1>
+        <!-- 在App这个父组件当中，找到子组件Car，然后给Car这个子组件传数据：通过属性的形式传数据 -->
+        <Car brand="宝马520" color="黑色" v-bind:price="10"></Car>
+        <hr>
+        <Car brand="比亚迪汉" color="红色" :price="20"></Car>
+    </div>
+</template>
+
+<script>
+    import Car from './components/Car.vue'
+    export default {
+        name : 'App',
+        data() {
+            return {
+                msg : '汽车信息'
+            }
+        },
+        components : {Car}
+    }
+</script>
+```
+
+## 08. 从父组件中获取子组件
+
+### 原理  
+
+在组件上使用 `ref` 属性进行标识： 
+
+```vue
+<User ref="userJack"></User>
+```
+
+在程序中使用：
+
+- `$refs` 来获取子组件
+
+- `this.$refs.userJack`访问子组件的属性
+
+- `this.$refs.userJack.name`访问子组件的子组件属性
+
+- `this.$refs.userJack.$refs.nameref` 也可以使用在普通的 HTML 标签上， 这样获取的就是这个 DOM 元素： 
+
+  ```html
+  <input type="text" ref="username">
+  this.$refs.username
+  ```
+
+### 演示
+
+```vue
+<template>
+    <div>
+        <h3>品牌：{{brand}}</h3>
+        <h3>价格：{{cprice}}</h3>
+        <h3>颜色：{{color}}</h3>
+        <button @click="add">价格加1</button>
+    </div>
+</template>
+
+<script>
+export default {
+    name : 'Car',
+    data() {
+        return {
+            cprice : this.price
+        }
+    },
+    methods : {
+        add(){
+            this.cprice++
+        }
+    }
+}
+</script>
+```
+
+```vue
+<template>
+    <div>
+        <h1 ref="hh">{{msg}}</h1>
+        <!-- 使用组件 -->
+        <!-- 在App这个父组件当中，找到子组件Car，然后给Car这个子组件传数据：通过属性的形式传数据 -->
+        <Car brand="宝马520" color="黑色" v-bind:price="10" ref="car1"></Car>
+        <hr>
+        <Car brand="比亚迪汉" color="红色" :price="20" ref="car2"></Car>
+        <hr>
+        <button @click="printCarInfo">打印汽车信息</button>
+    </div>
+</template>
+
+<script>
+    import Car from './components/Car.vue'
+    export default {
+        name : 'App',
+        data() {
+            return {
+                msg : '汽车信息'
+            }
+        },
+        methods : {
+            printCarInfo(){
+                // 获取子组件
+                console.log(this.$refs.car1)
+                console.log(this.$refs.car2)
+
+                console.log(this.$refs.car1.brand)
+                console.log(this.$refs.car1.color)
+                console.log(this.$refs.car1.price)
+
+                // 这个就不是组件了。
+                console.log(this.$refs.hh.innerText)
+            }
+        },
+        components : {Car}
+    }
+</script>
+```
+
+![image-20250613214426711](./vueImg/image-20250613214426711.png)
+
+## 09. mixins 配置（混入）  
+
+可以看到下面 `Vip.vue` 和 `User.vue` 代码中都**有相同的 `methods`， 这个代码可以复用吗**？ 
+
+- **可以使用 `mixins` 配置进行混入。**   
+
+---
+
+### 混入前
+
+**原来的代码：**
+
+`vip.vue`：
+
+```vue
+<template>
+    <div>
+        <h1>{{msg}}</h1>
+        <h3>姓名：{{name}}</h3>
+        <h3>年龄：{{age}}</h3>
+        <button @click="printInfo">打印会员信息</button>
+        <button @click="a">会员a</button>
+    </div>
+</template>
+
+<script>
+    export default {
+        name : 'Vip',
+        data() {
+            return {
+                msg : '会员信息',
+                name : '李四2',
+                age : 21
+            }
+        },
+        methods: {
+            // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+            printInfo() {
+                console.log(this.name, ",", this.age)
+            }
+			// ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+        } 
+    }
+</script>
+```
+
+`User.vue`：
+
+```vue
+<template>
+<div>
+    <h1>{{msg}}</h1>
+    <h3>姓名： {{name}}</h3>
+    <h3>年龄： {{age}}</h3>
+    <button @click="printInfo">打印用户信息</button>
+    <button @click="a">用戶a</button>
+    </div>
+</template>
+
+<script>
+    export default {
+        name : 'User',
+        mounted() {
+            console('User mopunted')
+        },
+        data() {
+            return {
+                msg : '用户信息',
+                name : '张三',
+                age : 20
+            }
+        },
+
+        methods: {
+            // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+            printInfo() {
+                console.log(this.name, ",", th)
+            }
+            // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+        } 
+    }
+</script>
+
+<style>
+
+</style>
+```
+
+`App.vue`：
+
+```vue
+<template>
+<div>
+    <User></User>
+    <Vip></Vip>
+    </div>
+</template>
+
+<script>
+    import User from './components/User.vue'
+    import Vip  from './components/Vip.vue'
+    export default {
+        name : 'App',
+        // 注册组件
+        components : {User, Vip}
+    }
+</script>
+```
+
+---
+
+### 混入后
+
+**使用 mixins 配置进行混入，**将Vip.vue 和 User.vue 代码中相同的 methods进行复用。 **实现步骤：**  
+
+1. 第一步： 提取单独定义一个 `mixin.js`（一般和 main.js 在同级目录） ， 代码如下：
+   ```js
+   export const mix1 = {
+       methods: {
+           printInfo() {
+               console.log(this.name, ",", this.age)
+           }
+       }
+   }
+   ```
+
+2. 第二步： 引入并使用  
+   ```vue
+   <script>
+   import {mix1} from '../mixin.js'
+   export default {
+       name: 'User',
+       mounted() {
+           console('User mopunted')
+       },
+       data() {
+           return {
+               msg: '用户信息',
+               name: '张三',
+               age: 20
+           }
+       },
+       minins: [mix1]
+       /*    
+       methods: {
+           printInfo() {
+               console.log(this.name, ",", th)
+           }
+       } */
+   }
+   </script>
+   ```
+
+以上演示的是方法 methods 的混入， 实际上混入时没有限制， **之前所学的配置项都可以混入**。
+
+### 混入冲突？
+
+**混入时会产生冲突吗？ 已经有一个方法 a 了， 如果再混入一个 a 方法会怎样？**
+
+对于**局部混入**， 只混入到指定的组件当中。  
+
+-  **如果冲突了， 会执行组件自身的， 不会执行混入的**。 （这是原则： 混入的意思就是不破坏）
+- 但**对于生命周期周期钩子函数来说， 都有的话， 采用叠加， 先执行混入的， 再执行自己的。**  
+
+#### 局部混入测试
+
+`minix.js`：  
+
+```js
+export const mix1 = {
+    methods: {
+        printInfo() {
+            console.log(this.name, ",", this.age)
+        }
+    }
+}
+
+// 普通方法测试混入冲突
+export const mix2 = {
+    methods: {
+        // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+        a(){
+            console.log('mixin.js a.....')
+        }
+        // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+    },
+}
+
+// 测试生命周期钩子混入冲突
+export const mix3 = {
+    mounted() {
+        console.log('mixin.js mounted...')
+    }
+}
+```
+
+`User.vue`：
+
+```vue
+<template>
+<div>
+    <h1>{{ msg }}</h1>
+    <h3>姓名： {{ name }}</h3>
+    <h3>年龄： {{ age }}</h3>
+    <button @click="printInfo">打印用户信息</button>
+    <button @click="a">用戶a</button>
+    </div>
+</template>
+
+<script>
+    import {mix1} from '../mixin.js'
+    // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+    import {mix2} from '../mixin.js'
+    import {mix3} from '../mixin.js'
+    // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+    export default {
+        name: 'User',
+        mounted() {
+            console('User mopunted')
+        },
+        data() {
+            return {
+                msg: '用户信息',
+                name: '张三',
+                age: 20
+            }
+        },
+        methods: {
+            // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+            a() { // 普通函数出现混入冲突，执行组件自身的a方法，不执行混入的a方法
+                alert("user中的a方法")
+            }
+            // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+        },
+        // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+        mounted() { // 对于生命周期钩子函数出现冲突先执行混入的在执行自己的
+            console('User mopunted')
+        },
+        minins: [mix1, mix2, mix3]
+        // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+    }
+</script>
+
+<style></style>
+```
+
+#### 全局混入测试
+
+`main.js`：
+
+```js
+// 等同于引入vue.js
+import Vue from 'vue'
+import {mix1} from './mixin.js'
+import {mix2} from './mixin.js'
+import {mix3} from './mixin.js'
+// 全局混入
+Vue.mixin(mix1)
+Vue.mixin(mix2)
+Vue.mixin(mix3)
+// 引入app组件(根组件)
+import App from './App.vue'
+//关闭生产提示信息
+Vue.config.productionTip = false
+// 创建Vue实例
+new Vue({
+  render: h => h(App),
+}).$mount('#app')
+```
+
+执行结果：  
+
+![image-20250613211716147](./vueImg/image-20250613211716147.png)
+
+一共四个组件， 所以输入四次： mixin mounted  (生命周期钩子函数个混入函数)
+
+## 10. plugins 配置（插件）  
+
+给 Vue 做功能增强的。
+
+**怎么定义插件？** 以下是定义插件并暴露插件。 插件是一个对象， 对象中必须有 install 方法， 这个方法会被自动调用。
+
+`plugins.js`：
+
+```js
+// 每一个插件都是一个对象
+export const p1 = {
+    // 每一个插件对象中必须有一个install方法
+    // 这个install方法会被自动调用
+    // install方法上的参数：包括两部分
+    // 第一部分：Vue构造函数
+    // 第二部分：可以接收用户在使用这个插件时传过来的数据，参数个数无限制。
+    install(Vue, a, b, c, d){
+        console.log('这个插件正在显示一个可爱的封面....')
+        // 通过Vue的原型对象扩展的属性，通过vm和vc都可以访问。
+        Vue.prototype.counter = 1000
+    }
+}
+```
+
+插件一般都放到一个 plugins.js 文件中。导入插件并使用插件：  
+
+`main.js`：
+
+```js
+// 等同于引入vue.js文件
+import Vue from 'vue'
+// 导入App组件（根组件）
+import App from './App.vue'
+
+// 导入插件
+import {p1} from './plugins.js'
+
+// 插件的使用通常放在创建Vue实例之前
+// 插上插件p1。（删除就是拔下插件）
+Vue.use(p1, 1,2,3,4)
+
+// 关闭生产提示信息
+Vue.config.productionTip = false
+
+// 创建Vue实例
+new Vue({
+  el : '#app',
+  render : h => h(App)
+})
+```
+
+后面我们做项目的时候会使用很多插件。 到时再体会插件存在的意义。
+
+## 11. 局部样式 scoped  
+
+默认情况下， 在 vue 组件中定义的样式最终会汇总到一块， 如果样式名一致， 会导致冲突， 冲突发生后， 以后来加载的组件样式为准。 怎么解决这个问题？
+
+```html
+<style scoped>
+   .s {
+    background-color: aquamarine;
+   } 
+</style>
+```
+
+ 另外 vue 组件的 style 样式支持多种样式语言， 例如： css、 less、 sass 等。 如何选择使用呢？  
+
+```scss
+<style scoped lang="less">
+    .s {
+        background-color: blanchedaLmond;
+        .s1 {
+            color: red;
+        }
+    }
+</style>
+```
+
+使用 less 注意安装 less-loader： `npm i less-loader` 
+
+App 根组件中的样式 style 不建议添加 scoped。  
+
+## 12. BugList 案例  
+
+### 需求
+
+![gif123-250617 222916](./vueImg/gif123-250617 222916.gif)
+
+**1. **先使用静态组件的方式把页面效果实现出来。
+(1) App.vue(2) BugHeader.vue(3) BugList.vue(4) BugItem.vue(5) BugFooter.vue、
+
+**2.** 在 BugList.vue 中提供 bugList 数据， 实现动态数据展示。
+
+**3.** 保存 bug：
+
+1. 获取用户输入的信息采用双向数据绑定。
+   - 通过 Date.now()获取时间戳的方式来搞定 id。
+2. 将 BugList.vue 中的 bugList 数据提升到父组件 App.vue 中。
+3. 父组件向子组件传递， 采用 `:bugList=”bugList”`， 在子组件当中使用 `props` 接收。
+4. 子组件向父组件传递， 父组件可以提前定义一个函数， 将函数传递给子组件， 在子组件中调用这个函数即可。
+5. 该功能的小问题：
+   - 保存完成后自动清空。
+   - 输入为空时不能保存（可以加 trim 去除空白） ， 并且提示必须输入。
+
+**4.** 修改 bug 的状态
+
+1. 勾选和取消勾选， 会触发 click 事件或者 change 事件。
+2. 事件发生后， 获取 bug 的 id， 将 id 传递给 App 组件中的回调函数， 遍历数组， 拿到要修改的 bug 对象，更改 bug 对象的 resolved 属性值。
+
+**5.** 删除 bug
+
+- 删除时可以调用数组的 filter 方法进行过滤， 将过滤之后的新数组赋值给 this.bugList
+
+**6.** 统计 bug
+
+- 第一种： 普通计数器统计。
+- 第二种： 数组的 reduce 方法完成条件统计。
+
+**7.** 全选和取消全选
+
+1. 全选复选框的状态维护：
+   - 已解决的数量 === 总数量 时， 勾选。
+   - 全部删除后， 应该取消勾选。
+2. 全部删除了可以将 footer 隐藏。` v-show`
+3. 全选和取消全选
+
+**8.** 清除已解决
+
+- 调用数组的 filter 方法进行过滤， 生成新数组， 将其赋值给 this.bugList
+
+**9.** 实现编辑功能
+
+- 功能描述
+
+  1. 鼠标移动到描述信息上之后， 光标变成小手。
+  2. 点击描述信息之后， 将描述信息放入文本框。 并且同时让文本框获得焦点。
+  3. 用户开始修改描述信息（要注意避免将信息修改为空）
+  4. 输入修改信息之后， 文本框失去焦点， 显示修改后的描述信息。
+
+- 实现功能的核心技术：
+
+  - 给 bug 对象扩展一个具有响应式的 editState 属性， 如果是 true 表示处于编辑状态， false 表示处于未编辑状态： `this.$set(bug, 'editState', true)`
+
+  - 获得焦点的动作如何完成：
+    1. 在文本框上添加 `ref=”inputDesc”`， 然后通过 `this.$refs.inputDesc` 获取到 dom 元素， 调用 `focus()`让其获取焦点。
+    2. 以上操作需要在下一次渲染 DOM 完成后执行： `nextTicka. this.$nextTick(function(){this.$refs.inputDesc.focus()})`
+
+### 代码实现
+
+![image-20250617221745208](./vueImg/image-20250617221745208.png)
+
+`main.js`：
+
+```js
+import Vue from 'vue'
+import App from './App.vue'
+Vue.config.productionTip = false
+new Vue({
+  el : '#app',
+  render : h => h(App)
+})
+
+```
+
+`App.vue`：
+
+```vue
+<template>
+    <div>
+        <BugHeader :saveBugCallback="saveBugCallback"></BugHeader>
+        <BugList :bugList="bugList" :modifyResolvedCallback="modifyResolvedCallback" 
+			:deleteByIdCallback="deleteByIdCallback" :selectAllCallback="selectAllCallback" :updateDescCallback="updateDescCallback"></BugList>
+        <BugFooter :bugList="bugList" :clearResolvedCallback="clearResolvedCallback"></BugFooter>
+    </div>
+</template>
+
+<script>
+    import BugHeader from './components/BugHeader.vue'
+    import BugList from './components/BugList.vue'
+    import BugFooter from './components/BugFooter.vue'
+    export default {
+        name : 'App',
+        data() {
+            return {
+                bugList : [
+                    {id:'001', desc:'BUG描述信息100', resolved:false},
+                    {id:'002', desc:'BUG描述信息200', resolved:true},
+                    {id:'003', desc:'BUG描述信息300', resolved:false}
+                ]
+            }
+        },
+        methods: {
+            // 保存bug对象的回调方法
+            saveBugCallback(bug){
+                this.bugList.unshift(bug)
+            },
+			// 修改某个bug对象的resolved值
+			modifyResolvedCallback(bugId){
+				this.bugList.forEach((bug) => {
+					if(bug.id === bugId){
+						bug.resolved = !bug.resolved
+					}
+				})
+			},
+			// 删除数组中的某个bug对象：根据id删除
+			deleteByIdCallback(bugId){
+				// 注意：filter方法返回的是一个全新的数组。
+				this.bugList = this.bugList.filter((bug) => {
+					return bug.id !== bugId
+				})		
+			},
+			// 全选或者取消全选
+			selectAllCallback(flag){
+				this.bugList.forEach((bug) => {
+					bug.resolved = flag
+				})
+			},
+			// 清空已解决
+			clearResolvedCallback(){
+				this.bugList = this.bugList.filter((bug) => {
+					return !bug.resolved
+				})
+			},
+			// 更新描述信息
+			updateDescCallback(bugId, newDesc){
+				this.bugList.forEach((bug) => {
+					if(bug.id === bugId){
+						bug.desc = newDesc
+						return
+					}
+				})
+			}
+        },
+        components : {/* 注册组件 */
+            BugHeader, BugFooter, BugList
+        }
+    }
+</script>
+
+<style>
+/* 共享 */
+...
+</style>
+```
+
+`BugHeader.vue`：
+
+```vue
+<template>
+    <div class="header">
+        <textarea cols="105" rows="4" v-model="desc" placeholder="请输入BUG的描述信息"></textarea>
+        <br>
+        <button class="small green button" @click="saveBug">保存</button>
+    </div>
+</template>
+
+<script>
+    export default {
+        name : 'BugHeader',
+        data() {
+            return {
+                desc : ''
+            }
+        },
+        props : ['saveBugCallback'],
+        methods : {
+            saveBug(){
+                if(!this.desc.trim()) return
+                // 创建bug对象
+                let bugObj = {id:Date.now(), desc:this.desc, resolved:false}
+                // 添加到bugList数组当中
+                this.saveBugCallback(bugObj)
+                // 清空文本域
+                this.desc = ''
+            }
+        }
+    }
+</script>
+
+<style scoped>
+/* header */
+.header {
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+</style>
+```
+
+`BugList.vue`：
+
+```vue
+<template>
+    <div v-show="bugList.length">
+        <table>
+            <thead>
+                <tr>
+                    <!-- <th class="c1">全选 <input type="checkbox" :checked="isAll" @change="selectAll"></th> -->
+                    <th class="c1">全选 <input type="checkbox" v-model="isAll"></th>
+                    <th>bug描述</th>
+                    <th class="c2">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <BugItem v-for="bug of bugList" :key="bug.id" :bug="bug" :updateDescCallback="updateDescCallback" :modifyResolvedCallback="modifyResolvedCallback" :deleteByIdCallback="deleteByIdCallback"></BugItem>
+            </tbody>
+        </table>
+    </div>
+</template>
+
+<script>
+    import BugItem from './BugItem.vue'
+    export default {
+        name : 'BugList',
+        props : ['bugList', 'modifyResolvedCallback', 'deleteByIdCallback', 'selectAllCallback', 'updateDescCallback'],
+        computed : {
+            resolvedCount(){
+                return this.bugList.reduce((a, b) => a + (b.resolved ? 1 : 0), 0)
+            },
+            isAll : {
+                get(){
+                    return this.bugList.length === this.resolvedCount && this.bugList.length >0
+                },
+                set(value){
+                    this.selectAllCallback(value)
+                }
+            }
+        },
+        methods: {
+            selectAll(e){
+                this.selectAllCallback(e.target.checked)
+            }
+        },
+        components : {
+            BugItem
+        }
+    }
+</script>
+
+<style scoped>
+...
+</style>
+```
+
+`BugItem.vue`：
+
+```vue
+<template>
+    <tr>
+        <!-- <td><input type="checkbox" :checked="bug.resolved" @click="modifyResolved"></td> -->
+        <td><input type="checkbox" :checked="bug.resolved" @change="modifyResolved(bug.id)"></td>
+        <!-- <td><input type="checkbox" v-model="bug.resolved"></td> -->
+        <td>
+            <span v-show="!bug.editState" class="desc" @click="enterEdit(bug)">{{ bug.desc }}</span>
+            <input ref="inputDesc" v-show="bug.editState" type="text" :value="bug.desc" @blur="updateDesc(bug, $event)">
+        </td>
+        <td><button class="small red button" @click="deleteById(bug.id)">删除</button></td>
+    </tr>
+</template>
+
+<script>
+    export default {
+        name : 'BugItem',
+        props : ['bug', 'modifyResolvedCallback', 'deleteByIdCallback', 'updateDescCallback'],
+        methods : {
+            modifyResolved(bugId){
+                this.modifyResolvedCallback(bugId)
+            },
+            deleteById(bugId){
+                this.deleteByIdCallback(bugId)
+            },
+            // 进入编辑状态
+            enterEdit(bug){
+                if(bug.hasOwnProperty('editState')){
+                    bug.editState = true
+                }else{
+                    // 这里的代码只会第一次的时候执行。
+                    this.$set(bug, 'editState', true)
+                }
+                // 获取文本框，并且让文本框获得焦点
+                // 第一种方案：
+                /* setTimeout(() => {    
+                    this.$refs.inputDesc.focus()    
+                }) */
+                // 第二种方案：使用Vue提供好的API就行了。
+                // 非常重要：nextTick方法会绑定一个回调函数，这个回调函数在什么时候执行？在下一次DOM全部渲染完毕后被调用。
+                this.$nextTick(function(){
+                    this.$refs.inputDesc.focus()  
+                })
+            },
+            updateDesc(bug, e){
+                // 获取最新的描述信息
+                let newDesc = e.target.value.trim()
+                if(!newDesc) return
+                // 更新描述信息
+                this.updateDescCallback(bug.id, newDesc)
+                // 隐藏文本框
+                bug.editState = false
+            }
+        }
+    }
+
+</script>
+
+<style scoped>
+/* item */
+...
+</style>
+```
+
+`BugFooter.vue`：
+
+```vue
+<template>
+    <div class="footer"  v-show="bugList.length">
+        <button class="small red button" @click="clearResolved">清除已解决</button>
+        <span>当前BUG总量{{bugList.length}}个，已解决{{resolvedCount}}个</span>
+    </div>
+</template>
+
+<script>
+    export default {
+        name : 'BugFooter',
+        props : ['bugList', 'clearResolvedCallback'],
+        methods: {
+            clearResolved(){
+                this.clearResolvedCallback()
+            }
+        },
+        computed : {
+            resolvedCount(){
+                // 采用普通的计数器的方式
+                /* let count = 0
+                this.bugList.forEach((bug) => {
+                    if(bug.resolved) count++
+                })
+                return count */
+                // 使用ES6数组的reduce方法进行对数组条件统计。
+                // this.bugList.reduce(回调函数, 统计起点)
+                // 统计起点从0开始。
+                // 回调函数有两个参数：a , b
+                // 回调函数的调用次数和数组中元素总数有关系。数组中有三个元素，则这个回调函数被调用三次。
+                // a是什么？a是上一次回调函数调用之后的返回值。
+                // b是什么？当前被统计的对象。(bug对象)
+                /* const count = this.bugList.reduce((a, b) => {
+                    return a + (b.resolved ? 1 : 0)
+                }, 0)
+                return count */
+
+                // 简写
+                return this.bugList.reduce((a, b) => a + (b.resolved ? 1 : 0), 0)
+            }
+        }
+    }
+</script>
+
+<style scoped>
+...
+</style>
+```
+
+## 13. localStorage 和 sessionStorage  
+
+`window.localStorage` 浏览器关闭， 数据还在。
+
+- `getItem removeItem setItem clear `
+- `JSON.stringify`
+- `JSON.parse`
+- 存储大小 5mb
+
+`Window.sessionStorage` 浏览器关闭清空存储。
+
+- `getItem `的 key 不存在的话返回 `null`。 `JSON.parse(null)`， 结果还是 `null`。
+
+改造项目。 用本地存储来改造。 使用监视属性 watch， 并且要开启深度监视。
+
+## 14. 使用本地存储改造 BugList 案例  
+
+## 15. 组件自定义事件  
+
+click、 keydown、 keyup， 这些事件都是内置事件。
+
+Vue 也**支持给组件添加自定义事件。包括两种方式：**
+
+1. 第一种方式： 直接在组件标签上绑定事件
+2. 第二种方式： 通过代码来给组件绑定事件  
+
+### 1. 直接在组件标签上绑定事件  
+
+```html
+<Car v-on:event1=”doSome”></Car>
+<Car @event1=”doSome”></Car>
+```
+
+表示给 `Car` 这个组件 `vc 实例`绑定 `event1事件`， 当 `event1事件`发生时， `doSome方法`执行。事件绑定在谁的身上， 谁就负责触发这个事件， **怎么触发？** 在 Car 组件中定义 methods：  
+
+```js
+methods : {
+    triggerEvent1(){
+        // 触发事件并且给事件传数据
+        this.$emit(‘event1’, this.name, this.age, this.gender)
+    }
+}
+```
+
+然后， 在 Car 的父组件中编写 doSome 方法：  
+
+```js
+methods : {
+    doSome(name, age, gender){}
+    // 或者可以这样
+    doSome(name, ...parameters){} // ...parameters 表示采用一个数组接收参数
+}
+```
+
+通过这种方式可以轻松完成子组件向父组件传递数据。  
+
+```html
+<Car @event1.once=”doSome”></Car> 表示只触发一次。
+<Car @click.native=”doSome”></Car> 使原生事件生效。
+```
+
+### 2. 通过代码给组件绑定事件  
+
+在父组件当中：  
+
+```html
+<Car ref=”car”></Car>
+```
+
+```js
+mounted(){ // 表示挂载完毕后给组件绑定事件。
+    // 这种方式更加灵活。 例如： 希望 AJAX 请求响应回来数据之后再给组件绑定事件。
+    this.$refs.car.$on(‘event1’, this.doSome)
+} 
+this.$refs.car.$once(‘event1’, this.doSome) //表示只触发一次。
+// 绑定时要注意：
+this.$refs.car.$on(‘event1’, function(){
+    //这里的 this 是子组件实例（Car 组件实例）
+})
+this.$refs.car.$on(‘event1’, ()=>{
+    // 这里的 this 是父组件实例（App 组件实例）
+})
+```
+
+> this.doSome //这个回调函数写成普通函数时： 函数体中 this 是子组件实例。 （Car 组件实例）
+> this.doSome //这个回调函数写成箭头函数时： 函数体中 this 是父组件实例。 （App 组件实例）
+
+### 3. 解绑事件
+
+哪个组件绑定的就找哪个组件解绑：  
+
+```js
+methods : {
+    unbinding(){
+        this.$off(‘event1’) // 这种方式只能解绑一个事件。
+        this.$off([‘event1’, ‘event2’]) // 这种方式解绑多个事件。
+        this.$off() // 解绑所有事件。
+    }
+}
+```
+
+注意： vm 和 vc 销毁的时候， 所有组件以及子组件当中的事件会全部解绑。  
+
+### 4. 完整代码
+
+`main.js`：
+
+```js
+import Vue from 'vue'
+import App from './App.vue'
+Vue.config.productionTip = false
+new Vue({
+    el : '#app',
+    render : h => h(App)
+})
+```
+
+`App.vue`：
+
+```vue
+<template>
+    <div>
+        <!-- 
+            1.关于内置事件的实现步骤。
+                第一步：提供事件源（以下这个按钮就是一个事件源）
+                第二步：给事件源绑定事件
+                    v-on:事件名  或者  @事件名
+                第三步：编写回调函数，将回调函数和事件进行绑定
+                第四步：等待事件的触发，只要事件触发，则执行回调函数。
+            2.关于组件的自定义事件，实现步骤：
+                第一步：提供事件源（这个事件源是一个组件）
+                第二步：给组件绑定事件
+                    v-on:事件名  或者  @事件名
+                第三步：编写回调函数，将回调函数和事件进行绑定
+                第四步：等待事件的触发，只要事件触发，则执行回调函数。
+                    对于组件自定义事件来说，要想让事件发生，需要去执行一段代码。
+                    这段代码负责去触发这个事件，让这个事件发生。
+                    这段代码在哪里写？
+                        事件绑定在A组件上，则触发这个事件的代码要在A组件当中编写。
+            3.总结：到目前为止，父子组件之间如何通信
+                父---子：
+                    props
+                子---父：
+                    第一种方式：在父中定义一个方法，将方法传递给子，然后在子中调用父传过来的方法，这样给父传数据。（这种方式以后很少使用）
+                    第二种方式：使用组件的自定义事件的方式，也可以完成子向父传数据。
+                        App组件是父组件
+                        User组件是子组件
+                        子组件向父组件传数据（User给App组件传数据）：
+                            在父组件当中绑定事件。
+                            在子组件当中触发事件。
+                        父绑定，子触发。（这句话记住）
+            4. 对于事件的once修饰符来说，组件的自定义事件也是可以使用的。
+         -->
+        <button @click.once="hello">内置事件的实现步骤</button>
+
+        <!-- 给User组件绑定一个自定义的事件 -->
+        <!-- <User v-on:event1.once="doSome"></User> -->
+        <User v-on:event1="doSome" @event2="doOther"></User>
+
+        <!-- 简写形式 -->
+        <!-- <User @event1.once="doSome"></User> -->
+        <User @event1="doSome" @event2="doOther"></User>
+
+        <!-- 准备一个组件 -->
+        <User ref="user"></User>
+
+    </div>
+</template>
+
+<script>
+    import User from './components/User.vue'
+    export default {
+        name : 'App',
+        mounted() {
+            // 给ref="user"的组件绑定event1事件，并且给event1事件绑定一个回调函数：doSome
+            this.$refs.user.$on('event1', this.doSome)
+
+            // 如果回调函数是普通函数：函数体当中的this是User组件实例。不是App组件实例。
+            /* this.$refs.user.$on('event1', function(){
+                console.log(this)
+            }) */
+
+            // 如果回调函数是箭头函数：那么函数体当中的this就是App组件实例。
+            /* this.$refs.user.$on('event1', () => {
+                console.log(this)
+            }) */
+
+            this.$refs.user.$on('event2', this.doOther)
+            // 保证事件只触发一次。
+            //this.$refs.user.$once('event1', this.doSome)
+        },
+        methods: {
+            hello(){
+                console.log('hello vue!')
+            },
+            /* doSome(name, age, gender){
+                console.log(name, age, gender)
+            } */
+            // ES6的语法，...params这个params可以看做是一个数组。以数组的形式接收多个参数。
+            doSome(name, ...params){
+                console.log(name, params)
+            },
+            doOther(){
+                console.log('do other!')
+            }
+        },
+        components : {User}
+    }
+</script>
+```
+
+`User.vue`：
+
+```vue
+<template>
+    <div>
+        <button @click="triggerEvent1">触发event1事件</button>
+        <button @click="triggerEvent2">触发event2事件</button>
+        <button @click="unbinding">解绑事件</button>
+        <button @click="goodbye">再见</button>
+    </div>
+</template>
+
+<script>
+    export default {
+        name : 'User',
+        data() {
+            return {
+                name : '张三',
+                age : 20,
+                gender : '男'
+            }
+        },
+        methods: {
+            triggerEvent1(){
+                // 编写触发event1事件的代码
+                // this是当前的组件实例：vc
+                // $emit触发事件的同时，可以给事件绑定的回调函数传数据
+                this.$emit('event1', this.name, this.age, this.gender)
+            },
+            triggerEvent2(){
+                this.$emit('event2')
+            },
+            goodbye(){
+                this.$destroy()
+            },
+            // 解绑事件
+            unbinding(){
+                // 仅仅解绑this指向的这个组件实例上的event1事件。
+                //this.$off('event1')
+                //this.$off(['event1', 'event2'])
+                this.$off()
+            }
+        },
+    }
+</script>
+```
+
+## 16. 全局事件总线
+
+### 介绍
+
+**原理：** 给项目中所有的组件找一个共享的 vc 对象。 把这个共享的对象 vc 叫做全局事件总线。 所有的事件都可以绑定到这个共享对象上。 所有组件都通过这个全局事件总线对象来传递数据。 这种方式可以完美的完成兄弟组件之间传递数据。 
+
+这样的共享对象必须**具备两个特征：**
+
+1. 能够让所有的 vc 共享。
+2. 共享对象上有`$on`、 `$off`、 `$emit` 等方法。
+
+**第一种解决方案**`main.js   `：
+
+```java
+// 获取 VueComponent 构造函数
+const VueComponentConstructor = Vue.extend({})
+// 创建 vc
+const vc = new VueComponentConstructor()
+// 让所有的 vc 都能够使用这个 vc
+Vue.prototype.$bus = vc
+```
+
+**第二种解决方案，建议的。`main.js   `：**  
+
+```js
+new Vue({
+    el : '#app',
+    render : h => h(App),
+    beforeCreate(){ // 这儿
+        Vue.prototype.$bus = this
+    }
+})
+```
+
+永远需要记住的： A 组件向 B 组件传数据， 应该在 B 组件中绑定事件（接） 。 应该在 A 组件中触发事件（传）。  
+
+![image-20250618180015457](./vueImg/image-20250618180015457.png)
+
+数据发送方： 触发事件  
+
+```js
+methods : {
+    triggerEvent(){
+        this.$bus.$emit(‘eventx’, 传数据)
+    }
+}
+```
+
+数据接收发： 绑定事件  
+
+```js
+mounted(){
+    this.$bus.$on(‘eventx’, this.doSome)
+}
+```
+
+养成好习惯： 组件实例被销毁前， 将绑定在$bus 上的事件解绑。  
+
+```js
+beforeDestroy(){
+    this.$bus.off(‘eventx’)
+}
+```
+
+### 代码实现
+
+`main.js`：
+
+```js
+import Vue from 'vue'
+import App from './App.vue'
+Vue.config.productionTip = false
+new Vue({
+  el : '#app',
+  render : h => h(App),
+  beforeCreate(){
+    // 全局事件总线。bus
+    Vue.prototype.$bus = this
+  }
+})
+```
+
+`App.vue`：
+
+```vue
+<template>
+    <div>
+        <User ref="user"></User>
+    </div>
+</template>
+<script>
+    import User from './components/User.vue'
+    export default {
+        name : 'App',
+        mounted() {
+            // 数据接收发： 绑定事件  
+            this.$bus.$on('eventx', this.test)
+        },
+        methods: {
+            test(name){
+                console.log('#######', name)
+            }
+        },
+        components : {User}
+    }
+</script>
+```
+
+`User.vue`：
+
+```vue
+<template>
+    <div>
+        <Vip></Vip>
+    </div>
+</template>
+<script>
+    import Vip from './Vip.vue'
+    export default {
+        name : 'User',
+        components : {Vip},
+    }
+</script>
+```
+
+`Vip.vue`：
+
+```vue
+<template>
+    <div>
+        <button @click="triggerEvent">触发事件，发送数据给爷爷</button>
+    </div>
+</template>
+<script>
+    export default {
+        name : 'Vip',
+        data() {
+            return {
+                name : 'jackson'
+            }
+        },
+        methods: {
+            triggerEvent(){
+                // 数据发送方： 触发事件eventx  发送数据name
+                this.$bus.$emit('eventx', this.name)
+            }
+        },
+    }
+</script>
+```
+
+## 17. BugList 案例改造  
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----
 
 [文档](D:\workspace\stuprofile\vue-动力节点\vue-老杜\document\document\Vue.docx)
 
@@ -4431,23 +6045,25 @@ Vue的脚手架（Vue CLI: Command Line Interface）是Vue官方提供的标准�
 
 3. 认识一下vue3的工程
 	
+	```js
 	// 在Vue3当中，不再引入Vue了，引入了一个createApp函数，这个函数可以创建app对象。
 	import { createApp } from 'vue'
-
+	
 	// 引入了一个根组件App
 	import App from './App.vue'
-
+	
 	// 这行代码表示创建了一个app对象
 	// 这个app对象类似于Vue2当中的vm。
 	// app和vm的区别是：app更加轻量级。(app上的属性更少一些)
 	const app = createApp(App)
-
+	
 	// 将app挂载到指定位置
 	app.mount('#app')
-
+	```
+	
 	另外要注意的是：
-		在Vue3当中<template>标签中可以有多个根标签了。不需要只有一个根标签。
-
+		在Vue3当中`<template>`标签中可以有多个根标签了。不需要只有一个根标签。
+	
 4. 了解vite
 	* vite是一个项目构建工具。
 	* vite比webpack好在哪里？
@@ -4499,17 +6115,20 @@ Vue的脚手架（Vue CLI: Command Line Interface）是Vue官方提供的标准�
 8. ES6新特性：window.Proxy对象。
 	通过Proxy可以创建一个代理对象。
 	语法规则：
-		let proxyObj = new Proxy(targetObj, {
-			get(target, propertyName){
-				return target[propertyName]
-			},
-			set(target, propertyName, value){
-				target[propertyName] = value
-			},
-			deleteProperty(target, propertyName){
-				return delete target[propertyName]
-			}
-		})
+	
+	```js
+	let proxyObj = new Proxy(targetObj, {
+	    get(target, propertyName){
+	        return target[propertyName]
+	    },
+	    set(target, propertyName, value){
+	        target[propertyName] = value
+	    },
+	    deleteProperty(target, propertyName){
+	        return delete target[propertyName]
+	    }
+	})
+	```
 
 ---
 

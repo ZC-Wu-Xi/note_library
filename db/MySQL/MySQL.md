@@ -164,7 +164,7 @@ MySQL 配置：
   - 数据存储层，主要是将数据存储在文件系统之上，并完成与存储引擎的交互
   - File System：文件系统，保存配置文件、数据文件、日志文件、错误文件、二进制文件等
 
-![](./MySQLImg/MySQL-体系结构.png)
+![](./assets/MySQLImg/MySQL-体系结构.png)
 
 
 
@@ -184,7 +184,7 @@ MySQL 服务器可以同时和多个客户端进行交互，所以要保证每�
 
 整体的执行流程：
 
-<img src="./MySQLImg/MySQL-SQL的执行流程.png" style="zoom: 33%;" />
+<img src="./assets/MySQLImg/MySQL-SQL的执行流程.png" style="zoom: 33%;" />
 
 
 
@@ -198,7 +198,7 @@ grant 语句会同时修改数据表和内存，判断权限的时候使用的�
 
 flush privileges 语句本身会用数据表（磁盘）的数据重建一份内存权限数据，所以在权限数据可能存在不一致的情况下使用，这种不一致往往是由于直接用 DML 语句操作系统权限表导致的，所以尽量不要使用这类语句
 
-![](./MySQLImg/MySQL-权限范围.png)
+![](./assets/MySQLImg/MySQL-权限范围.png)
 
 
 
@@ -228,7 +228,7 @@ flush privileges 语句本身会用数据表（磁盘）的数据重建一份内
 
 SHOW PROCESSLIST：查看当前 MySQL 在进行的线程，可以实时地查看 SQL 的执行情况，其中的 Command 列显示为 Sleep 的这一行，就表示现在系统里面有一个空闲连接
 
-![](./MySQLImg/MySQL-SHOW_PROCESSLIST命令.png)
+![](./assets/MySQLImg/MySQL-SHOW_PROCESSLIST命令.png)
 
 | 参数    | 含义                                                         |
 | ------- | ------------------------------------------------------------ |
@@ -317,7 +317,7 @@ SHOW PROCESSLIST：查看当前 MySQL 在进行的线程，可以实时地查看
    SHOW STATUS LIKE 'Qcache%';
    ```
 
-   <img src="./MySQLImg/MySQL-查询缓存的状态变量.png" style="zoom:67%;" />
+   <img src="./assets/MySQLImg/MySQL-查询缓存的状态变量.png" style="zoom:67%;" />
 
    | 参数                    | 含义                                                         |
    | ----------------------- | ------------------------------------------------------------ |
@@ -697,11 +697,11 @@ mysqldump -uroot -p2143 -T /tmp test city
 
 * 备份
 
-  ![图形化界面备份](./MySQLImg/图形化界面备份.png)
+  ![图形化界面备份](./assets/MySQLImg/图形化界面备份.png)
 
 * 恢复
 
-  ![图形化界面恢复](./MySQLImg/图形化界面恢复.png)
+  ![图形化界面恢复](./assets/MySQLImg/图形化界面恢复.png)
 
 
 
@@ -808,7 +808,7 @@ mysqlshow -uroot -p1234 test book --count
 
     - 用来定义数据库的访问权限和安全级别，及创建用户。关键字：grant， revoke等
 
-    ![](./MySQLImg/MySQL-SQL分类.png)
+    ![](./assets/MySQLImg/MySQL-SQL分类.png)
 
 
 
@@ -1356,7 +1356,7 @@ LIMIT		<limit_params>
   SELECT * FROM product WHERE NAME LIKE '%电脑%';
   ```
 
-  <img src="./MySQLImg/MySQL-DQL数据准备.png" style="zoom: 80%;" />
+  <img src="./assets/MySQLImg/MySQL-DQL数据准备.png" style="zoom: 80%;" />
 
 
 
@@ -1632,7 +1632,7 @@ SELECT * FROM emp WHERE name REGEXP '[uvw]';-- 匹配包含 uvw 的name值
   SELECT * FROM product LIMIT 6,2;  -- 第四页 开始索引=(4-1) * 2
   ```
 
-  ![](./MySQLImg/MySQL-DQL分页查询图解.png)
+  ![](./assets/MySQLImg/MySQL-DQL分页查询图解.png)
 
 
 
@@ -1963,7 +1963,7 @@ CREATE TABLE card(
 INSERT INTO card VALUES (NULL,'12345',1),(NULL,'56789',2);
 ```
 
-![](./MySQLImg/多表设计一对一.png)
+![](./assets/MySQLImg/多表设计一对一.png)
 
 
 
@@ -1997,7 +1997,7 @@ CREATE TABLE orderlist(
 INSERT INTO orderlist VALUES (NULL,'hm001',1),(NULL,'hm002',1),(NULL,'hm003',2),(NULL,'hm004',2);
 ```
 
-![多表设计一对多](./MySQLImg/多表设计一对多.png)
+![多表设计一对多](./assets/MySQLImg/多表设计一对多.png)
 
 
 
@@ -2040,7 +2040,7 @@ CREATE TABLE stu_course(
 INSERT INTO stu_course VALUES (NULL,1,1),(NULL,1,2),(NULL,2,1),(NULL,2,2);
 ```
 
-![](./MySQLImg/多表设计多对多.png)
+![](./assets/MySQLImg/多表设计多对多.png)
 
 
 
@@ -2097,7 +2097,7 @@ STRAIGHT_JOIN与 JOIN 类似，只不过左表始终在右表之前读取，只�
   SELECT 列名 FROM 表名1 RIGHT [OUTER] JOIN 表名2 ON 条件;
   ```
 
-![](./MySQLImg/MySQL-JOIN查询图.png)
+![](./assets/MySQLImg/MySQL-JOIN查询图.png)
 
 
 
@@ -2126,7 +2126,7 @@ STRAIGHT_JOIN与 JOIN 类似，只不过左表始终在右表之前读取，只�
   INSERT INTO employee VALUES (1001,'孙悟空',1005,9000.00),..,(1009,'宋江',NULL,16000.00);
   ```
 
-  ![](./MySQLImg/自关联查询数据准备.png)
+  ![](./assets/MySQLImg/自关联查询数据准备.png)
 
 * 数据查询
 
@@ -2415,7 +2415,7 @@ CREATE TABLE us_pro(
 );
 ```
 
-![多表练习架构设计](./MySQLImg/多表练习架构设计.png)
+![多表练习架构设计](./assets/MySQLImg/多表练习架构设计.png)
 
 
 
@@ -3624,7 +3624,7 @@ MERGE 存储引擎：
   )ENGINE = MERGE UNION = (order_1,order_2) INSERT_METHOD=LAST DEFAULT CHARSET=utf8;
   ```
 
-  ![](./MySQLImg/MySQL-MERGE.png)
+  ![](./assets/MySQLImg/MySQL-MERGE.png)
 
 | 特性         | MyISAM                         | InnoDB        | MEMORY               |
 | ------------ | ------------------------------ | ------------- | -------------------- |
@@ -3715,7 +3715,7 @@ MySQL 官方对索引的定义为：索引（index）是帮助 MySQL 高效获�
 **索引是在存储引擎层实现的**，所以并没有统一的索引标准，即不同存储引擎的索引的工作方式并不一样
 
 索引使用：一张数据表，用于保存数据；一个索引配置文件，用于保存索引；每个索引都指向了某一个数据
-![](./MySQLImg/MySQL-索引的介绍.png)
+![](./assets/MySQLImg/MySQL-索引的介绍.png)
 
 左边是数据表，一共有两列七条记录，最左边的是数据记录的物理地址（注意逻辑上相邻的记录在磁盘上也并不是一定物理相邻的）。为了加快 Col2 的查找，可以维护一个右边所示的二叉查找树，每个节点分别包含索引键值和一个指向对应数据的物理地址的指针，这样就可以运用二叉查找快速获取到相应数据
 
@@ -3766,7 +3766,7 @@ MySQL 官方对索引的定义为：索引（index）是帮助 MySQL 高效获�
 
 联合索引图示：根据身高年龄建立的组合索引（height、age）
 
-![](./MySQLImg/MySQL-组合索引图.png)
+![](./assets/MySQLImg/MySQL-组合索引图.png)
 
 
 
@@ -3932,7 +3932,7 @@ InnoDB 使用 B+Tree 作为索引结构，并且 InnoDB 一定有索引
 
 * InnoDB 表是基于聚簇索引建立的，因此 InnoDB 的索引能提供一种非常快速的主键查找性能。不过辅助索引也会包含主键列，所以不建议使用过长的字段作为主键，**过长的主索引会令辅助索引变得过大**
 
-![](./MySQLImg/MySQL-InnoDB聚簇和辅助索引结构.png)
+![](./assets/MySQLImg/MySQL-InnoDB聚簇和辅助索引结构.png)
 
 
 
@@ -3949,7 +3949,7 @@ MyISAM 的主键索引使用的是非聚簇索引，索引文件和数据文件�
 * 主键索引 B+ 树的节点存储了主键，辅助键索引 B+ 树存储了辅助键，表数据存储在独立的地方，这两颗 B+ 树的叶子节点都使用一个地址指向真正的表数据，对于表数据来说，这两个键没有任何差别
 * 由于索引树是独立的，通过辅助索引检索**无需回表查询**访问主键的索引树
 
-![](./MySQLImg/MySQL-聚簇索引和辅助索引检锁数据图.jpg)
+![](./assets/MySQLImg/MySQL-聚簇索引和辅助索引检锁数据图.jpg)
 
 
 
@@ -3965,7 +3965,7 @@ MyISAM 的索引方式也叫做非聚集的，之所以这么称呼是为了与 
 
 辅助索引：MyISAM 中主索引和辅助索引（Secondary key）在结构上没有任何区别，只是主索引要求 key 是唯一的，而辅助索引的 key 可以重复
 
-![](./MySQLImg/MySQL-MyISAM主键和辅助索引结构.png)
+![](./assets/MySQLImg/MySQL-MyISAM主键和辅助索引结构.png)
 
 
 
@@ -4031,40 +4031,40 @@ BTree 又叫多路平衡搜索树，一颗 m 叉的 BTree 特性如下：
 
 * 插入前 4 个字母 C N G A 
 
-  ![](./MySQLImg/MySQL-BTree工作流程1.png)
+  ![](./assets/MySQLImg/MySQL-BTree工作流程1.png)
 
 * 插入 H，n>4，中间元素 G 字母向上分裂到新的节点
 
-  ![](./MySQLImg/MySQL-BTree工作流程2.png)
+  ![](./assets/MySQLImg/MySQL-BTree工作流程2.png)
 
 * 插入 E、K、Q 不需要分裂
 
-  ![](./MySQLImg/MySQL-BTree工作流程3.png)
+  ![](./assets/MySQLImg/MySQL-BTree工作流程3.png)
 
 * 插入 M，中间元素 M 字母向上分裂到父节点 G
 
-  ![](./MySQLImg/MySQL-BTree工作流程4.png)
+  ![](./assets/MySQLImg/MySQL-BTree工作流程4.png)
 
 * 插入 F，W，L，T 不需要分裂
 
-  ![](./MySQLImg/MySQL-BTree工作流程5.png)
+  ![](./assets/MySQLImg/MySQL-BTree工作流程5.png)
 
 * 插入 Z，中间元素 T 向上分裂到父节点中
 
-  ![](./MySQLImg/MySQL-BTree工作流程6.png)
+  ![](./assets/MySQLImg/MySQL-BTree工作流程6.png)
 
 * 插入 D，中间元素 D 向上分裂到父节点中，然后插入 P，R，X，Y 不需要分裂
 
-  ![](./MySQLImg/MySQL-BTree工作流程7.png)
+  ![](./assets/MySQLImg/MySQL-BTree工作流程7.png)
 
 * 最后插入 S，NPQR 节点 n>5，中间节点 Q 向上分裂，但分裂后父节点 DGMT 的 n>5，中间节点 M 向上分裂
 
-  ![](./MySQLImg/MySQL-BTree工作流程8.png)
+  ![](./assets/MySQLImg/MySQL-BTree工作流程8.png)
 
 BTree 树就已经构建完成了，BTree 树和二叉树相比， 查询数据的效率更高， 因为对于相同的数据量来说，**BTree 的层级结构比二叉树少**，所以搜索速度快
 
 BTree 结构的数据可以让系统高效的找到数据所在的磁盘块，定义一条记录为一个二元组 [key, data] ，key 为记录的键值，对应表中的主键值，data 为一行记录中除主键外的数据。对于不同的记录，key 值互不相同，BTree 中的每个节点根据实际情况可以包含大量的关键字信息和分支
-![](./MySQLImg/索引的原理1.png)
+![](./assets/MySQLImg/索引的原理1.png)
 
 缺点：当进行范围查找时会出现回旋查找
 
@@ -4089,7 +4089,7 @@ B+Tree 为 BTree 的变种，B+Tree 与 BTree 的区别为：
 - **叶子节点按照 key 大小顺序排列，左边结尾数据都会保存右边节点开始数据的指针，形成一个链表**
 - 所有节点中的 key 在叶子节点中也存在（比如 5)，**key 允许重复**，B 树不同节点不存在重复的 key
 
-<img src="./MySQLImg/MySQL-B加Tree数据结构.png" style="zoom:67%;" />
+<img src="./assets/MySQLImg/MySQL-B加Tree数据结构.png" style="zoom:67%;" />
 
 B* 树：是 B+ 树的变体，在 B+ 树的非根和非叶子结点再增加指向兄弟的指针
 
@@ -4107,7 +4107,7 @@ MySQL 索引数据结构对经典的 B+Tree 进行了优化，在原 B+Tree 的�
 
 B+ 树的**叶子节点是数据页**（page），一个页里面可以存多个数据行
 
-![](./MySQLImg/索引的原理2.png)
+![](./assets/MySQLImg/索引的原理2.png)
 
 通常在 B+Tree 上有两个头指针，**一个指向根节点，另一个指向关键字最小的叶子节点**，而且所有叶子节点（即数据节点）之间是一种链式环结构。可以对 B+Tree 进行两种查找运算：
 
@@ -4244,11 +4244,11 @@ B+ 树为了保持索引的有序性，在插入新值的时候需要做相应�
 
 * 不使用索引下推优化时存储引擎通过索引检索到数据，然后回表查询记录返回给 Server 层，**服务器判断数据是否符合条件**
 
-  ![](./MySQLImg/MySQL-不使用索引下推.png)
+  ![](./assets/MySQLImg/MySQL-不使用索引下推.png)
 
 * 使用索引下推优化时，如果**存在某些被索引的列的判断条件**时，由存储引擎在索引遍历的过程中判断数据是否符合传递的条件，将符合条件的数据进行回表，检索出来返回给服务器，由此减少 IO 次数
 
-  ![](./MySQLImg/MySQL-使用索引下推.png)
+  ![](./assets/MySQLImg/MySQL-使用索引下推.png)
 
 **适用条件**：
 
@@ -4264,10 +4264,10 @@ SELECT * FROM user WHERE name LIKE '张%' AND　age = 10;	-- 头部模糊匹配�
 
 * 优化前：在非主键索引树上找到满足第一个条件的行，然后通过叶子节点记录的主键值再回到主键索引树上查找到对应的行数据，再对比 AND 后的条件是否符合，符合返回数据，需要 4 次回表
 
-  ![](./MySQLImg/MySQL-索引下推优化1.png)
+  ![](./assets/MySQLImg/MySQL-索引下推优化1.png)
 
 * 优化后：检查索引中存储的列信息是否符合索引条件，然后交由存储引擎用剩余的判断条件判断此行数据是否符合要求，**不满足条件的不去读取表中的数据**，满足下推条件的就根据主键值进行回表查询，2 次回表
-  ![](./MySQLImg/MySQL-索引下推优化2.png)
+  ![](./assets/MySQLImg/MySQL-索引下推优化2.png)
 
 当使用 EXPLAIN 进行分析时，如果使用了索引条件下推，Extra 会显示 Using index condition
 
@@ -4601,7 +4601,7 @@ SHOW [SESSION|GLOBAL] STATUS LIKE '';
 
   Com_xxx 表示每种语句执行的次数
 
-  ![](./MySQLImg/MySQL-SQL语句执行频率.png)
+  ![](./assets/MySQLImg/MySQL-SQL语句执行频率.png)
 
 * 查询 SQL 语句影响的行数：
 
@@ -4609,7 +4609,7 @@ SHOW [SESSION|GLOBAL] STATUS LIKE '';
   SHOW STATUS LIKE 'Innodb_rows_%';
   ```
 
-  ![](./MySQLImg/MySQL-SQL语句影响的行数.png)
+  ![](./assets/MySQLImg/MySQL-SQL语句影响的行数.png)
 
 Com_xxxx：这些参数对于所有存储引擎的表操作都会进行累计
 
@@ -4674,7 +4674,7 @@ SQL 执行慢有两种情况：
 
 * SHOW PROCESSLIST：**实时查看**当前 MySQL 在进行的连接线程，包括线程的状态、是否锁表、SQL 的执行情况，同时对一些锁表操作进行优化
 
-  ![](./MySQLImg/MySQL-SHOW_PROCESSLIST命令.png)
+  ![](./assets/MySQLImg/MySQL-SHOW_PROCESSLIST命令.png)
 
 
 
@@ -4697,7 +4697,7 @@ SQL 执行慢有两种情况：
 EXPLAIN SELECT * FROM table_1 WHERE id = 1;
 ```
 
-![](./MySQLImg/MySQL-explain查询SQL语句的执行计划.png)
+![](./assets/MySQLImg/MySQL-explain查询SQL语句的执行计划.png)
 
 | 字段          | 含义                                                         |
 | ------------- | ------------------------------------------------------------ |
@@ -4725,7 +4725,7 @@ SHOW WARINGS：在使用 EXPALIN 命令后执行该语句，可以查询与执�
 
 环境准备：
 
-![](./MySQLImg/MySQL-执行计划环境准备.png)
+![](./assets/MySQLImg/MySQL-执行计划环境准备.png)
 
 
 
@@ -4745,7 +4745,7 @@ id 代表 SQL 执行的顺序的标识，每个 SELECT 关键字对应一个唯�
   EXPLAIN SELECT * FROM t_role r, t_user u, user_role ur WHERE r.id = ur.role_id AND u.id = ur.user_id ;
   ```
 
-  ![](./MySQLImg/MySQL-explain之id相同.png)
+  ![](./assets/MySQLImg/MySQL-explain之id相同.png)
 
 * id 不同时，id 值越大优先级越高，越先被执行
 
@@ -4753,7 +4753,7 @@ id 代表 SQL 执行的顺序的标识，每个 SELECT 关键字对应一个唯�
   EXPLAIN SELECT * FROM t_role WHERE id = (SELECT role_id FROM user_role WHERE user_id = (SELECT id FROM t_user WHERE username = 'stu1'))
   ```
 
-  ![](./MySQLImg/MySQL-explain之id不同.png)
+  ![](./assets/MySQLImg/MySQL-explain之id不同.png)
 
 * id 有相同也有不同时，id 相同的可以认为是一组，从上往下顺序执行；在所有的组中，id 的值越大的组，优先级越高，越先执行
 
@@ -4761,7 +4761,7 @@ id 代表 SQL 执行的顺序的标识，每个 SELECT 关键字对应一个唯�
   EXPLAIN SELECT * FROM t_role r , (SELECT * FROM user_role ur WHERE ur.`user_id` = '2') a WHERE r.id = a.role_id ; 
   ```
 
-  ![](./MySQLImg/MySQL-explain之id相同和不同.png)
+  ![](./assets/MySQLImg/MySQL-explain之id相同和不同.png)
 
 * id 为 NULL 时代表的是临时表
 
@@ -4878,11 +4878,11 @@ key_len：
 SHOW PROFILES 能够在做 SQL 优化时分析当前会话中语句执行的**资源消耗**情况
 
 * 通过 have_profiling 参数，能够看到当前 MySQL 是否支持 profile：
-  ![](./MySQLImg/MySQL-have_profiling.png)
+  ![](./assets/MySQLImg/MySQL-have_profiling.png)
 
 * 默认 profiling 是关闭的，可以通过 set 语句在 Session 级别开启 profiling：
 
-  ![](./MySQLImg/MySQL-profiling.png)
+  ![](./assets/MySQLImg/MySQL-profiling.png)
 
   ```mysql
   SET profiling=1; #开启profiling 开关；
@@ -4894,7 +4894,7 @@ SHOW PROFILES 能够在做 SQL 优化时分析当前会话中语句执行的**�
   SHOW PROFILES;
   ```
 
-  ![](./MySQLImg/MySQL-查看SQL语句执行耗时.png)
+  ![](./assets/MySQLImg/MySQL-查看SQL语句执行耗时.png)
 
 * 查看到该 SQL 执行过程中每个线程的状态和消耗的时间：
 
@@ -4902,11 +4902,11 @@ SHOW PROFILES 能够在做 SQL 优化时分析当前会话中语句执行的**�
   SHOW PROFILE FOR QUERY query_id;
   ```
 
-  ![](./MySQLImg/MySQL-SQL执行每个状态消耗的时间.png)
+  ![](./assets/MySQLImg/MySQL-SQL执行每个状态消耗的时间.png)
 
 * 在获取到最消耗时间的线程状态后，MySQL 支持选择 all、cpu、block io 、context switch、page faults 等类型查看 MySQL 在使用什么资源上耗费了过高的时间。例如，选择查看 CPU 的耗费时间：
 
-  ![](./MySQLImg/MySQL-SQL执行每个状态消耗的CPU.png)
+  ![](./assets/MySQLImg/MySQL-SQL执行每个状态消耗的CPU.png)
 
   * Status：SQL 语句执行的状态
   * Durationsql：执行过程中每一个步骤的耗时
@@ -4973,7 +4973,7 @@ INSERT INTO `tb_seller` (`sellerid`, `name`, `nickname`, `password`, `status`, `
 CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联合索引
 ```
 
-![](./MySQLImg/MySQL-优化SQL使用索引环境准备.png)
+![](./assets/MySQLImg/MySQL-优化SQL使用索引环境准备.png)
 
 
 
@@ -4991,7 +4991,7 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
   EXPLAIN SELECT * FROM tb_seller WHERE name='小米科技' AND status='1' AND address='西安市';
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL使用索引1.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用索引1.png)
 
 * **最左前缀法则**：联合索引遵守最左前缀法则
 
@@ -5002,7 +5002,7 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
   EXPLAIN SELECT * FROM tb_seller WHERE name='小米科技' AND status='1';
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL使用索引2.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用索引2.png)
 
   违法最左前缀法则 ， 索引失效：
 
@@ -5011,7 +5011,7 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
   EXPLAIN SELECT * FROM tb_seller WHERE status='1' AND address='西安市';
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL使用索引3.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用索引3.png)
 
   如果符合最左法则，但是出现跳跃某一列，只有最左列索引生效：
 
@@ -5019,7 +5019,7 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
   EXPLAIN SELECT * FROM tb_seller WHERE name='小米科技' AND address='西安市';
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL使用索引4.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用索引4.png)
 
   虽然索引列失效，但是系统会**使用了索引下推进行了优化**
 
@@ -5031,7 +5031,7 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
 
   根据前面的两个字段 name ， status 查询是走索引的， 但是最后一个条件 address 没有用到索引，使用了索引下推
 
-  ![](./MySQLImg/MySQL-优化SQL使用索引5.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用索引5.png)
 
 * 在索引列上**函数或者运算（+ - 数值）操作**， 索引将失效：会破坏索引值的有序性
 
@@ -5039,7 +5039,7 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
   EXPLAIN SELECT * FROM tb_seller WHERE SUBSTRING(name,3,2) = '科技';
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL使用索引6.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用索引6.png)
 
 * **字符串不加单引号**，造成索引失效：隐式类型转换，当字符串和数字比较时会**把字符串转化为数字**
 
@@ -5049,7 +5049,7 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
   EXPLAIN SELECT * FROM tb_seller WHERE name='小米科技' AND status = 1;
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL使用索引7.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用索引7.png)
 
   如果 status 是 int 类型，SQL 为 `SELECT * FROM tb_seller WHERE status = '1' ` 并不会造成索引失效，因为会将 `'1'` 转换为 `1`，并**不会对索引列产生操作**
 
@@ -5066,7 +5066,7 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
   EXPLAIN SELECT * FROM tb_seller WHERE name='小米科技' OR status='1';
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL使用索引10.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用索引10.png)
 
   **AND 分割的条件不影响**：
 
@@ -5074,7 +5074,7 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
   EXPLAIN SELECT * FROM tb_seller WHERE name='阿里巴巴' AND createtime = '2088-01-01 12:00:00';
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL使用索引11.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用索引11.png)
 
 * **以 % 开头的 LIKE 模糊查询**，索引失效：
 
@@ -5084,7 +5084,7 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
   EXPLAIN SELECT * FROM tb_seller WHERE name like '%科技%';
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL使用索引12.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用索引12.png)
 
   解决方案：通过覆盖索引来解决 
 
@@ -5092,7 +5092,7 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
   EXPLAIN SELECT sellerid,name,status FROM tb_seller WHERE name like '%科技%';
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL使用索引13.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用索引13.png)
 
   原因：在覆盖索引的这棵 B+ 数上只需要进行 like 的匹配，或者是基于覆盖索引查询再进行 WHERE 的判断就可以获得结果
 
@@ -5116,7 +5116,7 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
 
   北京市的键值占 9/10（区分度低），所以优化为全表扫描，type = ALL
 
-  ![](./MySQLImg/MySQL-优化SQL使用索引14.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用索引14.png)
 
 * IS  NULL、IS NOT NULL  **有时**索引失效：
 
@@ -5127,7 +5127,7 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
 
   NOT NULL 失效的原因是 name 列全部不是 null，优化为全表扫描，当 NULL 过多时，IS NULL 失效
 
-  ![](./MySQLImg/MySQL-优化SQL使用索引15.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用索引15.png)
 
 * IN 肯定会走索引，但是当 IN 的取值范围较大时会导致索引失效，走全表扫描：
 
@@ -5148,16 +5148,16 @@ CREATE INDEX idx_seller_name_sta_addr ON tb_seller(name, status, address); # 联
 
 索引失效一般是针对联合索引，联合索引一般由几个字段组成，排序方式是先按照第一个字段进行排序，然后排序第二个，依此类推，图示（a, b）索引，**a 相等的情况下 b 是有序的**
 
-<img src="./MySQLImg/MySQL-索引失效底层原理1.png" style="zoom:67%;" />
+<img src="./assets/MySQLImg/MySQL-索引失效底层原理1.png" style="zoom:67%;" />
 
 * 最左前缀法则：当不匹配前面的字段的时候，后面的字段都是无序的。这种无序不仅体现在叶子节点，也会**导致查询时扫描的非叶子节点也是无序的**，因为索引树相当于忽略的第一个字段，就无法使用二分查找
 
 * 范围查询右边的列，不能使用索引，比如语句： `WHERE a > 1 AND b = 1 `，在 a 大于 1 的时候，b 是无序的，a > 1 是扫描时有序的，但是找到以后进行寻找 b 时，索引树就不是有序的了
 
-  <img src="./MySQLImg/MySQL-索引失效底层原理2.png" style="zoom:67%;" />
+  <img src="./assets/MySQLImg/MySQL-索引失效底层原理2.png" style="zoom:67%;" />
 
 * 以 % 开头的 LIKE 模糊查询，索引失效，比如语句：`WHERE a LIKE '%d'`，前面的不确定，导致不符合最左匹配，直接去索引中搜索以 d 结尾的节点，所以没有顺序
-      ![](./MySQLImg/MySQL-索引失效底层原理3.png)
+      ![](./assets/MySQLImg/MySQL-索引失效底层原理3.png)
 
 
 
@@ -5176,7 +5176,7 @@ SHOW STATUS LIKE 'Handler_read%';
 SHOW GLOBAL STATUS LIKE 'Handler_read%';
 ```
 
-![](./MySQLImg/MySQL-优化SQL查看索引使用情况.png)
+![](./assets/MySQLImg/MySQL-优化SQL查看索引使用情况.png)
 
 * Handler_read_first：索引中第一条被读的次数，如果较高，表示服务器正执行大量全索引扫描（这个值越低越好）
 
@@ -5270,7 +5270,7 @@ MySQL 不同的自增 id 在达到上限后的表现不同：
 EXPLAIN SELECT name,status,address FROM tb_seller WHERE name='小米科技' AND status='1' AND address='西安市';
 ```
 
-![](./MySQLImg/MySQL-优化SQL使用索引8.png)
+![](./assets/MySQLImg/MySQL-优化SQL使用索引8.png)
 
 如果查询列，超出索引列，也会降低性能：
 
@@ -5278,7 +5278,7 @@ EXPLAIN SELECT name,status,address FROM tb_seller WHERE name='小米科技' AND 
 EXPLAIN SELECT name,status,address,password FROM tb_seller WHERE name='小米科技' AND status='1' AND address='西安市';
 ```
 
-![](./MySQLImg/MySQL-优化SQL使用索引9.png)
+![](./assets/MySQLImg/MySQL-优化SQL使用索引9.png)
 
 
 
@@ -5339,7 +5339,7 @@ EXPLAIN SELECT name,status,address,password FROM tb_seller WHERE name='小米科
 
 当使用 load 命令导入数据的时候，适当的设置可以提高导入的效率：
 
-![](./MySQLImg/MySQL-优化SQL load data.png)
+![](./assets/MySQLImg/MySQL-优化SQL load data.png)
 
 ```mysql
 LOAD DATA LOCAL INFILE = '/home/seazean/sql1.log' INTO TABLE `tb_user_1` FIELD TERMINATED BY ',' LINES TERMINATED BY '\n'; -- 文件格式如上图
@@ -5353,21 +5353,21 @@ LOAD DATA LOCAL INFILE = '/home/seazean/sql1.log' INTO TABLE `tb_user_1` FIELD T
 
    * 插入 ID 顺序排列数据：
 
-   ![](./MySQLImg/MySQL-优化SQL插入ID顺序排列数据.png)
+   ![](./assets/MySQLImg/MySQL-优化SQL插入ID顺序排列数据.png)
 
    * 插入 ID 无序排列数据：
 
-   ![](./MySQLImg/MySQL-优化SQL插入ID无序排列数据.png)
+   ![](./assets/MySQLImg/MySQL-优化SQL插入ID无序排列数据.png)
 
 2. **关闭唯一性校验**：在导入数据前执行 `SET UNIQUE_CHECKS=0`，关闭唯一性校验；导入结束后执行 `SET UNIQUE_CHECKS=1`，恢复唯一性校验，可以提高导入的效率。
 
-   ![](./MySQLImg/MySQL-优化SQL插入数据关闭唯一性校验.png)
+   ![](./assets/MySQLImg/MySQL-优化SQL插入数据关闭唯一性校验.png)
 
 3. **手动提交事务**：如果应用使用自动提交的方式，建议在导入前执行`SET AUTOCOMMIT=0`，关闭自动提交；导入结束后再打开自动提交，可以提高导入的效率。
 
    事务需要控制大小，事务太大可能会影响执行的效率。MySQL 有 innodb_log_buffer_size 配置项，超过这个值的日志会写入磁盘数据，效率会下降，所以在事务大小达到配置项数据级前进行事务提交可以提高效率
 
-   ![](./MySQLImg/MySQL-优化SQL插入数据手动提交事务.png)
+   ![](./assets/MySQLImg/MySQL-优化SQL插入数据手动提交事务.png)
 
 
 
@@ -5399,7 +5399,7 @@ CREATE INDEX idx_emp_age_salary ON emp(age, salary);
   EXPLAIN SELECT * FROM emp ORDER BY age DESC;	-- 年龄降序
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL ORDER BY排序1.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL ORDER BY排序1.png)
 
 * 第二种通过有序索引顺序扫描直接返回**有序数据**，这种情况为 Using index，不需要额外排序，操作效率高
 
@@ -5407,7 +5407,7 @@ CREATE INDEX idx_emp_age_salary ON emp(age, salary);
   EXPLAIN SELECT id, age, salary FROM emp ORDER BY age DESC;
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL ORDER BY排序2.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL ORDER BY排序2.png)
 
 * 多字段排序：
 
@@ -5417,7 +5417,7 @@ CREATE INDEX idx_emp_age_salary ON emp(age, salary);
   EXPLAIN SELECT id,age,salary FROM emp ORDER BY age DESC, salary ASC;
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL ORDER BY排序3.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL ORDER BY排序3.png)
 
   尽量减少额外的排序，通过索引直接返回有序数据。**需要满足 Order by 使用相同的索引、Order By 的顺序和索引顺序相同、Order  by 的字段都是升序或都是降序**，否则需要额外的操作，就会出现 FileSort
 
@@ -5465,7 +5465,7 @@ GROUP BY 也会进行排序操作，与 ORDER BY 相比，GROUP BY 主要只是�
   EXPLAIN SELECT age,COUNT(*) FROM emp GROUP BY age;
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL GROUP BY排序1.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL GROUP BY排序1.png)
 
   Using temporary：表示 MySQL 需要使用临时表（不是 sort buffer）来存储结果集，常见于排序和分组查询
 
@@ -5475,7 +5475,7 @@ GROUP BY 也会进行排序操作，与 ORDER BY 相比，GROUP BY 主要只是�
   EXPLAIN SELECT age,COUNT(*) FROM emp GROUP BY age ORDER BY NULL;
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL GROUP BY排序2.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL GROUP BY排序2.png)
 
 * 创建索引：索引本身有序，不需要临时表，也不需要再额外排序
 
@@ -5483,7 +5483,7 @@ GROUP BY 也会进行排序操作，与 ORDER BY 相比，GROUP BY 主要只是�
   CREATE INDEX idx_emp_age_salary ON emp(age, salary);
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL GROUP BY排序3.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL GROUP BY排序3.png)
 
 * 数据量很大时，使用 SQL_BIG_RESULT 提示优化器直接使用直接用磁盘临时表
 
@@ -5503,7 +5503,7 @@ GROUP BY 也会进行排序操作，与 ORDER BY 相比，GROUP BY 主要只是�
   EXPLAIN SELECT * FROM emp WHERE id = 1 OR age = 30;	-- 两个索引，并且不是复合索引
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL OR条件查询1.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL OR条件查询1.png)
 
   ```sh
   Extra: Using sort_union(idx_emp_age_salary,PRIMARY); Using where
@@ -5517,7 +5517,7 @@ GROUP BY 也会进行排序操作，与 ORDER BY 相比，GROUP BY 主要只是�
   EXPLAIN SELECT * FROM emp WHERE id = 1 UNION SELECT * FROM emp WHERE age = 30;
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL OR条件查询2.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL OR条件查询2.png)
 
 * UNION 要优于 OR 的原因：
 
@@ -5546,7 +5546,7 @@ MySQL 4.1 版本之后，开始支持 SQL 的子查询
   EXPLAIN SELECT * FROM t_user WHERE id IN (SELECT user_id FROM user_role);
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL嵌套查询1.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL嵌套查询1.png)
 
 * 优化后：
 
@@ -5554,7 +5554,7 @@ MySQL 4.1 版本之后，开始支持 SQL 的子查询
   EXPLAIN SELECT * FROM t_user u , user_role ur WHERE u.id = ur.user_id;
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL嵌套查询2.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL嵌套查询2.png)
 
   连接查询之所以效率更高 ，是因为**不需要在内存中创建临时表**来完成逻辑上需要两个步骤的查询工作
 
@@ -5578,7 +5578,7 @@ MySQL 4.1 版本之后，开始支持 SQL 的子查询
   EXPLAIN SELECT * FROM tb_user_1 LIMIT 200000,10;
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL分页查询1.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL分页查询1.png)
 
 * 优化方式一：内连接查询，在索引列 id 上完成排序分页操作，最后根据主键关联回原表查询所需要的其他列内容
 
@@ -5586,7 +5586,7 @@ MySQL 4.1 版本之后，开始支持 SQL 的子查询
   EXPLAIN SELECT * FROM tb_user_1 t,(SELECT id FROM tb_user_1 ORDER BY id LIMIT 200000,10) a WHERE t.id = a.id;
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL分页查询2.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL分页查询2.png)
 
 * 优化方式二：方案适用于主键自增的表，可以把 LIMIT 查询转换成某个位置的查询
 
@@ -5595,7 +5595,7 @@ MySQL 4.1 版本之后，开始支持 SQL 的子查询
   EXPLAIN SELECT * FROM tb_user_1 WHERE id BETWEEN 200000 and 200010;	-- 写法 2
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL分页查询3.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL分页查询3.png)
 
 
 
@@ -5614,7 +5614,7 @@ SQL 提示，是优化数据库的一个重要手段，就是在 SQL 语句中�
   EXPLAIN SELECT * FROM tb_seller USE INDEX(idx_seller_name) WHERE name='小米科技';
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL使用提示1.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用提示1.png)
 
 * IGNORE INDEX：让 MySQL 忽略一个或者多个索引，则可以使用 IGNORE INDEX 作为提示
 
@@ -5622,7 +5622,7 @@ SQL 提示，是优化数据库的一个重要手段，就是在 SQL 语句中�
   EXPLAIN SELECT * FROM tb_seller IGNORE INDEX(idx_seller_name) WHERE name = '小米科技';
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL使用提示2.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用提示2.png)
 
 * FORCE INDEX：强制 MySQL 使用一个特定的索引
 
@@ -5630,7 +5630,7 @@ SQL 提示，是优化数据库的一个重要手段，就是在 SQL 语句中�
   EXPLAIN SELECT * FROM tb_seller FORCE INDEX(idx_seller_name_sta_addr) WHERE NAME='小米科技';
   ```
 
-  ![](./MySQLImg/MySQL-优化SQL使用提示3.png)
+  ![](./assets/MySQLImg/MySQL-优化SQL使用提示3.png)
 
 
 
@@ -5654,7 +5654,7 @@ SQL 提示，是优化数据库的一个重要手段，就是在 SQL 语句中�
 
 * 计数直接放到数据库里单独的一张计数表中，利用事务解决计数精确问题：
 
-  <img src="./MySQLImg/MySQL-计数count优化.png" style="zoom: 50%;" />
+  <img src="./assets/MySQLImg/MySQL-计数count优化.png" style="zoom: 50%;" />
 
   会话 B 的读操作在 T3 执行的，这时更新事务还没有提交，所以计数值加 1 这个操作对会话 B 还不可见，因此会话 B 查询的计数值和最近 100 条记录，返回的结果逻辑上就是一致的
 
@@ -5725,7 +5725,7 @@ MySQL 提供了缓冲页的快速查找方式：**哈希表**，使用表空间�
 
 MySQL 启动时完成对 Buffer Pool 的初始化，先向操作系统申请连续的内存空间，然后将内存划分为若干对控制块和缓冲页。为了区分空闲和已占用的数据页，将所有空闲缓冲页对应的**控制块作为一个节点**放入一个链表中，就是 Free 链表（**空闲链表**）
 
-<img src="./MySQLImg/MySQL-空闲链表.png" style="zoom: 50%;" />
+<img src="./assets/MySQLImg/MySQL-空闲链表.png" style="zoom: 50%;" />
 
 基节点：是一块单独申请的内存空间（占 40 字节），并不在 Buffer Pool 的那一大片连续内存空间里
 
@@ -5749,7 +5749,7 @@ MySQL 启动时完成对 Buffer Pool 的初始化，先向操作系统申请连�
 
 Flush 链表是一个用来**存储脏页**的链表，对于已经修改过的缓冲脏页，第一次修改后加入到**链表头部**，以后每次修改都不会重新加入，只修改部分控制信息，出于性能考虑并不是直接更新到磁盘，而是在未来的某个时间进行刷脏
 
-<img src="./MySQLImg/MySQL-脏页链表.png" style="zoom:50%;" />
+<img src="./assets/MySQLImg/MySQL-脏页链表.png" style="zoom:50%;" />
 
 **后台有专门的线程每隔一段时间把脏页刷新到磁盘**：
 
@@ -5884,7 +5884,7 @@ Server 层针对优化**查询**的内存为 Net Buffer，内存的大小是由�
 
 MySQL 采用的是边读边发的逻辑，因此对于数据量很大的查询来说，不会在 Server 端保存完整的结果集，如果客户端读结果不及时，会堵住 MySQL 的查询过程，但是**不会把内存打爆导致 OOM**
 
-<img src="./MySQLImg/MySQL-查询内存优化.png" style="zoom:50%;" />
+<img src="./assets/MySQLImg/MySQL-查询内存优化.png" style="zoom:50%;" />
 
 SHOW PROCESSLIST 获取线程信息后，处于 Sending to client 状态代表服务器端的网络栈写满，等待客户端接收数据
 
@@ -5984,7 +5984,7 @@ MyISAM 存储引擎使用 key_buffer 缓存索引块，加速 MyISAM 索引的�
 
 MySQL 的数据删除就是移除掉某个记录后，该位置就被标记为**可复用**，如果有符合范围条件的数据可以插入到这里。符合范围条件的意思是假设删除记录 R4，之后要再插入一个 ID 在 300 和 600 之间的记录时，就会复用这个位置
 
-<img src="./MySQLImg/MySQL-删除数据.png" style="zoom:50%;" />
+<img src="./assets/MySQLImg/MySQL-删除数据.png" style="zoom:50%;" />
 
 InnoDB 的数据是按页存储的如果删掉了一个数据页上的所有记录，整个数据页就可以被复用了，如果相邻的两个数据页利用率都很小，系统就会把这两个页上的数据合到其中一个页上，另外一个数据页就被标记为可复用
 
@@ -6018,7 +6018,7 @@ MySQL 5.6 版本开始引入的 **Online DDL**，重建表的命令默认执行�
 * 临时文件生成后，将日志文件中的操作应用到临时文件，得到一个逻辑数据上与表 A 相同的数据文件，对应的就是图中 state3
 * 用临时文件替换表 A 的数据文件
 
-<img src="./MySQLImg/MySQL-重建表.png" style="zoom: 67%;" />
+<img src="./assets/MySQLImg/MySQL-重建表.png" style="zoom: 67%;" />
 
 Online DDL 操作会先获取 MDL 写锁，再退化成 MDL 读锁。但 MDL 写锁持有时间比较短，所以可以称为 Online； 而 MDL 读锁，不阻止数据增删查改，但会阻止其它线程修改表结构（可以对比 `ANALYZE TABLE t`  命令）
 
@@ -6541,7 +6541,7 @@ InnoDB 存储引擎，数据库中的**聚簇索引**每行数据，除了自定
 * DB_ROLL_PTR：回滚指针，**指向记录对应的 undo log 日志**，undo log 中又指向上一个旧版本的 undo log
 * DB_ROW_ID：隐含的自增 ID（**隐藏主键**），如果数据表没有主键，InnoDB 会自动以 DB_ROW_ID 作为聚簇索引
 
-![](./MySQLImg/MySQL-MVCC版本链隐藏字段.png)
+![](./assets/MySQLImg/MySQL-MVCC版本链隐藏字段.png)
 
 
 
@@ -6570,7 +6570,7 @@ undo log 主要分为两种：
 
 说明：因为 DELETE 删除记录，都是移动到垃圾链表中，不是真正的删除，所以才可以通过版本链访问原始数据
 
-<img src="./MySQLImg/MySQL-MVCC版本链.png" style="zoom: 80%;" />
+<img src="./assets/MySQLImg/MySQL-MVCC版本链.png" style="zoom: 80%;" />
 
 注意：undo 是逻辑日志，这里只是直观的展示出来
 
@@ -6641,7 +6641,7 @@ START TRANSACTION;	-- 开启事务
 -- 操作表的其他数据
 ```
 
-![](./MySQLImg/MySQL-MVCC工作流程1.png)
+![](./assets/MySQLImg/MySQL-MVCC工作流程1.png)
 
 ID 为 0 的事务创建 Read View：
 
@@ -6650,7 +6650,7 @@ ID 为 0 的事务创建 Read View：
 * max_trx_id：61
 * creator_trx_id：0
 
-![](./MySQLImg/MySQL-MVCC工作流程2.png)
+![](./assets/MySQLImg/MySQL-MVCC工作流程2.png)
 
 只有红框部分才复合条件，所以只有张三对应的版本的数据可以被看到
 
@@ -6915,7 +6915,7 @@ InnoDB 会真正的去执行把值修改成 (1,2) 这个操作，先加行锁，
 update T set c=c+1 where ID=2;
 ```
 
-<img src="./MySQLImg/MySQL-update的执行流程.png" style="zoom: 33%;" />
+<img src="./assets/MySQLImg/MySQL-update的执行流程.png" style="zoom: 33%;" />
 
 流程说明：执行引擎将这行新数据读入到内存中（Buffer Pool）后，先将此次更新操作记录到 redo log buffer 里，然后更新记录。最后将 redo log 刷盘后事务处于 prepare 状态，执行器会生成这个操作的 binlog，并**把 binlog 写入磁盘**，完成提交
 
@@ -7135,7 +7135,7 @@ MyISAM 引擎在执行查询语句之前，会**自动**给涉及到的所有表
 * 对 MyISAM 表的读操作，不会阻塞其他用户对同一表的读请求，但会阻塞对同一表的写请求
 * 对 MyISAM 表的写操作，则会阻塞其他用户对同一表的读和写操作
 
-![](./MySQLImg/MySQL-MyISAM 锁的兼容性.png)
+![](./assets/MySQLImg/MySQL-MyISAM 锁的兼容性.png)
 
 锁调度：**MyISAM 的读写锁调度是写优先**，因为写锁后其他线程不能做任何操作，大量的更新会使查询很难得到锁，从而造成永远阻塞，所以 MyISAM 不适合做写为主的表的存储引擎
 
@@ -7173,7 +7173,7 @@ MyISAM 引擎在执行查询语句之前，会**自动**给涉及到的所有表
   SELECT * FROM tb_book;		-- C1、C2
   ```
 
-  ![](./MySQLImg/MySQL-MyISAM 读锁1.png)
+  ![](./assets/MySQLImg/MySQL-MyISAM 读锁1.png)
 
 * C1 加读锁，C1、C2 查询未锁定的表，C1 报错，C2 正常查询
 
@@ -7182,7 +7182,7 @@ MyISAM 引擎在执行查询语句之前，会**自动**给涉及到的所有表
   SELECT * FROM tb_user;		-- C1、C2
   ```
 
-  ![](./MySQLImg/MySQL-MyISAM 读锁2.png)
+  ![](./assets/MySQLImg/MySQL-MyISAM 读锁2.png)
 
   C1、C2 执行插入操作，C1 报错，C2 等待获取
 
@@ -7190,7 +7190,7 @@ MyISAM 引擎在执行查询语句之前，会**自动**给涉及到的所有表
   INSERT INTO tb_book VALUES(NULL,'Spring高级','2088-01-01','1');	-- C1、C2
   ```
 
-  ![](./MySQLImg/MySQL-MyISAM 读锁3.png)
+  ![](./assets/MySQLImg/MySQL-MyISAM 读锁3.png)
 
   当在 C1 中释放锁指令 UNLOCK TABLES，C2 中的 INSERT 语句立即执行
 
@@ -7211,7 +7211,7 @@ MyISAM 引擎在执行查询语句之前，会**自动**给涉及到的所有表
   SELECT * FROM tb_book;		-- C1、C2
   ```
 
-  ![](./MySQLImg/MySQL-MyISAM 写锁1.png)
+  ![](./assets/MySQLImg/MySQL-MyISAM 写锁1.png)
 
   当在 C1 中释放锁指令 UNLOCK TABLES，C2 中的 SELECT 语句立即执行
 
@@ -7221,7 +7221,7 @@ MyISAM 引擎在执行查询语句之前，会**自动**给涉及到的所有表
   LOCK TABLE tb_book WRITE;
   ```
 
-  ![](./MySQLImg/MySQL-MyISAM 写锁2.png)
+  ![](./assets/MySQLImg/MySQL-MyISAM 写锁2.png)
 
 * C1 加写锁，C1、C2查询未锁定的表，C1 报错，C2 正常查询
 
@@ -7239,7 +7239,7 @@ MyISAM 引擎在执行查询语句之前，会**自动**给涉及到的所有表
   SHOW OPEN TABLES;
   ```
 
-  ![](./MySQLImg/MySQL-锁争用情况查看1.png)
+  ![](./assets/MySQLImg/MySQL-锁争用情况查看1.png)
 
   In_user：表当前被查询使用的次数，如果该数为零，则表是打开的，但是当前没有被使用
 
@@ -7249,7 +7249,7 @@ MyISAM 引擎在执行查询语句之前，会**自动**给涉及到的所有表
   LOCK TABLE tb_book READ;	-- 执行命令
   ```
 
-  ![](./MySQLImg/MySQL-锁争用情况查看2.png)
+  ![](./assets/MySQLImg/MySQL-锁争用情况查看2.png)
 
 * 查看锁状态：
 
@@ -7257,7 +7257,7 @@ MyISAM 引擎在执行查询语句之前，会**自动**给涉及到的所有表
   SHOW STATUS LIKE 'Table_locks%';
   ```
 
-  ![](./MySQLImg/MySQL-MyISAM 锁状态.png)
+  ![](./assets/MySQLImg/MySQL-MyISAM 锁状态.png)
 
   Table_locks_immediate：指的是能立即获得表级锁的次数，每立即获取锁，值加 1
 
@@ -7346,7 +7346,7 @@ SELECT * FROM table_name WHERE ... FOR UPDATE			-- 排他锁
   SELECT * FROM test_innodb_lock WHERE id=3;	-- C1、C2
   ```
 
-  ![](./MySQLImg/MySQL-InnoDB 锁操作1.png)
+  ![](./assets/MySQLImg/MySQL-InnoDB 锁操作1.png)
 
 * C1 更新 id 为 3 的数据，但不提交：
 
@@ -7354,7 +7354,7 @@ SELECT * FROM table_name WHERE ... FOR UPDATE			-- 排他锁
   UPDATE test_innodb_lock SET name='300' WHERE id=3;	-- C1
   ```
 
-  ![](./MySQLImg/MySQL-InnoDB 锁操作2.png)
+  ![](./assets/MySQLImg/MySQL-InnoDB 锁操作2.png)
 
   C2 查询不到 C1 修改的数据，因为隔离界别为 REPEATABLE READ，C1 提交事务，C2 查询：
 
@@ -7362,7 +7362,7 @@ SELECT * FROM table_name WHERE ... FOR UPDATE			-- 排他锁
   COMMIT;	-- C1
   ```
 
-  ![](./MySQLImg/MySQL-InnoDB 锁操作3.png)
+  ![](./assets/MySQLImg/MySQL-InnoDB 锁操作3.png)
 
   提交后仍然查询不到 C1 修改的数据，因为隔离级别可以防止脏读、不可重复读，所以 C2 需要提交才可以查询到其他事务对数据的修改：
 
@@ -7371,7 +7371,7 @@ SELECT * FROM table_name WHERE ... FOR UPDATE			-- 排他锁
   SELECT * FROM test_innodb_lock WHERE id=3;	-- C2
   ```
 
-  ![](./MySQLImg/MySQL-InnoDB 锁操作4.png)
+  ![](./assets/MySQLImg/MySQL-InnoDB 锁操作4.png)
 
 * C1 更新 id 为 3 的数据，但不提交，C2 也更新 id 为 3 的数据：
 
@@ -7380,7 +7380,7 @@ SELECT * FROM table_name WHERE ... FOR UPDATE			-- 排他锁
   UPDATE test_innodb_lock SET name='30' WHERE id=3;	-- C2
   ```
 
-  ![](./MySQLImg/MySQL-InnoDB 锁操作5.png)
+  ![](./assets/MySQLImg/MySQL-InnoDB 锁操作5.png)
 
   当 C1 提交，C2 直接解除阻塞，直接更新
 
@@ -7391,7 +7391,7 @@ SELECT * FROM table_name WHERE ... FOR UPDATE			-- 排他锁
   UPDATE test_innodb_lock SET name='30' WHERE id=3;	-- C2
   ```
 
-  ![](./MySQLImg/MySQL-InnoDB 锁操作6.png)
+  ![](./assets/MySQLImg/MySQL-InnoDB 锁操作6.png)
 
   由于 C1、C2 操作的不同行，获取不同的行锁，所以都可以正常获取行锁
 
@@ -7442,7 +7442,7 @@ InnoDB 加锁的基本单位是 next-key lock，该锁是行锁和 gap lock 的�
   SELECT * FROM test_innodb_lock;
   ```
 
-  ![](./MySQLImg/MySQL-InnoDB 间隙锁1.png)
+  ![](./assets/MySQLImg/MySQL-InnoDB 间隙锁1.png)
 
 * C1 根据 id 范围更新数据，C2 插入数据：
 
@@ -7451,7 +7451,7 @@ InnoDB 加锁的基本单位是 next-key lock，该锁是行锁和 gap lock 的�
   INSERT INTO test_innodb_lock VALUES(2,'200','2');		-- C2
   ```
 
-  ![](./MySQLImg/MySQL-InnoDB 间隙锁2.png)
+  ![](./assets/MySQLImg/MySQL-InnoDB 间隙锁2.png)
 
   出现间隙锁，C2 被阻塞，等待 C1 提交事务后才能更新
 
@@ -7477,7 +7477,7 @@ InnoDB 为了支持多粒度的加锁，允许行锁和表锁同时存在，支�
 
 兼容性如下所示：
 
-![](./MySQLImg/MySQL-意向锁兼容性.png)
+![](./assets/MySQLImg/MySQL-意向锁兼容性.png)
 
 **插入意向锁** Insert Intention Lock 是在插入一行记录操作之前设置的一种间隙锁，是行级锁
 
@@ -7582,7 +7582,7 @@ InnoDB 存储引擎实现了行级锁定，虽然在锁定机制的实现方面�
   UPDATE test_innodb_lock SET sex='2' WHERE id=3;		-- C2
   ```
 
-  ![](./MySQLImg/MySQL-InnoDB 锁升级.png)
+  ![](./assets/MySQLImg/MySQL-InnoDB 锁升级.png)
 
   索引失效：执行更新时 name 字段为 varchar 类型，造成索引失效，最终行锁变为表锁 
 
@@ -7624,7 +7624,7 @@ InnoDB 存储引擎实现了行级锁定，虽然在锁定机制的实现方面�
 SHOW STATUS LIKE 'innodb_row_lock%';
 ```
 
-<img src="./MySQLImg/MySQL-InnoDB 锁争用.png" style="zoom: 80%;" />
+<img src="./assets/MySQLImg/MySQL-InnoDB 锁争用.png" style="zoom: 80%;" />
 
 参数说明：
 
@@ -7647,7 +7647,7 @@ SELECT * FROM information_schema.innodb_locks;	#锁的概况
 SHOW ENGINE INNODB STATUS\G; #InnoDB整体状态，其中包括锁的情况
 ```
 
-![](./MySQLImg/MySQL-InnoDB查看锁状态.png)
+![](./assets/MySQLImg/MySQL-InnoDB查看锁状态.png)
 
 lock_id 是锁 id；lock_trx_id 为事务 id；lock_mode 为 X 代表排它锁（写锁）；lock_type 为 RECORD 代表锁为行锁（记录锁）
 
@@ -7753,7 +7753,7 @@ MySQL 的主从之间维持了一个**长连接**。主库内部有一个线程�
 
 主从复制原理图：
 
-![](./MySQLImg/MySQL-主从复制原理图.jpg)
+![](./assets/MySQLImg/MySQL-主从复制原理图.jpg)
 
 主从复制主要依赖的是 binlog，MySQL 默认是异步复制，需要三个线程：
 
@@ -8026,7 +8026,7 @@ SELECT wait_for_executed_gtid_set(gtid_set [, timeout])
 
 * 分流查询：通过 MySQL 的主从复制，实现读写分离，使增删改操作走主节点，查询操作走从节点，从而可以降低单台服务器的读写压力
 
-  ![](./MySQLImg/MySQL-负载均衡主从复制.jpg)
+  ![](./assets/MySQLImg/MySQL-负载均衡主从复制.jpg)
 
 * 分布式数据库架构：适合大数据量、负载高的情况，具有良好的拓展性和高可用性。通过在多台服务器之间分布数据，可以实现在多台服务器之间的负载均衡，提高访问效率
 
@@ -8086,7 +8086,7 @@ SELECT wait_for_executed_gtid_set(gtid_set [, timeout])
    SHOW MASTER STATUS;
    ```
 
-   ![](./MySQLImg/MySQL-查看master状态.jpg)
+   ![](./assets/MySQLImg/MySQL-查看master状态.jpg)
 
    * File：从哪个日志文件开始推送日志文件 
    * Position：从哪个位置开始推送日志
@@ -8160,11 +8160,11 @@ SELECT wait_for_executed_gtid_set(gtid_set [, timeout])
 
    在从库中，可以查看到刚才创建的数据库：
 
-   ![](./MySQLImg/MySQL-主从复制验证1.jpg)
+   ![](./assets/MySQLImg/MySQL-主从复制验证1.jpg)
 
    在该数据库中，查询表中的数据：
 
-   ![](./MySQLImg/MySQL-主从复制验证2.jpg)
+   ![](./assets/MySQLImg/MySQL-主从复制验证2.jpg)
 
 
 
@@ -8487,7 +8487,7 @@ mysqlbinlog log-file;
   mysqlbinlog mysqlbing.000001;
   ```
 
-  ![](./MySQLImg/MySQL-日志读取1.png)
+  ![](./assets/MySQLImg/MySQL-日志读取1.png)
 
   日志结尾有 COMMIT
 
@@ -8512,7 +8512,7 @@ mysqlbinlog log-file;
   mysqlbinlog -vv mysqlbin.000002
   ```
 
-  ![](./MySQLImg/MySQL-日志读取2.png)
+  ![](./assets/MySQLImg/MySQL-日志读取2.png)
 
 
 
@@ -8597,7 +8597,7 @@ SELECT * FROM tb_book WHERE id < 8
 
 执行完毕之后， 再次来查询日志文件：
 
-![](./MySQLImg/MySQL-查询日志.png)
+![](./assets/MySQLImg/MySQL-查询日志.png)
 
 
 
@@ -8630,7 +8630,7 @@ long_query_time=10
   cat slow_query.log
   ```
 
-  ![](./MySQLImg/MySQL-慢日志读取1.png)
+  ![](./assets/MySQLImg/MySQL-慢日志读取1.png)
 
 * 如果慢查询日志内容很多，直接查看文件比较繁琐，可以借助 mysql 自带的 mysqldumpslow 工具对慢查询日志进行分类汇总：
 
@@ -8638,7 +8638,7 @@ long_query_time=10
   mysqldumpslow slow_query.log
   ```
 
-  ![](./MySQLImg/MySQL-慢日志读取2.png)
+  ![](./assets/MySQLImg/MySQL-慢日志读取2.png)
 
 
 
@@ -8658,12 +8658,12 @@ long_query_time=10
 
 基本表：
 
-![](./MySQLImg/普通表.png)
+![](./assets/MySQLImg/普通表.png)
 					
 
 第一范式表：
 
-![](./MySQLImg/第一范式.png)
+![](./assets/MySQLImg/第一范式.png)
 
 
 
@@ -8692,7 +8692,7 @@ long_query_time=10
    * 主属性：码属性组中的所有属性
    * 非主属性：除码属性组以外的属性
 
-![](./MySQLImg/第二范式.png)
+![](./assets/MySQLImg/第二范式.png)
 
 
 
@@ -8708,7 +8708,7 @@ long_query_time=10
 
 作用：可以通过主键 id 区分相同数据，修改数据的时候只需要修改一张表（方便修改），反之需要修改多表。
 
-![](./MySQLImg/第三范式.png)
+![](./assets/MySQLImg/第三范式.png)
 
 
 
@@ -8722,7 +8722,7 @@ long_query_time=10
 
 ### 总结
 
-![](./MySQLImg/三大范式.png)
+![](./assets/MySQLImg/三大范式.png)
 
 
 

@@ -2,7 +2,7 @@
 
 ## 1. 初识 python
 
-![第一章 初识python](./pythonMDImg/第一章 初识python.svg)
+![第一章 初识python](./assets/pythonMDImg/第一章 初识python.svg)
 
 ### 1-1 第一个程序
 
@@ -210,7 +210,7 @@ print("------------------------------------------------")
 
 ## 2. 变量与简单数据类型
 
-![第2章 变量与简单的数据类型](./pythonMDImg/第2章 变量与简单的数据类型.svg)
+![第2章 变量与简单的数据类型](./assets/pythonMDImg/第2章 变量与简单的数据类型.svg)
 
 ### 2.1 变量
 
@@ -630,7 +630,7 @@ print(hex(26))  # 0x1a 十进制转十六进制
 
 ## 3. 运算符与表达式
 
-![第3章 运算符与表达式](./pythonMDImg/第3章 运算符与表达式.svg)
+![第3章 运算符与表达式](./assets/pythonMDImg/第3章 运算符与表达式.svg)
 
 **表达式**
 
@@ -872,7 +872,7 @@ print(a is not b)  # True
 
 ## 4. 条件判断
 
-![第4章 条件判断](./pythonMDImg/第4章 条件判断.svg)
+![第4章 条件判断](./assets/pythonMDImg/第4章 条件判断.svg)
 
 ### 4-1 单分支选择结构
 

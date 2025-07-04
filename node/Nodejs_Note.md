@@ -24,7 +24,7 @@ Node.js 是一个开源的、跨平台的 JavaScript 运行时环境。
 
 Buffer 是一个类似于数组的**对象** ，用于表示固定长度的字节序列。Buffer 本质是一段内存空间，专门用来处理**二进制数据** 。
 
-![image-20240928143104996](./Nodejs_NoteImg/image-20240928143104996.png)
+![image-20240928143104996](./assets/Nodejs_NoteImg/image-20240928143104996.png)
 
 ### 2. 特点
 
@@ -32,7 +32,7 @@ Buffer 是一个类似于数组的**对象** ，用于表示固定长度的字�
 2. Buffer 性能较好，可以直接对计算机内存进行操作
 3. 每个元素的大小为 1 字节（byte）
 
-![image-20240928143155388](./Nodejs_NoteImg/image-20240928143155388.png)
+![image-20240928143155388](./assets/Nodejs_NoteImg/image-20240928143155388.png)
 
 ### 3. 使用
 
@@ -828,7 +828,7 @@ HTTP（hypertext transport protocol）协议；中文叫**超文本传输协议*
 
 ### 2. 请求报文的组成
 
-![image-20241015174628158](./Nodejs_NoteImg/image-20241015174628158.png)
+![image-20241015174628158](./assets/Nodejs_NoteImg/image-20241015174628158.png)
 
 - 请求行
 - 请求头
@@ -878,7 +878,7 @@ HTTP（hypertext transport protocol）协议；中文叫**超文本传输协议*
 
 ### 6. 响应报文的组成
 
-![image-20241015174901599](./Nodejs_NoteImg/image-20241015174901599.png)
+![image-20241015174901599](./assets/Nodejs_NoteImg/image-20241015174901599.png)
 
 **响应行：**
 
@@ -1421,7 +1421,7 @@ GET 和 POST 是 HTTP 协议请求的两种方式。
 
 静态资源请求，错误处理，防止中文乱码
 
-![image-20241020180438191](./Nodejs_NoteImg/image-20241020180438191.png)
+![image-20241020180438191](./assets/Nodejs_NoteImg/image-20241020180438191.png)
 
 `server.js`:
 
@@ -1571,7 +1571,7 @@ server.listen(9000, () => {
 > - `module.exports` 可以暴露 **任意** 数据
 > - 不能使用`exports = value` 的形式暴露数据，模块内部 module 与 exports 的隐式关系`exports = module.exports = {} `，require 返回的是目标模块中 `module.exports` 的值
 
-![image-20241023111004330](./Nodejs_NoteImg/image-20241023111004330.png)
+![image-20241023111004330](./assets/Nodejs_NoteImg/image-20241023111004330.png)
 
 ### 3. 导入（引入）模块  
 
@@ -1591,7 +1591,7 @@ require 使用的一些**注意事项**：
 
 导入文件夹：
 
- ![image-20241028201815994](./Nodejs_NoteImg/image-20241028201815994.png)
+ ![image-20241028201815994](./assets/Nodejs_NoteImg/image-20241028201815994.png)
 
 `app.js`:
 
@@ -1626,7 +1626,7 @@ console.log(m); // 我是一个模块
 5. 缓存模块的值
 6. 返回 `module.exports` 的值
 
-<img src="./Nodejs_NoteImg/image-20241028202330282.png" alt="image-20241028202330282" style="zoom:80%;" />
+<img src="./assets/Nodejs_NoteImg/image-20241028202330282.png" alt="image-20241028202330282" style="zoom:80%;" />
 
 `me.js`:
 
@@ -1871,7 +1871,7 @@ windows 默认不允许 npm 全局命令执行脚本文件，所以需要修改�
 
 1. 以 管理员身份 打开 powershell 命令行  
 2. 键入命令 `set-ExecutionPolicy remoteSigned  `
-   ![image-20241111195341251](./Nodejs_NoteImg/image-20241111195341251.png)
+   ![image-20241111195341251](./assets/Nodejs_NoteImg/image-20241111195341251.png)
 3. 键入 A 然后敲回车 
 4. 如果不生效，可以尝试重启 vscode
 
@@ -1879,7 +1879,7 @@ windows 默认不允许 npm 全局命令执行脚本文件，所以需要修改�
 
 PathPath 是操作系统的一个环境变量，可以设置一些文件夹的路径，在当前工作目录下找不到可执行文件时，就会在环境变量 Path 的目录中挨个的查找，如果找到则执行，如果没有找到就会报错
 
-![image-20241111195652756](./Nodejs_NoteImg/image-20241111195652756.png)
+![image-20241111195652756](./assets/Nodejs_NoteImg/image-20241111195652756.png)
 
 - 如果希望某个程序在任何工作目录下都能正常运行，就应该将该程序的所在目录配置到环境变量 Path 中
 - windows 下查找命令的所在位置

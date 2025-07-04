@@ -661,7 +661,7 @@ Java 提供了线程优先级的机制，优先级会提示（hint）调度器�
 | Timed Waiting （限期等待） | 有几个方法有超时参数，调用将进入 Timed Waiting 状态，这一状态将一直保持到超时期满或者接收到唤醒通知。带有超时参数的常用方法有 Thread.sleep 、Object.wait |
 | Teminated（结束）          | run 方法正常退出而死亡，或者因为没有捕获的异常终止了 run 方法而死亡 |
 
-![](./JUC并发编程Img/JUC-线程6种状态.png)
+![](./assets/JUC并发编程Img/JUC-线程6种状态.png)
 
 * NEW → RUNNABLE：当调用 t.start() 方法时，由 NEW → RUNNABLE
 
@@ -935,11 +935,11 @@ Monitor 被翻译为监视器或管程
 
 * Mark Word 结构：最后两位是**锁标志位**
 
-  ![](./JUC并发编程Img/JUC-Monitor-MarkWord结构32位.png)
+  ![](./assets/JUC并发编程Img/JUC-Monitor-MarkWord结构32位.png)
 
 * 64 位虚拟机 Mark Word：
 
-  ![](./JUC并发编程Img/JUC-Monitor-MarkWord结构64位.png)
+  ![](./assets/JUC并发编程Img/JUC-Monitor-MarkWord结构64位.png)
 
 工作流程：
 
@@ -951,7 +951,7 @@ Monitor 被翻译为监视器或管程
 * 唤醒 EntryList 中等待的线程来竞争锁，竞争是**非公平的**，如果这时有新的线程想要获取锁，可能直接就抢占到了，阻塞队列的线程就会继续阻塞
 * WaitSet 中的 Thread-0，是以前获得过锁，但条件不满足进入 WAITING 状态的线程（wait-notify 机制）
 
-![](./JUC并发编程Img/JUC-Monitor工作原理2.png)
+![](./assets/JUC并发编程Img/JUC-Monitor工作原理2.png)
 
 注意：
 
@@ -1030,7 +1030,7 @@ LocalVariableTable:
 无锁 -> 偏向锁 -> 轻量级锁 -> 重量级锁	// 随着竞争的增加，只能锁升级，不能降级
 ```
 
-![](./JUC并发编程Img/JUC-锁升级过程.png)
+![](./assets/JUC并发编程Img/JUC-锁升级过程.png)
 
 
 
@@ -1101,19 +1101,19 @@ public static void method2() {
 
 * 创建锁记录（Lock Record）对象，每个线程的**栈帧**都会包含一个锁记录的结构，存储锁定对象的 Mark Word
 
-  ![](./JUC并发编程Img/JUC-轻量级锁原理1.png)
+  ![](./assets/JUC并发编程Img/JUC-轻量级锁原理1.png)
 
 * 让锁记录中 Object reference 指向锁住的对象，并尝试用 CAS 替换 Object 的 Mark Word，将 Mark Word 的值存入锁记录
   
 * 如果 CAS 替换成功，对象头中存储了锁记录地址和状态 00（轻量级锁） ，表示由该线程给对象加锁
-  ![](./JUC并发编程Img/JUC-轻量级锁原理2.png)
+  ![](./assets/JUC并发编程Img/JUC-轻量级锁原理2.png)
 
 * 如果 CAS 失败，有两种情况：
 
   * 如果是其它线程已经持有了该 Object 的轻量级锁，这时表明有竞争，进入锁膨胀过程
   * 如果是线程自己执行了 synchronized 锁重入，就添加一条 Lock Record 作为重入的计数
 
-  ![](./JUC并发编程Img/JUC-轻量级锁原理3.png)
+  ![](./assets/JUC并发编程Img/JUC-轻量级锁原理3.png)
 
 * 当退出 synchronized 代码块（解锁时）
 
@@ -1134,11 +1134,11 @@ public static void method2() {
 
 * 当 Thread-1 进行轻量级加锁时，Thread-0 已经对该对象加了轻量级锁
 
-  ![](./JUC并发编程Img/JUC-重量级锁原理1.png)
+  ![](./assets/JUC并发编程Img/JUC-重量级锁原理1.png)
 
 * Thread-1 加轻量级锁失败，进入锁膨胀流程：为 Object 对象申请 Monitor 锁，**通过 Object 对象头获取到持锁线程**，将 Monitor 的 Owner 置为 Thread-0，将 Object 的对象头指向重量级锁地址，然后自己进入 Monitor 的 EntryList BLOCKED
 
-  ![](./JUC并发编程Img/JUC-重量级锁原理2.png)
+  ![](./assets/JUC并发编程Img/JUC-重量级锁原理2.png)
 
 * 当 Thread-0 退出同步块解锁时，使用 CAS 将 Mark Word 的值恢复给对象头失败，这时进入重量级解锁流程，即按照 Monitor 地址找到 Monitor 对象，设置 Owner 为 null，唤醒 EntryList 中 BLOCKED 线程
 
@@ -1503,7 +1503,7 @@ public final native void wait(long timeout):有时限的等待, 到n毫秒后结
 * BLOCKED 线程会在 Owner 线程释放锁时唤醒
 * WAITING 线程会在 Owner 线程调用 notify 或 notifyAll 时唤醒，唤醒后并不意味者立刻获得锁，**需要进入 EntryList 重新竞争**
 
-![](./JUC并发编程Img/JUC-Monitor工作原理2.png)
+![](./assets/JUC并发编程Img/JUC-Monitor工作原理2.png)
 
 
 
@@ -1635,7 +1635,7 @@ LockSupport 出现就是为了增强 wait & notify 的功能：
   4. 调用 Unsafe.unpark(Thread_0) 方法，设置 _counter 为 1
   5. 唤醒 _cond 条件变量中的 Thread_0，Thread_0 恢复运行，设置 _counter 为 0
 
-![](./JUC并发编程Img/JUC-park原理1.png)
+![](./assets/JUC并发编程Img/JUC-park原理1.png)
 
 * 先 unpark：
 
@@ -1643,7 +1643,7 @@ LockSupport 出现就是为了增强 wait & notify 的功能：
   2. 当前线程调用 Unsafe.park() 方法
   3. 检查 _counter ，本情况为 1，这时线程无需挂起，继续运行，设置 _counter 为 0
 
-  ![](./JUC并发编程Img/JUC-park原理2.png)
+  ![](./assets/JUC并发编程Img/JUC-park原理2.png)
 
 
 
@@ -1717,7 +1717,7 @@ Guarded Suspension，用在一个线程等待另一个线程的执行结果
 * 如果有结果不断从一个线程到另一个线程那么可以使用消息队列（见生产者/消费者）
 * JDK 中，join 的实现、Future 的实现，采用的就是此模式
 
-![](./JUC并发编程Img/JUC-保护性暂停.png)
+![](./assets/JUC并发编程Img/JUC-保护性暂停.png)
 
 ```java
 public static void main(String[] args) {
@@ -1788,7 +1788,7 @@ class GuardedObject {
 
 多任务版保护性暂停：
 
-![](./JUC并发编程Img/JUC-保护性暂停多任务版.png)
+![](./assets/JUC并发编程Img/JUC-保护性暂停多任务版.png)
 
 ```java
 public static void main(String[] args) throws InterruptedException {
@@ -2040,7 +2040,7 @@ public class TraditionalProducerConsumer {
 * 消息队列是有容量限制的，满时不会再加入数据，空时不会再消耗数据
 * JDK 中各种阻塞队列，采用的就是这种模式
 
-![](./JUC并发编程Img/JUC-生产者消费者模式.png)
+![](./assets/JUC并发编程Img/JUC-生产者消费者模式.png)
 
 ```java
 public class demo {
@@ -2180,7 +2180,7 @@ JMM 作用：
 
 根据 JMM 的设计，系统存在一个主内存（Main Memory），Java 中所有变量都存储在主存中，对于所有线程都是共享的；每条线程都有自己的工作内存（Working Memory），工作内存中保存的是主存中某些**变量的拷贝**，线程对所有变量的操作都是先对变量进行拷贝，然后在工作内存中进行，不能直接操作主内存中的变量；线程之间无法相互直接访问，线程间的通信（传递）必须通过主内存来完成
 
-![](./JUC并发编程Img/JMM内存模型.png)
+![](./assets/JUC并发编程Img/JMM内存模型.png)
 
 主内存和工作内存：
 
@@ -2255,7 +2255,7 @@ public static void main(String[] args) throws InterruptedException {
 * 因为 t 线程要频繁从主内存中读取 run 的值，JIT 编译器会将 run 的值缓存至自己工作内存中的高速缓存中，减少对主存中 run 的访问，提高效率
 * 1 秒之后，main 线程修改了 run 的值，并同步至主存，而 t 是从自己工作内存中的高速缓存中读取这个变量的值，结果永远是旧值
 
-![](./JUC并发编程Img/JMM-可见性例子.png)
+![](./assets/JUC并发编程Img/JMM-可见性例子.png)
 
 
 
@@ -2702,7 +2702,7 @@ getInstance 方法对应的字节码为：
 * 关键在于 0:getstatic 这行代码在 monitor 控制之外，可以越过 monitor 读取 INSTANCE 变量的值
 * 当其他线程访问 INSTANCE 不为 null 时，由于 INSTANCE 实例未必已初始化，那么 t2 拿到的是将是一个未初始化完毕的单例返回，这就造成了线程安全的问题
 
-![](./JUC并发编程Img/JMM-DCL出现的问题.png)
+![](./assets/JUC并发编程Img/JMM-DCL出现的问题.png)
 
 
 
@@ -3226,11 +3226,11 @@ Cell 为累加单元：数组访问索引是通过 Thread 里的 threadLocalRand
 
 Cell 是数组形式，**在内存中是连续存储的**，64 位系统中，一个 Cell 为 24 字节（16 字节的对象头和 8 字节的 value），每一个 cache line 为 64 字节，因此缓存行可以存下 2 个的 Cell 对象，当 Core-0 要修改 Cell[0]、Core-1 要修改 Cell[1]，无论谁修改成功都会导致当前缓存行失效，从而导致对方的数据失效，需要重新去主存获取，影响效率
 
-![](./JUC并发编程Img/JUC-伪共享1.png)
+![](./assets/JUC并发编程Img/JUC-伪共享1.png)
 
 @sun.misc.Contended：防止缓存行伪共享，在使用此注解的对象或字段的前后各增加 128 字节大小的 padding，使用 2 倍于大多数硬件缓存行让 CPU 将对象预读至缓存时**占用不同的缓存行**，这样就不会造成对方缓存行的失效
 
-![](./JUC并发编程Img/JUC-伪共享2.png)
+![](./assets/JUC并发编程Img/JUC-伪共享2.png)
 
 
 
@@ -3782,7 +3782,7 @@ public class ThreadLocalDateUtil {
 
 JDK8 以前：每个 ThreadLocal 都创建一个 Map，然后用线程作为 Map 的 key，要存储的局部变量作为 Map 的 value，达到各个线程的局部变量隔离的效果。这种结构会造成 Map 结构过大和内存泄露，因为 Thread 停止后无法通过 key 删除对应的数据
 
-![](./JUC并发编程Img/JUC-ThreadLocal数据结构JDK8前.png)
+![](./assets/JUC并发编程Img/JUC-ThreadLocal数据结构JDK8前.png)
 
 JDK8 以后：每个 Thread 维护一个 ThreadLocalMap，这个 Map 的 key 是 ThreadLocal 实例本身，value 是真正要存储的值
 
@@ -3791,7 +3791,7 @@ JDK8 以后：每个 Thread 维护一个 ThreadLocalMap，这个 Map 的 key 是
 * Thread 内部的 Map 是由 ThreadLocal 维护的，由 ThreadLocal 负责向 map 获取和设置线程的变量值
 * 对于不同的线程，每次获取副本值时，别的线程并不能获取到当前线程的副本值，形成副本的隔离，互不干扰
 
-![](./JUC并发编程Img/JUC-ThreadLocal数据结构JDK8后.png)
+![](./assets/JUC并发编程Img/JUC-ThreadLocal数据结构JDK8后.png)
 
 JDK8 前后对比：
 
@@ -4128,7 +4128,7 @@ ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
   }
   ```
 
-  ![](./JUC并发编程Img/JUC-replaceStaleEntry流程.png)
+  ![](./assets/JUC并发编程Img/JUC-replaceStaleEntry流程.png)
 
   ```java
   private static int prevIndex(int i, int len) {
@@ -4630,7 +4630,7 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
   }
   ```
 
-  ![](./JUC并发编程Img/JUC-LinkedBlockingQueue入队流程.png)
+  ![](./assets/JUC并发编程Img/JUC-LinkedBlockingQueue入队流程.png)
 
 * 再来一个节点入队 `last = last.next = node`
 
@@ -4656,11 +4656,11 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
 
 * `h = head` → `first = h.next` 
 
-  ![](./JUC并发编程Img/JUC-LinkedBlockingQueue出队流程1.png)
+  ![](./assets/JUC并发编程Img/JUC-LinkedBlockingQueue出队流程1.png)
 
 * `h.next = h` → `head = first`
 
-  ![](./JUC并发编程Img/JUC-LinkedBlockingQueue出队流程2.png)
+  ![](./assets/JUC并发编程Img/JUC-LinkedBlockingQueue出队流程2.png)
 
   * `first.item = null`：当前节点置为 Dummy 节点
 
@@ -5470,7 +5470,7 @@ public ThreadPoolExecutor(int corePoolSize,
 
 工作原理：
 
-![](./JUC并发编程Img/JUC-线程池工作原理.png)
+![](./assets/JUC并发编程Img/JUC-线程池工作原理.png)
 
 1. 创建线程池，这时没有创建线程（**懒惰**），等待提交过来的任务请求，调用 execute 方法才会创建线程
 
@@ -5547,7 +5547,7 @@ Executors 提供了四种线程池的创建：newCachedThreadPool、newFixedThre
 
 * Executors.newFixedThreadPool(1) 初始时为 1，可以修改。对外暴露的是 ThreadPoolExecutor 对象，可以强转后调用 setCorePoolSize 等方法进行修改
 
-![](./JUC并发编程Img/JUC-newSingleThreadExecutor.png)
+![](./assets/JUC并发编程Img/JUC-newSingleThreadExecutor.png)
 
 
 
@@ -5697,7 +5697,7 @@ ThreadPoolExecutor 使用 int 的**高 3 位来表示线程池状态，低 29 �
   private static final int CAPACITY   = (1 << COUNT_BITS) - 1;
   ```
 
-  ![](./JUC并发编程Img/JUC-线程池状态转换图.png)
+  ![](./assets/JUC并发编程Img/JUC-线程池状态转换图.png)
 
 * 四种状态：
 
@@ -7939,7 +7939,7 @@ AbstractQueuedSynchronizer 中 state 设计：
   }
   ```
 
-  ![](./JUC并发编程Img/JUC-AQS队列设计.png)
+  ![](./assets/JUC并发编程Img/JUC-AQS队列设计.png)
 
 * 条件变量来实现等待、唤醒机制，支持多个条件变量，类似于 Monitor 的 WaitSet，**条件队列是单向链表**
 
@@ -8365,7 +8365,7 @@ public void lock() {
 
 * 再有多个线程经历竞争失败后：
 
-  ![](./JUC并发编程Img/JUC-ReentrantLock-非公平锁3.png)
+  ![](./assets/JUC并发编程Img/JUC-ReentrantLock-非公平锁3.png)
 
 
 
@@ -8465,14 +8465,14 @@ Thread-0 释放锁，进入 release 流程
   * head 指向刚刚 Thread-1 所在的 Node，该 Node 会清空 Thread
   * 原本的 head 因为从链表断开，而可被垃圾回收（图中有错误，原来的头节点的 waitStatus 被改为 0 了）
 
-  ![](./JUC并发编程Img/JUC-ReentrantLock-非公平锁4.png)
+  ![](./assets/JUC并发编程Img/JUC-ReentrantLock-非公平锁4.png)
 
 * 如果这时有其它线程来竞争**（非公平）**，例如这时有 Thread-4 来了并抢占了锁
 
   * Thread-4 被设置为 exclusiveOwnerThread，state = 1
   * Thread-1 再次进入 acquireQueued 流程，获取锁失败，重新进入 park 阻塞
 
-  ![](./JUC并发编程Img/JUC-ReentrantLock-非公平锁5.png)
+  ![](./assets/JUC并发编程Img/JUC-ReentrantLock-非公平锁5.png)
 
 
 
@@ -9047,7 +9047,7 @@ public static void main(String[] args) throws InterruptedException {
   private static final int THROW_IE = -1;
   ```
 
-  ![](./JUC并发编程Img/JUC-ReentrantLock-条件变量1.png)
+  ![](./assets/JUC并发编程Img/JUC-ReentrantLock-条件变量1.png)
 
 * **创建新的 Node 状态为 -2（Node.CONDITION）**，关联 Thread-0，加入等待队列尾部
 
@@ -9138,7 +9138,7 @@ public static void main(String[] args) throws InterruptedException {
 
 * fullyRelease 中会 unpark AQS 队列中的下一个节点竞争锁，假设 Thread-1 竞争成功
 
-  ![](./JUC并发编程Img/JUC-ReentrantLock-条件变量2.png)
+  ![](./assets/JUC并发编程Img/JUC-ReentrantLock-条件变量2.png)
 
 * Thread-0 进入 isOnSyncQueue 逻辑判断节点**是否移动到阻塞队列**，没有就 park 阻塞 Thread-0
 
@@ -9279,7 +9279,7 @@ public static void main(String[] args) throws InterruptedException {
   }
   ```
 
-  ![](./JUC并发编程Img/JUC-ReentrantLock-条件变量3.png)
+  ![](./assets/JUC并发编程Img/JUC-ReentrantLock-条件变量3.png)
 
 * Thread-1 释放锁，进入 unlock 流程
 
@@ -9735,7 +9735,7 @@ Sync 类的属性：
 
 * 这种状态下，假设又有 t3 r.lock，t4 w.lock，这期间 t1 仍然持有锁，就变成了下面的样子
 
-  ![](./JUC并发编程Img/JUC-ReentrantReadWriteLock加锁2.png)
+  ![](./assets/JUC并发编程Img/JUC-ReentrantReadWriteLock加锁2.png)
 
 
 
@@ -10585,7 +10585,7 @@ public static void main(String[] args) {
   }
   ```
 
-  ![](./JUC并发编程Img/JUC-Semaphore工作流程1.png)
+  ![](./assets/JUC并发编程Img/JUC-Semaphore工作流程1.png)
 
 * 这时 Thread-4 释放了 permits，状态如下
 
@@ -10619,7 +10619,7 @@ public static void main(String[] args) {
   }
   ```
 
-  ![](./JUC并发编程Img/JUC-Semaphore工作流程2.png)
+  ![](./assets/JUC并发编程Img/JUC-Semaphore工作流程2.png)
 
 * 接下来 Thread-0 竞争成功，permits 再次设置为 0，设置自己为 head 节点，并且 unpark 接下来的共享状态的 Thread-3 节点，但由于 permits 是 0，因此 Thread-3 在尝试不成功后再次进入 park 状态
 
@@ -10814,7 +10814,7 @@ class ThreadB extends Thread{
 4. ConcurrentHashMap、Hashtable **不允许 null 值**，HashMap 允许 null 值
 5. ConcurrentHashMap、HashMap 的初始容量为 16，Hashtable 初始容量为11，填充因子默认都是 0.75，两种 Map 扩容是当前容量翻倍：capacity * 2，Hashtable 扩容时是容量翻倍 + 1：capacity*2 + 1
 
-![ConcurrentHashMap数据结构](./JUC并发编程Img/ConcurrentHashMap数据结构.png)
+![ConcurrentHashMap数据结构](./assets/JUC并发编程Img/ConcurrentHashMap数据结构.png)
 
 工作步骤：
 
@@ -11774,7 +11774,7 @@ public V put(K key, V value) {
   
   链表处理的 LastRun 机制，**可以减少节点的创建**
   
-  ![](./JUC并发编程Img/JUC-ConcurrentHashMap-LastRun机制.png)
+  ![](./assets/JUC并发编程Img/JUC-ConcurrentHashMap-LastRun机制.png)
   
 * helpTransfer()：帮助扩容机制
 
@@ -12022,7 +12022,7 @@ ConcurrentHashMap 对锁粒度进行了优化，**分段锁技术**，将整张�
 
 * 缺点：Segments 数组默认大小为16，这个容量初始化指定后就不能改变了，并且不是懒惰初始化
 
-  ![](./JUC并发编程Img/JUC-ConcurrentHashMap 1.7底层结构.png)
+  ![](./assets/JUC并发编程Img/JUC-ConcurrentHashMap 1.7底层结构.png)
 
 
 
@@ -12251,7 +12251,7 @@ ConcurrentSkipListMap 提供了一种线程安全的并发访问的排序映射�
 * 对平衡树的插入和删除往往很可能导致平衡树进行一次全局的调整；而对跳表的插入和删除，**只需要对整个结构的局部进行操作**
 * 在高并发的情况下，保证整个平衡树的线程安全需要一个全局锁；对于跳表则只需要部分锁，拥有更好的性能
 
-![](./JUC并发编程Img/JUC-ConcurrentSkipListMap数据结构.png)
+![](./assets/JUC并发编程Img/JUC-ConcurrentSkipListMap数据结构.png)
 
 BaseHeader 存储数据，headIndex 存储索引，纵向上**所有索引都指向链表最下面的节点**
 
@@ -12420,7 +12420,7 @@ BaseHeader 存储数据，headIndex 存储索引，纵向上**所有索引都指
   }
   ```
 
-  ![](./JUC并发编程Img/JUC-ConcurrentSkipListMap-Put流程.png)
+  ![](./assets/JUC并发编程Img/JUC-ConcurrentSkipListMap-Put流程.png)
 
 * put()：添加数据
 
@@ -12782,7 +12782,7 @@ BaseHeader 存储数据，headIndex 存储索引，纵向上**所有索引都指
 
   经过 findPredecessor() 中的 unlink() 后索引已经被删除
 
-  ![](./JUC并发编程Img/JUC-ConcurrentSkipListMap-remove流程.png)
+  ![](./assets/JUC并发编程Img/JUC-ConcurrentSkipListMap-remove流程.png)
 
 * appendMarker()：添加删除标记节点
 
@@ -12967,11 +12967,11 @@ public boolean offer(E e) {
 
 图解入队：
 
-![](./JUC并发编程Img/JUC-ConcurrentLinkedQueue入队操作1.png)
+![](./assets/JUC并发编程Img/JUC-ConcurrentLinkedQueue入队操作1.png)
 
-![](./JUC并发编程Img/JUC-ConcurrentLinkedQueue入队操作2.png)
+![](./assets/JUC并发编程Img/JUC-ConcurrentLinkedQueue入队操作2.png)
 
-![](./JUC并发编程Img/JUC-ConcurrentLinkedQueue入队操作3.png)
+![](./assets/JUC并发编程Img/JUC-ConcurrentLinkedQueue入队操作3.png)
 
 当 tail 节点和尾节点的距离**大于等于 1** 时（每入队两次）更新 tail，可以减少 CAS 更新 tail 节点的次数，提高入队效率
 
@@ -13034,11 +13034,11 @@ final void updateHead(Node<E> h, Node<E> p) {
 
 在更新完 head 之后，会将旧的头结点 h 的 next 域指向为 h，图中所示的虚线也就表示这个节点的自引用，被移动的节点（item 为 null 的节点）会被 GC 回收
 
-![](./JUC并发编程Img/JUC-ConcurrentLinkedQueue出队操作1.png)
+![](./assets/JUC并发编程Img/JUC-ConcurrentLinkedQueue出队操作1.png)
 
-![](./JUC并发编程Img/JUC-ConcurrentLinkedQueue出队操作2.png)
+![](./assets/JUC并发编程Img/JUC-ConcurrentLinkedQueue出队操作2.png)
 
-![](./JUC并发编程Img/JUC-ConcurrentLinkedQueue出队操作3.png)
+![](./assets/JUC并发编程Img/JUC-ConcurrentLinkedQueue出队操作3.png)
 
 如果这时，有一个线程来添加元素，通过 tail 获取的 next 节点则仍然是它本身，这就出现了p == q 的情况，出现该种情况之后，则会触发执行 head 的更新，将 p 节点重新指向为 head
 

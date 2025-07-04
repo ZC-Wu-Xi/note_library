@@ -1,3 +1,0 @@
-- hmal: 黑马商城项目 未完结
-  - 包含nacos、openfeign、gateway、sentinel、seata、rabbitMQ(rabbitMQ详见cloud中间件-rabbitMQ)、redis
-- 

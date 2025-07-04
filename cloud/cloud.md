@@ -4,7 +4,7 @@
 
 SpringCloud 是分布式微服务的一站式解决方案，是多种微服务落地技术的集合体，俗称微服务全家桶
 
-![Cloud-组件概览](./cloudImg/Cloud-组件概览.png)
+![Cloud-组件概览](./assets/cloudImg/Cloud-组件概览.png)
 
 
 
@@ -28,7 +28,7 @@ SpringCloud 是分布式微服务的一站式解决方案，是多种微服务�
 
 Spring Cloud 封装了 Netflix 公司开发的 Eureka 模块来实现服务治理。Eureka 采用了 CS(Client-Server) 的设计架构，Eureka Server 是服务注册中心，系统中的其他微服务使用 Eureka 的客户端连接到 Eureka Server 并维持心跳连接
 
-![Cloud-Eureka和Dubbo对比](./cloudImg/Cloud-Eureka和Dubbo对比.png)
+![Cloud-Eureka和Dubbo对比](./assets/cloudImg/Cloud-Eureka和Dubbo对比.png)
 
 * Eureka Server 提供服务注册服务：各个微服务节点通过配置启动后，会在 EurekaServer 中进行注册，EurekaServer 中的服务注册表中将会存储所有可用服务节点的信息，并且具有可视化界面
 
@@ -197,7 +197,7 @@ Spring Cloud 封装了 Netflix 公司开发的 Eureka 模块来实现服务治�
 
 * 浏览器访问 http://localhost:7001
 
-  ![Cloud-Eureka可视化界面](./cloudImg/Cloud-Eureka可视化界面.png)
+  ![Cloud-Eureka可视化界面](./assets/cloudImg/Cloud-Eureka可视化界面.png)
 
 
 
@@ -211,7 +211,7 @@ Spring Cloud 封装了 Netflix 公司开发的 Eureka 模块来实现服务治�
 
 Server 端高可用集群原理：实现负载均衡和故障容错，互相注册，相互守望
 
-![Cloud-Eureka集群原理](./cloudImg/Cloud-Eureka集群原理.png)
+![Cloud-Eureka集群原理](./assets/cloudImg/Cloud-Eureka集群原理.png)
 
 多台 Eureka 服务器，每一台 Eureka 服务器需要有自己的主机名，同时各服务器需要相互注册
 
@@ -268,7 +268,7 @@ Server 端高可用集群原理：实现负载均衡和故障容错，互相注�
 
 * 访问 http://eureka7001.com:7001 和 http://eureka7002.com:7002：
 
-  ![Cloud-EurekaServer集群构建成功](./cloudImg/Cloud-EurekaServer集群构建成功.png)
+  ![Cloud-EurekaServer集群构建成功](./assets/cloudImg/Cloud-EurekaServer集群构建成功.png)
 
 * RPC 调用：controller.OrderController
 
@@ -429,7 +429,7 @@ public static final String PAYMENT_URL = "http://localhost:8002";
 
 保护模式用于客户端和 EurekaServer 之间存在网络分区场景下的保护，一旦进入保护模式 EurekaServer 将会尝试保护其服务注册表中的信息，不在删除服务注册表中的数据，属于 CAP 里面的 AP 思想（可用性和分区容错性）
 
-![Cloud-Eureka自我保护机制](./cloudImg/Cloud-Eureka自我保护机制.png)
+![Cloud-Eureka自我保护机制](./assets/cloudImg/Cloud-Eureka自我保护机制.png)
 
 如果一定时间内丢失大量该微服务的实例，这时 Eureka 就会开启自我保护机制，不会剔除该服务。 因为这个现象可能是因为网络暂时不通，出现了 Eureka 的假死、拥堵、卡顿，客户端恢复后还能正常发送心跳
 
@@ -655,7 +655,7 @@ Ribbon 本地负载均衡客户端与 Nginx 服务端负载均衡区别：
 
 Ribbon 是一个软负载均衡的客户端组件
 
-![Cloud-Ribbon架构原理](./cloudImg/Cloud-Ribbon架构原理.png)
+![Cloud-Ribbon架构原理](./assets/cloudImg/Cloud-Ribbon架构原理.png)
 
 - 第一步先选择 EurekaServer，优先选择在同一个区域内负载较少的 Server
 - 第二步根据用户指定的策略，再从 Server 取到的服务注册列表中选择一个地址
@@ -678,7 +678,7 @@ Ribbon 核心组件 IRule 接口，主要实现类：
 - AvailabilityFilteringRule：先过滤掉故障实例，再选择并发较小的实例
 - ZoneAvoidanceRule：默认规则，复合判断 Server 所在区域的性能和 Server 的可用性选择服务器
 
-![Cloud-IRule类图](./cloudImg/Cloud-IRule类图.png)
+![Cloud-IRule类图](./assets/cloudImg/Cloud-IRule类图.png)
 
 注意：官方文档明确给出了警告，自定义负载均衡配置类不能放在 @ComponentScan 所扫描的当前包下以及子包下
 
@@ -862,7 +862,7 @@ ribbon:
 
 * 测试报错：
 
-  ![Cloud-OpenFeign超时错误](./cloudImg/Cloud-OpenFeign超时错误.png)!](C:\Users\Seazean\Desktop\123\Cloud-OpenFeign超时错误.png)
+  ![Cloud-OpenFeign超时错误](./assets/cloudImg/Cloud-OpenFeign超时错误.png)!](C:\Users\Seazean\Desktop\123\Cloud-OpenFeign超时错误.png)
 
 
 
@@ -1183,7 +1183,7 @@ Hystrix 会监控微服务间调用的状况，当失败的调用到一定阈值
 - 熔断关闭：熔断关闭不会对服务进行熔断，服务正常调用
 - 熔断半开：部分请求根据规则调用当前服务，如果请求成功且符合规则则认为当前服务恢复正常，关闭熔断，反之继续熔断
 
-![Cloud-Hystrix熔断机制](./cloudImg/Cloud-Hystrix熔断机制.png)
+![Cloud-Hystrix熔断机制](./assets/cloudImg/Cloud-Hystrix熔断机制.png)
 
 
 
@@ -1261,7 +1261,7 @@ public String paymentCircuitBreaker(@PathVariable("id") Integer id) {
 
 注意：如果、没有为命令实现降级逻辑或者在降级处理逻辑中抛出了异常， Hystrix 依然会返回一个 Observable 对象， 但是它不会发射任何结果数据，而是通过 onError 方法通知命令立即中断请求，并通过 onError() 方法将引起命令失败的异常发送给调用者
 
-![Cloud-Hystrix工作流程](./cloudImg/Cloud-Hystrix工作流程.png)
+![Cloud-Hystrix工作流程](./assets/cloudImg/Cloud-Hystrix工作流程.png)
 
 
 
@@ -1318,7 +1318,7 @@ Hystrix 提供了准实时的调用监控（Hystrix Dashboard），Hystrix 会�
 
 * 启动测试：http://localhost:9001/hystrix
 
-  <img src="./cloudImg/Cloud-Hystrix可视化界面.png" alt="Cloud-Hystrix可视化界面" style="zoom: 67%;" />
+  <img src="./assets/cloudImg/Cloud-Hystrix可视化界面.png" alt="Cloud-Hystrix可视化界面" style="zoom: 67%;" />
 
 * 新版本 Hystrix 需要在需要监控的微服务端的主启动类中指定监控路径，不然会报错
 
@@ -1350,7 +1350,7 @@ Hystrix 提供了准实时的调用监控（Hystrix Dashboard），Hystrix 会�
 
 * 指标说明：
 
-  ![Cloud-Hystrix界面图示说明](./cloudImg/Cloud-Hystrix界面图示说明.png)
+  ![Cloud-Hystrix界面图示说明](./assets/cloudImg/Cloud-Hystrix界面图示说明.png)
 
 
 
@@ -1395,7 +1395,7 @@ Gateway 的三个核心组件：
 * Predicate：断言，可以匹配 HTTP 请求中的所有内容（例如请求头或请求参数），如果请求参数与断言相匹配则进行路由
 * Filter：指 Spring 框架中的 GatewayFilter实例，使用过滤器可以在请求被路由前或之后（拦截）对请求进行修改
 
-![Cloud-Gateway工作流程](./cloudImg/Cloud-Gateway工作流程.png)
+![Cloud-Gateway工作流程](./assets/cloudImg/Cloud-Gateway工作流程.png)
 
 核心逻辑：路由转发 + 执行过滤器链
 
@@ -1576,7 +1576,7 @@ After Route Predicate：匹配该断言时间之后的 URI 请求
 
 * 测试：正常访问成功，将时间修改到 2023-01-10T16:31:44.106+08:00[Asia/Shanghai] 之后访问失败
 
-  ![Cloud-Gateway时间断言](./cloudImg/Cloud-Gateway时间断言.png)
+  ![Cloud-Gateway时间断言](./assets/cloudImg/Cloud-Gateway时间断言.png)
 
 常见断言类型：
 
@@ -1686,7 +1686,7 @@ public class MyLogGateWayFilter implements GlobalFilter, Ordered {
 
 SpringCloud Config 为微服务架构中的微服务提供集中化的外部配置支持（Git/GitHub），为各个不同微服务应用的所有环境提供了一个中心化的外部配置（Config Server）
 
-![Cloud-Config工作原理](./cloudImg/Cloud-Config工作原理.png)
+![Cloud-Config工作原理](./assets/cloudImg/Cloud-Config工作原理.png)
 
 SpringCloud Config 分为服务端和客户端两部分
 
@@ -1958,7 +1958,7 @@ Spring Cloud Bus 能管理和传播分布式系统间的消息，就像分布式
 
 利用消息总线接触一个服务端 ConfigServer 的 `/bus/refresh` 断点，从而刷新所有客户端的配置
 
-<img src="./cloudImg/Cloud-Bus全局广播架构.png" alt="Cloud-Bus全局广播架构" style="zoom:67%;" />
+<img src="./assets/cloudImg/Cloud-Bus全局广播架构.png" alt="Cloud-Bus全局广播架构" style="zoom:67%;" />
 
 改造 ConfigClient：
 
@@ -2013,7 +2013,7 @@ Spring Cloud Bus 能管理和传播分布式系统间的消息，就像分布式
 
 /bus/refresh 请求不再发送到具体的服务实例上，而是发给 Config Server 并通过 destination 参数类指定需要更新配置的服务或实例
 
-![Cloud-Bus工作流程](./cloudImg/Cloud-Bus工作流程.png)
+![Cloud-Bus工作流程](./assets/cloudImg/Cloud-Bus工作流程.png)
 
 
 
@@ -2033,7 +2033,7 @@ Spring Cloud Stream 是一个构建消息驱动微服务的框架，通过定义
 
 Stream 中的消息通信方式遵循了发布订阅模式，Binder 可以生成 Binding 用来绑定消息容器的生产者和消费者，Binding 有两种类型 Input 和 Output，Input 对应于消费者（消费者从 Stream 接收消息），Output 对应于生产者（生产者从 Stream 发布消息）
 
-![Cloud-Stream工作流程](./cloudImg/Cloud-Stream工作流程.png)
+![Cloud-Stream工作流程](./assets/cloudImg/Cloud-Stream工作流程.png)
 
 - Binder：连接中间件
 - Channel：通道，是队列 Queue 的一种抽象，在消息通讯系统中实现存储和转发的媒介，通过 Channel 对队列进行配置
@@ -2478,7 +2478,7 @@ Nacos 作为服务注册中心
 
 * 管理后台服务：
 
-  ![Cloud-Nacos服务列表](./cloudImg/Cloud-Nacos服务列表.png)
+  ![Cloud-Nacos服务列表](./assets/cloudImg/Cloud-Nacos服务列表.png)
 
 * 新建一个模块端口是 9002，其他与 9001 服务一样，nacos-payment-provider 的实例数就变为 2
 
@@ -2636,7 +2636,7 @@ Nacos 作为服务注册中心
 
 * 新增配置，然后访问 http://localhost:3377/config/info
 
-  ![Cloud-Nacos新增配置](./cloudImg/Cloud-Nacos新增配置.png)
+  ![Cloud-Nacos新增配置](./assets/cloudImg/Cloud-Nacos新增配置.png)
 
 
 
@@ -2648,7 +2648,7 @@ Nacos 作为服务注册中心
 
 分布式开发中的多环境多项目管理问题，Namespace 用于区分部署环境，Group 和 DataID 逻辑上区分两个目标对象
 
-![Cloud-Nacos配置说明](./cloudImg/Cloud-Nacos配置说明.png)
+![Cloud-Nacos配置说明](./assets/cloudImg/Cloud-Nacos配置说明.png)
 
 Namespace 默认 public，主要用来实现隔离，图示三个开发环境
 
@@ -2686,7 +2686,7 @@ spring:
         namespace: 95d44530-a4a6-4ead-98c6-23d192cee298
 ```
 
-![Cloud-Nacos命名空间](./cloudImg/Cloud-Nacos命名空间.png)
+![Cloud-Nacos命名空间](./assets/cloudImg/Cloud-Nacos命名空间.png)
 
 
 
@@ -2857,7 +2857,7 @@ Sentinel 分为两个部分：
   * Warm Up：冷启动，根据 codeFactory（冷加载因子，默认 3）的值，从 count/codeFactory 开始缓慢增加，给系统预热时间
   * 排队等待：匀速排队，让请求以匀速的方式通过，阈值类型必须设置为 QPS，否则无效
 
-<img src="./cloudImg/Cloud-Sentinel增加流控规则.png" alt="Cloud-Sentinel增加流控规则" style="zoom: 40%;" />
+<img src="./assets/cloudImg/Cloud-Sentinel增加流控规则.png" alt="Cloud-Sentinel增加流控规则" style="zoom: 40%;" />
 
 通过调用 `SystemRuleManager.loadRules()` 方法来用硬编码的方式定义流量控制规则：
 
@@ -2898,7 +2898,7 @@ Sentinel 提供以下几种熔断策略：
 * 统计时长 statIntervalMs：单位统计时长
 * 慢调用比例阈值 slowRatioThreshold：仅慢调用比例模式有效
 
-<img src="./cloudImg/Cloud-Sentinel增加熔断规则.png" alt="Cloud-Sentinel增加熔断规则" style="zoom: 67%;" />
+<img src="./assets/cloudImg/Cloud-Sentinel增加熔断规则.png" alt="Cloud-Sentinel增加熔断规则" style="zoom: 67%;" />
 
 注意异常降级仅针对业务异常，对 Sentinel 限流降级本身的异常 BlockException 不生效，为了统计异常比例或异常数，需要通过 `Tracer.trace(ex)` 记录业务异常或者通过`@SentinelResource` 注解会自动统计业务异常
 
@@ -2934,7 +2934,7 @@ try {
 
 热点参数限流会统计传入参数中的热点参数，并根据配置的限流阈值与模式，对包含热点参数的资源调用进行限流，Sentinel 利用 LRU 策略统计最近最常访问的热点参数，结合令牌桶算法来进行参数级别的流控
 
-<img src="./cloudImg/Cloud-Sentinel热点参数限流.png" alt="Cloud-Sentinel热点参数限流" style="zoom: 67%;" />
+<img src="./assets/cloudImg/Cloud-Sentinel热点参数限流.png" alt="Cloud-Sentinel热点参数限流" style="zoom: 67%;" />
 
 引入 @SentinelResource 注解：https://sentinelguard.io/zh-cn/docs/annotation-support.html
 
@@ -2964,7 +2964,7 @@ public String del_testHotKey(String p1, String p2, BlockException e) {
 
 图示设置 p1 参数限流，规则是 1s 访问 1 次，当 p1=5 时 QPS > 100，只访问 p2 不会出现限流 `http://localhost:8401/testHotKey?p2=b`
 
-<img src="./cloudImg/Cloud-Sentinel增加热点规则.png" alt="Cloud-Sentinel增加热点规则" style="zoom:50%;" />
+<img src="./assets/cloudImg/Cloud-Sentinel增加热点规则.png" alt="Cloud-Sentinel增加热点规则" style="zoom:50%;" />
 
 * 参数索引 paramIdx：热点参数的索引，图中索引 0 对应方法中的 p1 参数
 * 参数例外项 paramFlowItemList：针对指定的参数值单独设置限流阈值，不受 count 阈值的限制，**仅支持基本类型和字符串类型**
@@ -2993,7 +2993,7 @@ Sentinel 系统自适应保护从整体维度对**应用入口流量**进行控�
 - 入口 QPS：当单台机器上所有入口流量的 QPS 达到阈值即触发系统保护
 - CPU usage：当系统 CPU 使用率超过阈值即触发系统保护（取值范围 0.0-1.0）
 
-<img src="./cloudImg/Cloud-Sentinel增加系统规则.png" alt="Cloud-Sentinel增加系统规则" style="zoom:50%;" />
+<img src="./assets/cloudImg/Cloud-Sentinel增加系统规则.png" alt="Cloud-Sentinel增加系统规则" style="zoom:50%;" />
 
 
 
@@ -3135,7 +3135,7 @@ Sentinel 系统自适应保护从整体维度对**应用入口流量**进行控�
 4. TM 向 TC 发起针对 XID 的全局提交或回滚决议
 5. TC 调度 XID 下管辖的全部分支事务完成提交或回滚请求
 
-<img src="./cloudImg/Cloud-分布式事务流程.png" alt="Cloud-分布式事务流程" style="zoom:67%;" />
+<img src="./assets/cloudImg/Cloud-分布式事务流程.png" alt="Cloud-分布式事务流程" style="zoom:67%;" />
 
 
 
@@ -3153,17 +3153,17 @@ Seata 是一款开源的分布式事务解决方案，致力于提供高性能�
 
   **事务分组**：seata 的资源逻辑，可以按微服务的需要，在应用程序（客户端）对自行定义事务分组，每组取一个名字
 
-  <img src="./cloudImg/Cloud-Seata配置文件.png" alt="Cloud-Seata配置文件" style="zoom:50%;" />
+  <img src="./assets/cloudImg/Cloud-Seata配置文件.png" alt="Cloud-Seata配置文件" style="zoom:50%;" />
 
 * 数据库新建库 seata，建表 db_store.sql 在 https://github.com/seata/seata/tree/2.x/script/server/db 目录里面
 
 * registry.conf：指明注册中心为 Nacos，及修改 Nacos 连接信息
 
-  <img src="./cloudImg/Cloud-Seata注册中心配置.png" alt="Cloud-Seata注册中心配置" style="zoom: 71%;" />
+  <img src="./assets/cloudImg/Cloud-Seata注册中心配置.png" alt="Cloud-Seata注册中心配置" style="zoom: 71%;" />
 
 启动 Nacos 和 Seata，如果 DB 报错，需要把将 lib 文件夹下 mysql-connector-java-5.1.30.jar 删除，替换为自己 MySQL 连接器版本
 
-<img src="./cloudImg/Cloud-Seata配置成功.png" alt="Cloud-Seata配置成功" style="zoom:80%;" />
+<img src="./assets/cloudImg/Cloud-Seata配置成功.png" alt="Cloud-Seata配置成功" style="zoom:80%;" />
 
 
 

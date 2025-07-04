@@ -11,7 +11,7 @@
 
  锁是通过竞争的方式，每次有且只有一个线程能够操作这个变量，而ThreadLocal则是通过 让每个线程能够同时操作 单独属于自己的变量，来保证线程安全
 
-![image.png](./ThreadLocalImg/1746262273646-ee241446-730b-426b-a26f-aebe24a93c3d.webp)
+![image.png](./assets/ThreadLocalImg/1746262273646-ee241446-730b-426b-a26f-aebe24a93c3d.webp)
 
 ### 1. 上锁解决线程安全问题 
 
@@ -110,7 +110,7 @@ public class TaskStockLocked {
 }
 ```
 
-![image.png](./ThreadLocalImg/1746167649549-6e0043d2-8d73-430f-bedb-ca474cc6da22.webp)
+![image.png](./assets/ThreadLocalImg/1746167649549-6e0043d2-8d73-430f-bedb-ca474cc6da22.webp)
 
 图：上锁保证线程安全
 
@@ -122,7 +122,7 @@ public class TaskStockLocked {
 
 通常我们会在请求的一开始，在拦截器类中，把这个用户信息获取并存储在共享变量中，而不是在业务代码需要的时候再去获取。
 
-![image.png](./ThreadLocalImg/1746210952195-361b7ae9-ad1f-4b0e-9827-6b474d281cd7.webp)
+![image.png](./assets/ThreadLocalImg/1746210952195-361b7ae9-ad1f-4b0e-9827-6b474d281cd7.webp)
 
 图：拦截器类保存用户信息
 
@@ -130,7 +130,7 @@ public class TaskStockLocked {
 
 为解决这个问题，我们可以让每一个线程只获取到自己的变量，而不会获取到别人的变量，可以使用threadlocal。给每一个用户也就是每一个线程，创建一个变量副本，当新增一条任务领取记录时，获取的用户信息就是当前线程的用户信息。而且当我们新增领取任务记录和库存扣减时，也不会去修改用户信息，也就是修改这个变量，所以这种场景threadlocal非常适合。
 
-![image.png](./ThreadLocalImg/1746177313759-5ecd42a4-5b92-43fc-b8ee-15105880ec4f.webp)
+![image.png](./assets/ThreadLocalImg/1746177313759-5ecd42a4-5b92-43fc-b8ee-15105880ec4f.webp)
 
 图：threadlocal保存用户信息
 
@@ -162,7 +162,7 @@ java8之后：thread线程维护整个ThreadLocalMap,每个entry对象key是Thre
 
 第二个好处：**减少内存的使用**，当一个线程执行结束后，对应的栈帧就会销毁，存在堆内存中的threadlocalmap就没有与之关联的引用，也会随之销毁以减少内存的使用。java8之前用threadlocal维护一整个threadlocalmap，哪怕线程执行完毕threadlocalmap依旧不会回收
 
-![image.png](./ThreadLocalImg/1746215636367-646ce8ba-37db-4ba5-bdf4-2660c4053478.webp)
+![image.png](./assets/ThreadLocalImg/1746215636367-646ce8ba-37db-4ba5-bdf4-2660c4053478.webp)
 
 ## 四. ThreadLocal内存泄漏 
 
@@ -180,7 +180,7 @@ java8之后：thread线程维护整个ThreadLocalMap,每个entry对象key是Thre
 
 那threadlocal对象被回收了，与threadlocal对象存在引用关系的key就会被设置成null ，那为什么不是回收掉这个key呢，因为threadlocal对象是和key的值存在引用关系，而不是和entry对象存在引用关系，所以entry对象中的key和value还是存在的，只是key的值因为threadlocal对象被回收掉了变成了null，当我们调用threadlocal的get方法，识别key为null就会把value也设置成null。这样entry对象的key和value都是null，就会被垃圾回收，从而避免了内存泄漏。当然不能绝对避免，还是有非常低的概率，原因上面也说了，就是栈中的threadlocal引用还在。所以万无一失的方法就是用完threadlocal，就调用remove方法。
 
-![image.png](./ThreadLocalImg/1746254304831-1844a5ba-538d-49bb-8898-d1b5d02d0e93.webp)
+![image.png](./assets/ThreadLocalImg/1746254304831-1844a5ba-538d-49bb-8898-d1b5d02d0e93.webp)
 
 图：ThreadLocal内存泄漏
 

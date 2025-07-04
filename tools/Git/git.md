@@ -40,7 +40,7 @@
 
 ### git工作区
 
-![image-20250221190429465](./gitImg/image-20250221190429465.png)
+![image-20250221190429465](./assets/gitImg/image-20250221190429465.png)
 
 **工作目录(Working directory)**
 
@@ -67,7 +67,7 @@
 
 **操作：创建一个文件到工作目录**
 
-![image-20250221190922273](./gitImg/image-20250221190922273.png)
+![image-20250221190922273](./assets/gitImg/image-20250221190922273.png)
 
 - **未跟踪的文件(untracked file)**
   - 在工作目录中，未受Gt版本控制的文件
@@ -120,7 +120,7 @@
 
 ### 介绍
 
-![image-20250224205347402](./gitImg/image-20250224205347402.png)
+![image-20250224205347402](./assets/gitImg/image-20250224205347402.png)
 
 **什么是分支？**
 
@@ -132,7 +132,7 @@
 
 **分支是指向提交(commit)的可移动指针：**
 
- <img src="./gitImg/image-20250224211343343.png" alt="image-20250224211343343" style="zoom:67%;" />
+ <img src="./assets/gitImg/image-20250224211343343.png" alt="image-20250224211343343" style="zoom:67%;" />
 
 在.git的head目录中可以看到master分支，heads中的每一个文件表示一个本地分支，其中是对最新提交的引用
 
@@ -160,7 +160,7 @@
 
 当前状态(对应[实操：查看并新建分支](##实操：查看并新建分支)操作完成后)：
 
-![image-20250224212913529](./gitImg/image-20250224212913529.png)
+![image-20250224212913529](./assets/gitImg/image-20250224212913529.png)
 
 ### 命令-切换分支
 
@@ -214,7 +214,7 @@
 - **目标分支：**接收变更，合并后内容发生改变的分支
 - 合并时，先要切换到目标分支
 
-![image-20250226094258205](./gitImg/image-20250226094258205.png)
+![image-20250226094258205](./assets/gitImg/image-20250226094258205.png)
 
 ### 合并方式
 
@@ -233,13 +233,13 @@
 
 **快速合并示意图(无分叉)：**
 
-![image-20250227135554552](./gitImg/image-20250227135554552.png)
+![image-20250227135554552](./assets/gitImg/image-20250227135554552.png)
 
 **三方合并示意图(有分叉)：**
 
 
 
-![image-20250227135807232](./gitImg/image-20250227135807232.png)
+![image-20250227135807232](./assets/gitImg/image-20250227135807232.png)
 
 
 ### **合并分支-快进合并**
@@ -299,11 +299,11 @@
 
 **从本地仓库开始：**
 
-![image-20250227162840223](./gitImg/image-20250227162840223.png)
+![image-20250227162840223](./assets/gitImg/image-20250227162840223.png)
 
 **从远程仓库开始：**
 
-![image-20250227163025272](./gitImg/image-20250227163025272.png)
+![image-20250227163025272](./assets/gitImg/image-20250227163025272.png)
 
 ### 远程仓库的作用
 
@@ -444,11 +444,11 @@ eg：
 - 为本地分支设定上游分支(upstream branch)
 - `Pull`拉取&合并
 
-![image-20250301144834373](./gitImg/image-20250301144834373.png)
+![image-20250301144834373](./assets/gitImg/image-20250301144834373.png)
 
 ### 三方合并示意图(有分叉)
 
-![image-20250227135807232](./gitImg/image-20250227135807232.png)
+![image-20250227135807232](./assets/gitImg/image-20250227135807232.png)
 
 ### 命令-设定上游分支
 
@@ -477,7 +477,7 @@ eg：
   - **否则**分两步合并，**先`git fetch`拉取**，**然后视情况做**`merge(--no-rebase) or rebase(--rebase)`
   - 本文档只在满足快进合并条件时才用`git pull`
 
-<img src="./gitImg/image-20250302005545299.png" alt="image-20250302005545299" style="zoom:67%;" />
+<img src="./assets/gitImg/image-20250302005545299.png" alt="image-20250302005545299" style="zoom:67%;" />
 
 > 建议：**满足快进合并的条件下使用`git pull`拉取合并，否则使用`git fetch`拉取+`merge(--no-rebase) or rebase(--rebase)`**
 
@@ -489,7 +489,7 @@ eg：
 
 ## 三方合并-有冲突(Merge Conflicts)
 
-<img src="./gitImg/image-20250302140009716.png" alt="image-20250302140009716" style="zoom:67%;" />
+<img src="./assets/gitImg/image-20250302140009716.png" alt="image-20250302140009716" style="zoom:67%;" />
 
 演示带有冲突(Conflicts)的三方合并(Three-Way Merge)
 
@@ -509,7 +509,7 @@ eg：
 
 ## 变基(Rebase)
 
- <img src="./gitImg/image-20250302153830773.png" alt="image-20250302153830773" style="zoom:67%;" />
+ <img src="./assets/gitImg/image-20250302153830773.png" alt="image-20250302153830773" style="zoom:67%;" />
 
 - 演示变基(rebase)+冲突解决
 - 变基过程的五个步骤
@@ -524,7 +524,7 @@ eg：
 
 **注意⚠：变基会产生新提交，改变提交历史**
 
-<img src="./gitImg/image-20250302154522336.png" alt="image-20250302154522336" style="zoom:67%;" />
+<img src="./assets/gitImg/image-20250302154522336.png" alt="image-20250302154522336" style="zoom:67%;" />
 
 > **上图含义：**
 >
@@ -622,13 +622,13 @@ git init
 git add 12_shengxiao.txt # 将文件添加到暂存区
 ```
 
-![image-20250224204347999](./gitImg/image-20250224204347999.png)
+![image-20250224204347999](./assets/gitImg/image-20250224204347999.png)
 
 ```shell
 git commit -m "鼠" # 提交文件
 ```
 
-![image-20250224204750293](./gitImg/image-20250224204750293.png)
+![image-20250224204750293](./assets/gitImg/image-20250224204750293.png)
 
 ```shell
 $ git log # 查看目前已有提交命令
@@ -641,7 +641,7 @@ Date:   Mon Feb 24 20:45:02 2025 +0800
 
 **当前仓库状态：**
 
-<img src="./gitImg/image-20250224211343343.png" alt="image-20250224211343343" style="zoom:67%;" />
+<img src="./assets/gitImg/image-20250224211343343.png" alt="image-20250224211343343" style="zoom:67%;" />
 
 ## 实操：修改并提交
 
@@ -683,7 +683,7 @@ Date:   Mon Feb 24 20:45:02 2025 +0800
 
 **当前仓库状态：**
 
-<img src="./gitImg/image-20250224211623596.png" alt="image-20250224211623596" style="zoom:67%;" />
+<img src="./assets/gitImg/image-20250224211623596.png" alt="image-20250224211623596" style="zoom:67%;" />
 
 上图中
 
@@ -716,7 +716,7 @@ Date:   Mon Feb 24 20:45:02 2025 +0800
 
 **当前仓库状态：**
 
- <img src="./gitImg/image-20250224213245997.png" alt="image-20250224213245997" style="zoom:80%;" />
+ <img src="./assets/gitImg/image-20250224213245997.png" alt="image-20250224213245997" style="zoom:80%;" />
 
 ## 实操：切换分支并修改文件提交
 
@@ -751,7 +751,7 @@ Date:   Mon Feb 24 20:45:02 2025 +0800
 
 **当前仓库状态：**
 
- <img src="./gitImg/image-20250224214151309.png" alt="image-20250224214151309" style="zoom:67%;" />
+ <img src="./assets/gitImg/image-20250224214151309.png" alt="image-20250224214151309" style="zoom:67%;" />
 
 `.git/HEAD`文件：HEAD指向了feature分支
 
@@ -794,7 +794,7 @@ $ git branch
 
 **当前仓库状态：**
 
-![image-20250226094127188](./gitImg/image-20250226094127188.png)
+![image-20250226094127188](./assets/gitImg/image-20250226094127188.png)
 
 ## 实操：切换分支(有内容变更,受保护)
 
@@ -831,7 +831,7 @@ Aborting
 
 **当前项目目录情况：**
 
-![image-20250227141634818](./gitImg/image-20250227141634818.png)
+![image-20250227141634818](./assets/gitImg/image-20250227141634818.png)
 
 ## 实操：切换分支
 
@@ -845,7 +845,7 @@ D       12_shengxiao.txt
 
 **当前工作目录情况：**
 
-![image-20250227142202182](./gitImg/image-20250227142202182.png)
+![image-20250227142202182](./assets/gitImg/image-20250227142202182.png)
 
 ## 实操：命令`git log`
 
@@ -914,7 +914,7 @@ Date:   Mon Feb 24 20:45:02 2025 +0800
 
 **当前项目目录情况：**
 
-![image-20250227161513190](./gitImg/image-20250227161513190.png)
+![image-20250227161513190](./assets/gitImg/image-20250227161513190.png)
 
 ## 实操：检出提交
 
@@ -969,7 +969,7 @@ D       23_shengxiao.txt
 
 **当前项目目录情况：**
 
-![image-20250227161156695](./gitImg/image-20250227161156695.png)
+![image-20250227161156695](./assets/gitImg/image-20250227161156695.png)
 
 此时HEAD指向`commit a4c51fae9438622509380e3ea676b5acafbb0681`牛这个提交，不属于任何分支。
 
@@ -981,7 +981,7 @@ git switch master
 
 **当前项目目录情况：**
 
-![image-20250227161513190](./gitImg/image-20250227161513190.png)
+![image-20250227161513190](./assets/gitImg/image-20250227161513190.png)
 
 ## 远程仓库准备
 
@@ -990,13 +990,13 @@ git switch master
 
 **目前本地和远程仓库情况：**
 
-![image-20250227163709712](./gitImg/image-20250227163709712.png)
+![image-20250227163709712](./assets/gitImg/image-20250227163709712.png)
 
 ## 实操：在本地和远程仓库之间建立连接
 
 **与远程仓库建立连接前`config`：**
 
-![image-20250227165227363](./gitImg/image-20250227165227363.png)
+![image-20250227165227363](./assets/gitImg/image-20250227165227363.png)
 
 ```shell
 $ git remote # 列出远程分支
@@ -1011,11 +1011,11 @@ origin  https://github.com/ZC-Wu-Xi/shengxiao.git (push)
 
 **与远程仓库建立连接后`config`：**
 
-![image-20250227165729444](./gitImg/image-20250227165729444.png)
+![image-20250227165729444](./assets/gitImg/image-20250227165729444.png)
 
 **目前本地与远程仓库情况：**
 
-![image-20250227170038636](./gitImg/image-20250227170038636.png)
+![image-20250227170038636](./assets/gitImg/image-20250227170038636.png)
 
 ## 实操：将master分支推送到远程分支
 
@@ -1023,7 +1023,7 @@ origin  https://github.com/ZC-Wu-Xi/shengxiao.git (push)
 
 **push前：**
 
-![image-20250227172014202](./gitImg/image-20250227172014202.png)
+![image-20250227172014202](./assets/gitImg/image-20250227172014202.png)
 
 ```shell
 $ git push origin master # 将本地master推送到远程仓库origin的master分支，没有:时本地分支和远程分支都是上面的master
@@ -1049,11 +1049,11 @@ $ git branch --all # 查看本地分支和远程跟踪分支
 
 **push后：**多了`.git/refs/remotes/origin/master`文件
 
-![image-20250227171904748](./gitImg/image-20250227171904748.png)
+![image-20250227171904748](./assets/gitImg/image-20250227171904748.png)
 
 **目前本地和远程仓库情况：**
 
-![image-20250227172701874](./gitImg/image-20250227172701874.png)
+![image-20250227172701874](./assets/gitImg/image-20250227172701874.png)
 
 ## 实操：将feature分支推送到远程分支
 
@@ -1073,7 +1073,7 @@ To github.com:ZC-Wu-Xi/shengxiao.git
 
 **目前本地和远程仓库情况：**
 
-![image-20250227174239890](./gitImg/image-20250227174239890.png)
+![image-20250227174239890](./assets/gitImg/image-20250227174239890.png)
 
 ## 实操：模拟两人协作开发(快进合并)
 
@@ -1095,7 +1095,7 @@ To github.com:ZC-Wu-Xi/shengxiao.git
 
 建议：两个IDE+终端窗口
 
-![image-20250228175642617](./gitImg/image-20250228175642617.png)
+![image-20250228175642617](./assets/gitImg/image-20250228175642617.png)
 
 ### 张三
 
@@ -1113,7 +1113,7 @@ Resolving deltas: 100% (1/1), done.
 ```
 
 发现克隆后的文件目录为`shengxiao`：
- ![image-20250228180834963](./gitImg/image-20250228180834963.png)
+ ![image-20250228180834963](./assets/gitImg/image-20250228180834963.png)
 
 删除克隆的文件重新克隆，张三想要将clone后的文件名为`shengxiao-zhangsan`而不是github上的项目名
 
@@ -1130,7 +1130,7 @@ Resolving deltas: 100% (1/1), done.
 
  克隆后的文件目录为`shengxiao-zhangsan`：
 
- ![image-20250228181410777](./gitImg/image-20250228181410777.png)
+ ![image-20250228181410777](./assets/gitImg/image-20250228181410777.png)
 
 ```shell
 $ git remote -v # 列出本地到远程仓库的所有连接的连接名和远程地址
@@ -1164,7 +1164,7 @@ Date:   Mon Feb 24 20:45:02 2025 +0800
 
 **目前本地和远程仓库情况：**
 
-![image-20250228183345053](./gitImg/image-20250228183345053.png)
+![image-20250228183345053](./assets/gitImg/image-20250228183345053.png)
 
 **说明：**
 
@@ -1200,7 +1200,7 @@ $ git branch --all # 查看所有分支
 
 **目前本地和远程仓库情况：**
 
-![image-20250301111553603](./gitImg/image-20250301111553603.png)
+![image-20250301111553603](./assets/gitImg/image-20250301111553603.png)
 
 #### 3.1 删除远程分支及和本地相关联的分支
 
@@ -1243,7 +1243,7 @@ $ git branch --all # 查看所有分支
 
 **目前本地和远程仓库情况：**
 
-![image-20250301115936495](./gitImg/image-20250301115936495.png)
+![image-20250301115936495](./assets/gitImg/image-20250301115936495.png)
 
 #### 4. 添加第四个生肖龙
 
@@ -1293,7 +1293,7 @@ Date:   Mon Feb 24 20:45:02 2025 +0800
 
 **目前本地和远程仓库情况：**
 
-![image-20250301120030483](./gitImg/image-20250301120030483.png)
+![image-20250301120030483](./assets/gitImg/image-20250301120030483.png)
 
 #### 5. 查看本地和上游分支关系
 
@@ -1342,7 +1342,7 @@ Date:   Mon Feb 24 20:45:02 2025 +0800
 
 **目前本地和远程仓库情况：**
 
-![image-20250301120119198](./gitImg/image-20250301120119198.png)
+![image-20250301120119198](./assets/gitImg/image-20250301120119198.png)
 
 ### xi
 
@@ -1408,7 +1408,7 @@ Date:   Mon Feb 24 20:45:02 2025 +0800
 
 **目前本地和远程仓库情况：**
 
-![image-20250301120202803](./gitImg/image-20250301120202803.png)
+![image-20250301120202803](./assets/gitImg/image-20250301120202803.png)
 
 
 
@@ -1478,7 +1478,7 @@ Date:   Mon Feb 24 20:45:02 2025 +0800
 
 **目前本地和远程仓库情况：**
 
-![image-20250301141005893](./gitImg/image-20250301141005893.png)
+![image-20250301141005893](./assets/gitImg/image-20250301141005893.png)
 
 #### 3. 远程对应分支已被删除时删除本地的远程跟踪分支
 
@@ -1512,7 +1512,7 @@ Date:   Mon Feb 24 20:45:02 2025 +0800
     鼠
 ```
 
-![image-20250301143239884](./gitImg/image-20250301143239884.png)
+![image-20250301143239884](./assets/gitImg/image-20250301143239884.png)
 
 #### 4. 删除本地feature分支
 
@@ -1526,11 +1526,11 @@ $ git branch --all
 
 **目前本地和远程仓库情况：**
 
-![image-20250301144028142](./gitImg/image-20250301144028142.png)
+![image-20250301144028142](./assets/gitImg/image-20250301144028142.png)
 
 **目前本地和远程仓库简化视图：**
 
-![image-20250301145521094](./gitImg/image-20250301145521094.png)
+![image-20250301145521094](./assets/gitImg/image-20250301145521094.png)
 
 ## 实操：三方合并无冲突
 
@@ -1579,7 +1579,7 @@ Date:   Mon Feb 24 21:45:37 2025 +0800
 
 **当前视图：**
 
-![image-20250301151706570](./gitImg/image-20250301151706570.png)
+![image-20250301151706570](./assets/gitImg/image-20250301151706570.png)
 
 **2. 为master分支指定上游分支：**
 
@@ -1627,7 +1627,7 @@ Date:   Mon Feb 24 21:45:37 2025 +0800
 
 **当前视图：**
 
-![image-20250301153133273](./gitImg/image-20250301153133273.png)
+![image-20250301153133273](./assets/gitImg/image-20250301153133273.png)
 
 #### 张三准备三方合并-无冲突场景
 
@@ -1701,7 +1701,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 **当前视图：**
 
-![image-20250301235248962](./gitImg/image-20250301235248962.png)
+![image-20250301235248962](./assets/gitImg/image-20250301235248962.png)
 
 ### 张三执行三方合并-无冲突
 
@@ -1769,7 +1769,7 @@ Merge remote-tracking branch 'origin/master'
 
 **当前视图：**
 
-![image-20250302002807706](./gitImg/image-20250302002807706.png)
+![image-20250302002807706](./assets/gitImg/image-20250302002807706.png)
 
 **推送：**
 
@@ -1818,7 +1818,7 @@ Date:   Sat Mar 1 15:11:41 2025 +0800
 
 **当前视图：**
 
-![image-20250302005121735](./gitImg/image-20250302005121735.png)
+![image-20250302005121735](./assets/gitImg/image-20250302005121735.png)
 
 ### xi拉取并快进合并`pull`
 
@@ -1885,7 +1885,7 @@ Date:   Sat Mar 1 15:38:51 2025 +0800
 
 **当前视图：**
 
-![image-20250302010328645](./gitImg/image-20250302010328645.png)
+![image-20250302010328645](./assets/gitImg/image-20250302010328645.png)
 
 ## 实操：三方合并有冲突
 
@@ -1893,7 +1893,7 @@ Date:   Sat Mar 1 15:38:51 2025 +0800
 
 从这里开始我们将图示中的`C1`提交改为`M1`提交，因为这是一次merge合并，使用M1更合适。
 
-![image-20250302140951562](./gitImg/image-20250302140951562.png)
+![image-20250302140951562](./assets/gitImg/image-20250302140951562.png)
 
 ### 准备三方合并-有冲突场景
 
@@ -1951,7 +1951,7 @@ Date:   Sat Mar 1 15:38:51 2025 +0800
 
 **当前视图：**
 
-![image-20250302143852668](./gitImg/image-20250302143852668.png)
+![image-20250302143852668](./assets/gitImg/image-20250302143852668.png)
 
 #### 张三准备三方合并-有冲突场景
 
@@ -1999,7 +1999,7 @@ Date:   Sat Mar 1 15:38:51 2025 +0800
 
 **当前视图：**
 
-![image-20250302144538542](./gitImg/image-20250302144538542.png)
+![image-20250302144538542](./assets/gitImg/image-20250302144538542.png)
 
 zhangsan本地和远程master分支产生分岔
 
@@ -2043,7 +2043,7 @@ Date:   Sun Mar 2 00:19:25 2025 +0800
 
 **当前视图：**
 
-![image-20250302145529339](./gitImg/image-20250302145529339.png)
+![image-20250302145529339](./assets/gitImg/image-20250302145529339.png)
 
 ### 张三执行合并-有冲突
 
@@ -2113,7 +2113,7 @@ Date:   Sun Mar 2 14:21:08 2025 +0800
 
 **当前视图：**
 
-![image-20250302151513100](./gitImg/image-20250302151513100.png)
+![image-20250302151513100](./assets/gitImg/image-20250302151513100.png)
 
 ### 张三推到远程仓库
 
@@ -2174,17 +2174,17 @@ Date:   Sun Mar 2 00:19:25 2025 +0800
 
 **当前视图：**
 
-![image-20250302153050202](./gitImg/image-20250302153050202.png)
+![image-20250302153050202](./assets/gitImg/image-20250302153050202.png)
 
 **当前本地和远程仓库完整情况：**
 
-![image-20250302153609086](./gitImg/image-20250302153609086.png)
+![image-20250302153609086](./assets/gitImg/image-20250302153609086.png)
 
 ## 实操：变基
 
 **当前简化视图：**
 
-![image-20250302154202943](./gitImg/image-20250302154202943.png)
+![image-20250302154202943](./assets/gitImg/image-20250302154202943.png)
 
 ### 准备变基场景
 
@@ -2227,7 +2227,7 @@ Date:   Sun Mar 2 15:07:21 2025 +0800
 
 **当前视图：**
 
-![image-20250302155953733](./gitImg/image-20250302155953733.png)
+![image-20250302155953733](./assets/gitImg/image-20250302155953733.png)
 
 #### 张三准备变基场景
 
@@ -2287,7 +2287,7 @@ Date:   Sun Mar 2 15:07:21 2025 +0800
 
 **当前视图：**
 
-![image-20250302160915198](./gitImg/image-20250302160915198.png)
+![image-20250302160915198](./assets/gitImg/image-20250302160915198.png)
 
 ### 张三拉取fetch远程变更
 
@@ -2325,7 +2325,7 @@ Date:   Sun Mar 2 15:55:56 2025 +0800
 
 **当前视图：**
 
-![image-20250302161446500](./gitImg/image-20250302161446500.png)
+![image-20250302161446500](./assets/gitImg/image-20250302161446500.png)
 
 ### 张三变基
 
@@ -2467,23 +2467,23 @@ Date:   Sun Mar 2 15:55:56 2025 +0800
 
 **当前视图：**
 
-![image-20250302171423530](./gitImg/image-20250302171423530.png)
+![image-20250302171423530](./assets/gitImg/image-20250302171423530.png)
 
 #### 变基步骤
 
 **步骤一：找到共同祖先**
 
- <img src="./gitImg/image-20250302161858940.png" alt="image-20250302161858940" style="zoom:67%;" />
+ <img src="./assets/gitImg/image-20250302161858940.png" alt="image-20250302161858940" style="zoom:67%;" />
 
 **步骤二：暂存要变基的分支信息**
 
-![image-20250302162118051](./gitImg/image-20250302162118051.png)
+![image-20250302162118051](./assets/gitImg/image-20250302162118051.png)
 
 **步骤三：重置HEAD**
 
 将HEAD重置到远程分支
 
-![image-20250302162307082](./gitImg/image-20250302162307082.png)
+![image-20250302162307082](./assets/gitImg/image-20250302162307082.png)
 
 **步骤四：应用+提交变更**
 
@@ -2493,15 +2493,15 @@ Date:   Sun Mar 2 15:55:56 2025 +0800
 
 提交蜂(有冲突)：
 
-![image-20250302162941707](./gitImg/image-20250302162941707.png)
+![image-20250302162941707](./assets/gitImg/image-20250302162941707.png)
 
 提交羊(无冲突)：
 
-![image-20250302162837107](./gitImg/image-20250302162837107.png)
+![image-20250302162837107](./assets/gitImg/image-20250302162837107.png)
 
 步骤五：当前本地分支master切换到变基后的分支
 
-![image-20250302163908797](./gitImg/image-20250302163908797.png)
+![image-20250302163908797](./assets/gitImg/image-20250302163908797.png)
 
 ### 张三将变基后内容推到远程仓库
 
@@ -2606,17 +2606,17 @@ Merge: 765968a 949d570
 
 **当前视图：**
 
-![image-20250302172351659](./gitImg/image-20250302172351659.png)
+![image-20250302172351659](./assets/gitImg/image-20250302172351659.png)
 
 **当前完整的提交视图：**
 
-![image-20250302172724167](./gitImg/image-20250302172724167.png)
+![image-20250302172724167](./assets/gitImg/image-20250302172724167.png)
 
 ## 实操：合并请求Pull Request
 
 **当前视图：**
 
-![image-20250302211731253](./gitImg/image-20250302211731253.png)
+![image-20250302211731253](./assets/gitImg/image-20250302211731253.png)
 
 ### 准备合并请求场景
 
@@ -2663,7 +2663,7 @@ Date:   Sun Mar 2 16:02:25 2025 +0800
 
 **当前视图：**
 
-![image-20250302213723290](./gitImg/image-20250302213723290.png)
+![image-20250302213723290](./assets/gitImg/image-20250302213723290.png)
 
 **xi推送Push到远程仓库：**
 
@@ -2720,7 +2720,7 @@ Date:   Sun Mar 2 16:02:25 2025 +0800
 
 github上提示：`[feature1](https://github.com/ZC-Wu-Xi/shengxiao/tree/feature1) had recent pushes 18 minutes ago       Compare & pull request`
 
-![image-20250302220716460](./gitImg/image-20250302220716460.png)
+![image-20250302220716460](./assets/gitImg/image-20250302220716460.png)
 
 ### xi创建pull request
 
@@ -2732,15 +2732,15 @@ github上提示：`[feature1](https://github.com/ZC-Wu-Xi/shengxiao/tree/feature
 
 github切换到feature1分支，点击Contribute→Open pull request
 
-![image-20250303001016138](./gitImg/image-20250303001016138.png)
+![image-20250303001016138](./assets/gitImg/image-20250303001016138.png)
 
 点击后跳转到这里，title默认为猴，点击`Create pull request`
 
-![image-20250303001323849](./gitImg/image-20250303001323849.png)
+![image-20250303001323849](./assets/gitImg/image-20250303001323849.png)
 
 跳转到这里：
 
-![image-20250303001555286](./gitImg/image-20250303001555286.png)
+![image-20250303001555286](./assets/gitImg/image-20250303001555286.png)
 
 这里发现没有冲突，可以合并，但我们这里使用的是Pull Request，一般来说不会自己合并的，而是另一个人去rebuild并且审批这个Pull request
 
@@ -2751,41 +2751,41 @@ github切换到feature1分支，点击Contribute→Open pull request
 
 假设张三已经通过了，xi直接合并，点击上方图片的`Merge pull request`，弹出：
 
-![image-20250303002156345](./gitImg/image-20250303002156345.png)
+![image-20250303002156345](./assets/gitImg/image-20250303002156345.png)
 
 跳转到这里：
 
-![image-20250303002330536](./gitImg/image-20250303002330536.png)
+![image-20250303002330536](./assets/gitImg/image-20250303002330536.png)
 
 `Files changed`：可以查看这个合并与master相比改了哪些东西
 
-![image-20250303002622913](./gitImg/image-20250303002622913.png)
+![image-20250303002622913](./assets/gitImg/image-20250303002622913.png)
 
 `commit`：展示提交
 
-![image-20250303002901794](./gitImg/image-20250303002901794.png)
+![image-20250303002901794](./assets/gitImg/image-20250303002901794.png)
 
 点击commit下的猴跳转到：
 
-![image-20250303003049649](./gitImg/image-20250303003049649.png)
+![image-20250303003049649](./assets/gitImg/image-20250303003049649.png)
 
 可以看到commit id
 
 **当前视图：**
 
-![image-20250303003837165](./gitImg/image-20250303003837165.png)
+![image-20250303003837165](./assets/gitImg/image-20250303003837165.png)
 
 **xi删掉远程分支`feature1`：**
 
-![image-20250303004109510](./gitImg/image-20250303004109510.png)
+![image-20250303004109510](./assets/gitImg/image-20250303004109510.png)
 
 发现成功删除分支feature1
 
-![image-20250303004234671](./gitImg/image-20250303004234671.png)
+![image-20250303004234671](./assets/gitImg/image-20250303004234671.png)
 
 **当前视图：**
 
-![image-20250303004413885](./gitImg/image-20250303004413885.png)
+![image-20250303004413885](./assets/gitImg/image-20250303004413885.png)
 
 ### xi同步远程仓库+清理
 
@@ -2857,7 +2857,7 @@ Date:   Sun Mar 2 16:04:25 2025 +0800
 
 **当前视图：**
 
-![4](./gitImg/image-20250303005427474.png)
+![4](./assets/gitImg/image-20250303005427474.png)
 
 ### 张三Pull拉取合并
 
@@ -2900,11 +2900,11 @@ Date:   Sun Mar 2 16:04:25 2025 +0800
 
 **当前视图：**
 
-![image-20250303005850432](./gitImg/image-20250303005850432.png)
+![image-20250303005850432](./assets/gitImg/image-20250303005850432.png)
 
 **当前完整的提交视图：**
 
-![image-20250303010402916](./gitImg/image-20250303010402916.png)
+![image-20250303010402916](./assets/gitImg/image-20250303010402916.png)
 
 # a
 

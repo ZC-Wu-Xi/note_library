@@ -180,7 +180,7 @@ docker run -d \
 
 运行效果如图：
 
-![img](./dockerImg/1732275266608-19.png)
+![img](./assets/dockerImg/1732275266608-19.png)
 
 MySQL安装完毕！通过任意客户端工具即可连接到MySQL.
 
@@ -262,7 +262,7 @@ docker run -d \
 
 当我们利用Docker安装应用时，Docker会自动搜索并下载应用**镜像（image）**。镜像不仅包含应用本身，还包含应用运行所需要的环境、配置、系统函数库。Docker会在运行镜像时创建一个隔离环境，称为**容器（container）**。
 
-![image-20241122204150072](./dockerImg/image-20241122204150072.png)
+![image-20241122204150072](./assets/dockerImg/image-20241122204150072.png)
 
 **镜像仓库**：存储和管理镜像的平台，Docker官方维护了一个公共仓库：[Docker Hub](https://hub.docker.com/)。
 
@@ -298,7 +298,7 @@ https://docs.docker.com/engine/reference/commandline/cli/
 
 用一副图来表示这些命令的关系：
 
-![image-20241122205645136](./dockerImg/image-20241122205645136.png)
+![image-20241122205645136](./assets/dockerImg/image-20241122205645136.png)
 
 补充：
 
@@ -461,7 +461,7 @@ CONTAINER ID   IMAGE     PORTS                                                  
 
 但遗憾的是，容器运行的Nginx所有的文件都在容器内部。所以我们必须**利用数据卷将两个目录与宿主机目录关联**，方便我们操作。如图：
 
-![image-20241123134107476](./DockerImg/image-20241123134107476.png)
+![image-20241123134107476](./assets/dockerImg/image-20241123134107476.png)
 
 在上图中：
 
@@ -625,19 +625,19 @@ ls -l /var/lib/docker/volumes/29524ff09715d3688eae3f99803a2796558dbd00ca584a25a4
 
 在课前资料中已经准备好了mysql的`init`目录和`conf`目录：
 
-![img](./dockerImg/1732275266488-1.png)
+![img](./assets/dockerImg/1732275266488-1.png)
 
 以及对应的初始化SQL脚本和配置文件：
 
-![img](./dockerImg/1732275266489-2.png)
+![img](./assets/dockerImg/1732275266489-2.png)
 
-![img](./dockerImg/1732275266489-3.png)
+![img](./assets/dockerImg/1732275266489-3.png)
 
 其中，hm.cnf主要是配置了MySQL的默认编码，改为utf8mb4；而hmall.sql则是后面我们要用到的黑马商城项目的初始化SQL脚本。
 
 我们直接将整个mysql目录上传至虚拟机的`/root`目录下：
 
-![img](./dockerImg/1732275266489-4.png)
+![img](./assets/dockerImg/1732275266489-4.png)
 
 接下来，我们演示本地目录挂载：
 
@@ -776,7 +776,7 @@ Dockerfile是做什么的？
 
 例如，第一步中需要的Linux运行环境，通用性就很强，所以Docker官方就制作了这样的只包含Linux运行环境的镜像。我们在制作java镜像时，就无需重复制作，直接使用Docker官方提供的CentOS或Ubuntu镜像作为基础镜像。然后再搭建其它层即可，这样逐层搭建，最终整个Java项目的镜像结构如图所示：
 
-![img](./dockerImg/1732275266489-5.png)
+![img](./assets/dockerImg/1732275266489-5.png)
 
 ### 2.3.2.Dockerfile
 
@@ -849,11 +849,11 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 
 在课前资料中，我们准备好了一个demo项目及对应的Dockerfile：
 
-![img](./dockerImg/1732275266489-6.png)
+![img](./assets/dockerImg/1732275266489-6.png)
 
 首先，我们将课前资料提供的`docker-demo.jar`包以及`Dockerfile`拷贝到虚拟机的`/root/demo`目录：
 
-![img](./dockerImg/1732275266489-7.png)
+![img](./assets/dockerImg/1732275266489-7.png)
 
 然后，执行命令，构建镜像：
 
@@ -877,7 +877,7 @@ docker build -t docker-demo:1.0 .
 
 结果：
 
-![img](./dockerImg/1732275266489-8.png)
+![img](./assets/dockerImg/1732275266489-8.png)
 
 查看镜像列表：
 
@@ -1035,35 +1035,35 @@ mysql容器中已经准备好了商城的数据，所以就不再删除了。
 
 `hmall`项目是一个maven聚合项目，使用IDEA打开`hmall`项目，查看项目结构如图：
 
-![img](./dockerImg/1732275266489-9.png)
+![img](./assets/dockerImg/1732275266489-9.png)
 
 我们要部署的就是其中的`hm-service`，其中的配置文件采用了多环境的方式：
 
-![img](./dockerImg/1732275266490-10.png)
+![img](./assets/dockerImg/1732275266490-10.png)
 
 其中的`application-dev.yaml`是部署到开发环境的配置，`application-local.yaml`是本地运行时的配置。
 
 查看application.yaml，你会发现其中的JDBC地址并未写死，而是读取变量：
 
-![img](./dockerImg/1732275266490-11.png)
+![img](./assets/dockerImg/1732275266490-11.png)
 
 这两个变量在`application-dev.yaml`和`application-local.yaml`中并不相同：
 
-![img](./dockerImg/1732275266490-12.png)
+![img](./assets/dockerImg/1732275266490-12.png)
 
 在dev开发环境（也就是Docker部署时）采用了mysql作为地址，刚好是我们的mysql容器名，只要两者在一个网络，就一定能互相访问。
 
 我们将项目打包：
 
-![img](./dockerImg/1732275266490-13.png)
+![img](./assets/dockerImg/1732275266490-13.png)
 
 结果：
 
-![img](./dockerImg/1732275266490-14.png)
+![img](./assets/dockerImg/1732275266490-14.png)
 
 将`hm-service`目录下的`Dockerfile`和`hm-service/target`目录下的`hm-service.jar`一起上传到虚拟机的`root`目录：
 
-![img](./dockerImg/1732275266490-15.png)
+![img](./assets/dockerImg/1732275266490-15.png)
 
 部署项目：
 
@@ -1090,7 +1090,7 @@ docker run -d --name hmall --network hmall -p 8080:8080 hmall
 
 `hmall-portal`和`hmall-admin`是前端代码，需要基于nginx部署。在课前资料中已经给大家提供了nginx的部署目录：
 
-![img](./dockerImg/1732275266490-16.png)
+![img](./assets/dockerImg/1732275266490-16.png)
 
 其中：
 
@@ -1099,7 +1099,7 @@ docker run -d --name hmall --network hmall -p 8080:8080 hmall
 
 我们现在要做的就是把整个nginx目录上传到虚拟机的`/root`目录下：
 
-![img](./dockerImg/1732275266490-17.png)
+![img](./assets/dockerImg/1732275266490-17.png)
 
 然后创建nginx容器并完成两个挂载：
 
@@ -1126,7 +1126,7 @@ docker run -d \
 
 测试，通过浏览器访问：http://你的虚拟机ip:18080
 
-![img](./dockerImg/1732275266490-18.png)
+![img](./assets/dockerImg/1732275266490-18.png)
 
 ## 3.3.DockerCompose
 

@@ -13,11 +13,11 @@ mail: 1302344595@qq.com
 
 由于数据库模糊查询不走索引，在数据量较大的时候，查询性能很差。黑马商城的商品表中仅仅有不到9万条数据，基于数据库查询时，搜索接口的表现如图：
 
-![img](./ElasticSearchImg/1735971980359-38.png)
+![img](./assets/ElasticSearchImg/1735971980359-38.png)
 
 改为基于搜索引擎后，查询表现如下：
 
-![img](./ElasticSearchImg/1735971980357-1.png)
+![img](./assets/ElasticSearchImg/1735971980357-1.png)
 
 需要注意的是，数据库模糊查询随着表数据量的增多，查询性能的下降会非常明显，而搜索引擎的性能则不会随着数据增多而下降太多。目前仅10万不到的数据量差距就如此明显，如果数据量达到百万、千万、甚至上亿级别，这个性能差距会非常夸张。
 
@@ -29,19 +29,19 @@ mail: 1302344595@qq.com
 
 目前全球的搜索引擎技术排名如下：
 
-![img](./ElasticSearchImg/1735971980357-2.png)
+![img](./assets/ElasticSearchImg/1735971980357-2.png)
 
 排名第一的就是我们今天要学习的elasticsearch.
 
 elasticsearch是一款非常强大的开源搜索引擎，支持的功能非常多，例如：
 
-![img](./ElasticSearchImg/1735971980357-3.png)![img](./ElasticSearchImg/1735971980357-4.png)
+![img](./assets/ElasticSearchImg/1735971980357-3.png)![img](./assets/ElasticSearchImg/1735971980357-4.png)
 
 **代码搜索**
 
 **商品搜索**
 
-![img](./ElasticSearchImg/1735971980357-5.png)![img](./ElasticSearchImg/1735971980357-6.png)
+![img](./assets/ElasticSearchImg/1735971980357-5.png)![img](./assets/ElasticSearchImg/1735971980357-6.png)
 
 **解决方案搜索**
 
@@ -76,11 +76,11 @@ Elasticsearch是由elastic公司开发的一套搜索引擎技术，它是elasti
 - Logstash/Beats：用于数据收集
 - Kibana：用于数据可视化
 
-![image-20250104143244205](./ElasticSearchImg/image-20250104143244205.png)
+![image-20250104143244205](./assets/ElasticSearchImg/image-20250104143244205.png)
 
 整套技术栈被称为ELK，经常用来做日志收集、系统监控和状态分析等等：
 
-![img](./ElasticSearchImg/1735971980358-7.png)
+![img](./assets/ElasticSearchImg/1735971980358-7.png)
 
 整套技术栈的核心就是用来**存储**、**搜索**、**计算**的Elasticsearch，因此我们接下来学习的核心也是Elasticsearch。
 
@@ -122,11 +122,11 @@ docker run -d \
 
 如果拉取镜像困难，可以直接导入课前资料提供的镜像tar包`docker load -i es.tar` `docker load -i kibana.tar`（建议导入这两个tar包后删掉，太占空间了）：
 
-![img](./ElasticSearchImg/1735971980358-8.png)
+![img](./assets/ElasticSearchImg/1735971980358-8.png)
 
 安装完成后，访问9200端口，即可看到响应的Elasticsearch服务的基本信息：
 
-![img](./ElasticSearchImg/1735971980358-9.png)
+![img](./assets/ElasticSearchImg/1735971980358-9.png)
 
 ### 1.1.2.安装Kibana
 
@@ -145,19 +145,19 @@ kibana:7.12.1
 
 如果拉取镜像困难，可以直接导入课前资料提供的镜像tar包：
 
-![img](./ElasticSearchImg/1735971980358-10.png)
+![img](./assets/ElasticSearchImg/1735971980358-10.png)
 
 安装完成后，直接访问5601端口，即可看到控制台页面：
 
-![img](./ElasticSearchImg/1735971980358-11.png)
+![img](./assets/ElasticSearchImg/1735971980358-11.png)
 
 选择`Explore on my own`之后，进入主页面：
 
-![img](./ElasticSearchImg/1735971980358-12.png)
+![img](./assets/ElasticSearchImg/1735971980358-12.png)
 
 然后选中`Dev tools`，**进入开发工具页面**：
 
-![img](./ElasticSearchImg/1735971980358-13.png)
+![img](./assets/ElasticSearchImg/1735971980358-13.png)
 
 ## 1.2.倒排索引
 
@@ -205,7 +205,7 @@ select * from tb_goods where title like '%手机%';
 
 那搜索的大概流程如图：
 
-![img](./ElasticSearchImg/1735971980358-14.jpeg)
+![img](./assets/ElasticSearchImg/1735971980358-14.jpeg)
 
 说明：
 
@@ -258,7 +258,7 @@ select * from tb_goods where title like '%手机%';
 
 倒排索引的**搜索流程**如下（以搜索"华为手机"为例），如图：
 
-![img](./ElasticSearchImg/1735971980358-15.jpeg)
+![img](./assets/ElasticSearchImg/1735971980358-15.jpeg)
 
 流程描述：
 
@@ -307,7 +307,7 @@ elasticsearch中有很多独有的概念，与mysql中略有差别，但也有�
 
 elasticsearch是**面向文档（Document）存储**的，可以是数据库中的一条商品数据，一个订单信息。文档数据会被序列化为`json`格式后存储在`elasticsearch`中：
 
-![img](./ElasticSearchImg/1735971980358-16.png)
+![img](./assets/ElasticSearchImg/1735971980358-16.png)
 
 ```JSON
 {
@@ -342,7 +342,7 @@ elasticsearch是**面向文档（Document）存储**的，可以是数据库中�
 
 随着业务发展，需要在es中存储的文档也会越来越多，比如有商品的文档、用户的文档、订单文档等等：
 
-![img](./ElasticSearchImg/1735971980358-17.png)
+![img](./assets/ElasticSearchImg/1735971980358-17.png)
 
 所有文档都散乱存放显然非常混乱，也不方便管理。
 
@@ -432,7 +432,7 @@ elasticsearch是**面向文档（Document）存储**的，可以是数据库中�
 
 如图：
 
-![img](./ElasticSearchImg/1735971980358-18.png)
+![img](./assets/ElasticSearchImg/1735971980358-18.png)
 
 那是不是说，我们学习了elasticsearch就不再需要mysql了呢？
 
@@ -447,7 +447,7 @@ elasticsearch是**面向文档（Document）存储**的，可以是数据库中�
 - 对查询性能要求较高的搜索需求，使用elasticsearch实现
 - 两者再基于某种方式，实现数据的同步，保证一致性
 
-![img](./ElasticSearchImg/1735971980358-19.png)
+![img](./assets/ElasticSearchImg/1735971980358-19.png)
 
 ## 1.4.IK分词器
 
@@ -499,11 +499,11 @@ docker volume inspect es-plugins
 
 找到课前资料提供的ik分词器插件，课前资料提供了`7.12.1`版本的ik分词器压缩文件，你需要对其解压：
 
-![img](./ElasticSearchImg/1735971980358-20.png)
+![img](./assets/ElasticSearchImg/1735971980358-20.png)
 
 然后上传至虚拟机的`/var/lib/docker/volumes/es-plugins/_data`这个目录：
 
-![img](./ElasticSearchImg/1735971980358-21.png)
+![img](./assets/ElasticSearchImg/1735971980358-21.png)
 
 最后，重启es容器：
 
@@ -522,7 +522,7 @@ IK分词器包含两种模式：
 
 我们在Kibana的DevTools上来测试分词器，首先
 
-![image-20250106151850199](./ElasticSearchImg/image-20250106151850199.png)
+![image-20250106151850199](./assets/ElasticSearchImg/image-20250106151850199.png)
 
 测试Elasticsearch官方提供的**标准分词器**`"analyzer": "standard",`：
 
@@ -868,7 +868,7 @@ POST /_analyze
 
 1）打开IK分词器config目录：
 
-![img](./ElasticSearchImg/1735971980358-22.png)
+![img](./assets/ElasticSearchImg/1735971980358-22.png)
 
 注意，如果采用在线安装的通过，默认是没有config目录的，需要把课前资料提供的ik下的config上传至对应目录。
 
@@ -1344,7 +1344,7 @@ POST /heima/_doc/1
 
 **响应：**
 
-![img](./ElasticSearchImg/1735971980359-23.png)
+![img](./assets/ElasticSearchImg/1735971980359-23.png)
 
 ## 3.2.查询文档
 
@@ -1364,7 +1364,7 @@ GET /heima/_doc/1
 
 **查看结果：**`_source`
 
-![img](./ElasticSearchImg/1735971980359-24.png)
+![img](./assets/ElasticSearchImg/1735971980359-24.png)
 
 ## 3.3.删除文档
 
@@ -1384,7 +1384,7 @@ DELETE /heima/_doc/1
 
 **结果：**
 
-![img](./ElasticSearchImg/1735971980359-25.png)
+![img](./assets/ElasticSearchImg/1735971980359-25.png)
 
 ## 3.4.修改文档
 
@@ -1429,11 +1429,11 @@ PUT /heima/_doc/1
 
 由于`id`为`1`的文档已经被删除，所以第一次执行时，得到的反馈是`created`：
 
-![img](./ElasticSearchImg/1735971980359-26.png)
+![img](./assets/ElasticSearchImg/1735971980359-26.png)
 
 所以如果执行第2次时，得到的反馈则是`updated`：
 
-![img](./ElasticSearchImg/1735971980359-27.png)
+![img](./assets/ElasticSearchImg/1735971980359-27.png)
 
 ### 3.4.2.局部修改
 
@@ -1463,7 +1463,7 @@ POST /heima/_update/1
 
 **执行结果**：
 
-![img](./ElasticSearchImg/1735971980359-28.png)
+![img](./assets/ElasticSearchImg/1735971980359-28.png)
 
 ## 3.5.批处理
 
@@ -1571,11 +1571,11 @@ https://www.elastic.co/guide/en/elasticsearch/client/index.html
 
 由于ES目前最新版本是8.8，提供了全新版本的客户端，老版本的客户端已经被标记为过时。而我们采用的是7.12版本，因此只能使用老版本客户端：
 
-![img](./ElasticSearchImg/1735971980359-29.png)
+![img](./assets/ElasticSearchImg/1735971980359-29.png)
 
 然后选择7.12版本，HighLevelRestClient版本：
 
-![img](./ElasticSearchImg/1735971980359-30.png)
+![img](./assets/ElasticSearchImg/1735971980359-30.png)
 
 ## 4.1.初始化RestClient
 
@@ -1602,7 +1602,7 @@ https://www.elastic.co/guide/en/elasticsearch/client/index.html
 </properties>
 ```
 
-![image-20250106174845705](./ElasticSearchImg/image-20250106174845705.png)
+![image-20250106174845705](./assets/ElasticSearchImg/image-20250106174845705.png)
 
 3）初始化RestHighLevelClient：
 
@@ -1648,7 +1648,7 @@ public class IndexTest {
 
 搜索页面的效果如图所示：
 
-![img](./ElasticSearchImg/1735971980359-31.png)
+![img](./assets/ElasticSearchImg/1735971980359-31.png)
 
 实现搜索功能需要的字段包括三大部分：
 
@@ -1671,7 +1671,7 @@ public class IndexTest {
 
 对应的商品表结构如下，索引库无关字段已经划掉：
 
-![img](./ElasticSearchImg/1735971980359-32.png)
+![img](./assets/ElasticSearchImg/1735971980359-32.png)
 
 结合数据库表结构，以上字段对应的mapping映射属性如下：
 
@@ -1742,7 +1742,7 @@ PUT /items
 
 创建索引库的API如下：
 
-![img](./ElasticSearchImg/1735971980359-33.jpeg)
+![img](./assets/ElasticSearchImg/1735971980359-33.jpeg)
 
 代码分为三步：
 
@@ -1935,7 +1935,7 @@ void testIndexDocument() throws IOException {
 }
 ```
 
-![image-20250106182725269](./ElasticSearchImg/image-20250106182725269.png)
+![image-20250106182725269](./assets/ElasticSearchImg/image-20250106182725269.png)
 
 我们需要将数据库中的商品信息导入elasticsearch中，而不是造假数据了。
 
@@ -2004,7 +2004,7 @@ POST /{索引库名}/_doc/1
 
 对应的JavaAPI如下：
 
-![img](./ElasticSearchImg/1735971980359-34.png)
+![img](./assets/ElasticSearchImg/1735971980359-34.png)
 
 可以看到与索引库操作的API非常类似，同样是三步走：
 
@@ -2080,7 +2080,7 @@ GET /{索引库名}/_doc/{id}
 
 不过查询的目的是得到结果，解析为ItemDTO，还要再加一步对结果的解析。示例代码如下：
 
-![img](./ElasticSearchImg/1735971980359-35.png)
+![img](./assets/ElasticSearchImg/1735971980359-35.png)
 
 可以看到，响应结果是一个JSON，其中文档放在一个`_source`属性中，因此解析就是拿到`_source`，反序列化为Java对象即可。
 
@@ -2165,7 +2165,7 @@ POST /{索引库名}/_update/{id}
 
 代码示例如图：
 
-![img](./ElasticSearchImg/1735971980359-36.png)
+![img](./assets/ElasticSearchImg/1735971980359-36.png)
 
 与之前类似，也是三步走：
 
@@ -2223,7 +2223,7 @@ void testUpdateDocument() throws IOException {
 
 因此`BulkRequest`中提供了`add`方法，用以添加其它CRUD的请求：
 
-![image-20250107203738119](./ElasticSearchImg/image-20250107203738119.png)
+![image-20250107203738119](./assets/ElasticSearchImg/image-20250107203738119.png)
 
 可以看到，能添加的请求有：
 

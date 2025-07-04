@@ -301,7 +301,7 @@ struct redisServer {
 };
 ```
 
-<img src="./Redis笔记Img/Redis-服务器数据库.png" style="zoom: 67%;" />
+<img src="./assets/Redis笔记Img/Redis-服务器数据库.png" style="zoom: 67%;" />
 
 **在服务器内部**，客户端状态 redisClient 结构的 db 属性记录了目标数据库，是一个指向 redisDb 结构的指针
 
@@ -357,7 +357,7 @@ typedef struct redisDB {
 * 键空间的键就是数据库的键，每个键都是一个字符串对象
 * 键空间的值就是数据库的值，每个值可以是任意一种 Redis 对象
 
-![](./Redis笔记Img/Redis-数据库键空间.png)
+![](./assets/Redis笔记Img/Redis-数据库键空间.png)
 
 当使用 Redis 命令对数据库进行读写时，服务器不仅会对键空间执行指定的读写操作，还会**进行一些维护操作**：
 
@@ -752,7 +752,7 @@ SORT key ALPHA				#对key中字母排序，按照字典序
 
 * 遍历数组，将各个数组项的 obj 指针所指向的值作为排序结果返回给客户端，程序首先访问数组的索引 0，依次向后访问
 
-![](./Redis笔记Img/Redis-sort排序.png)
+![](./assets/Redis笔记Img/Redis-sort排序.png)
 
 对于 `SORT key [ASC/DESC]` 函数：
 
@@ -926,7 +926,7 @@ SORT <key> ALPHA [ASC/DESC] BY <by-pattern> LIMIT <offset> <count> GET <get-patt
 
 图示订阅 0 号数据库 message 键：
 
-<img src="./Redis笔记Img/Redis-数据库通知.png" style="zoom: 67%;" />
+<img src="./assets/Redis笔记Img/Redis-数据库通知.png" style="zoom: 67%;" />
 
 服务器配置的 notify-keyspace-events 选项决定了服务器所发送通知的类型
 
@@ -987,11 +987,11 @@ Redis 基于 Reactor 模式开发了网络事件处理器，这个处理器被�
 
 文件事件处理器的组成结构：
 
-<img src="./Redis笔记Img/Redis-文件事件处理器.png" style="zoom:80%;" />
+<img src="./assets/Redis笔记Img/Redis-文件事件处理器.png" style="zoom:80%;" />
 
 I/O 多路复用程序将所有产生事件的套接字处理请求放入一个**单线程的执行队列**中，通过队列有序、同步的向文件事件分派器传送套接字，上一个套接字产生的事件处理完后，才会继续向分派器传送下一个
 
-<img src="./Redis笔记Img/Redis-IO多路复用程序.png" style="zoom: 67%;" />
+<img src="./assets/Redis笔记Img/Redis-IO多路复用程序.png" style="zoom: 67%;" />
 
 Redis 单线程也能高效的原因：
 
@@ -1068,7 +1068,7 @@ Redis 的时间事件分为以下两类：
 
 服务器将所有时间事件都放在一个**无序链表**中，新的时间事件插入到链表的表头：
 
-<img src="./Redis笔记Img/Redis-时间事件.png" style="zoom:67%;" />
+<img src="./assets/Redis笔记Img/Redis-时间事件.png" style="zoom:67%;" />
 
 无序链表指是链表不按 when 属性的大小排序，每当时间事件执行器运行时就必须遍历整个链表，查找所有已到达的时间事件，并调用相应的事件处理器处理
 
@@ -1139,7 +1139,7 @@ io-threads-do-reads yesCopy to clipboardErrorCopied
 io-threads 4 #官网建议4核的机器建议设置为2或3个线程，8核的建议设置为6个线程
 ```
 
-<img src="./Redis笔记Img/Redis-多线程.png" style="zoom:80%;" />
+<img src="./assets/Redis笔记Img/Redis-多线程.png" style="zoom:80%;" />
 
 
 
@@ -1170,7 +1170,7 @@ struct redisServer {
 };
 ```
 
-![](./Redis笔记Img/Redis-服务器clients链表.png)
+![](./assets/Redis笔记Img/Redis-服务器clients链表.png)
 
 
 
@@ -1308,7 +1308,7 @@ buf 是一个大小为 REDIS_REPLY_CHUNK_BYTES (常量默认 16*1024 = 16KB) 字
 
 通过使用 reply 链表连接多个字符串对象，可以为客户端保存一个非常长的命令回复，而不必受到固定大小缓冲区 16KB 大小的限制
 
-![](./Redis笔记Img/Redis-可变输出缓冲区.png)
+![](./assets/Redis笔记Img/Redis-可变输出缓冲区.png)
 
 
 
@@ -1325,13 +1325,13 @@ buf 是一个大小为 REDIS_REPLY_CHUNK_BYTES (常量默认 16*1024 = 16KB) 字
 * argv 属性是一个数组，数组中的每项都是字符串对象，其中 argv[0] 是要执行的命令，而之后的其他项则是命令的参数
 * argc 属性负责记录 argv 数组的长度
 
-<img src="./Redis笔记Img/Redis-命令数组.png" style="zoom: 67%;" />
+<img src="./assets/Redis笔记Img/Redis-命令数组.png" style="zoom: 67%;" />
 
 服务器将根据项 argv[0] 的值，在命令表中查找命令所对应的命令的 redisCommand，将客户端状态的 cmd 指向该结构
 
 命令表是一个字典结构，键是 SDS 结构保存命令的名字；值是命令所对应的 redisCommand 结构，保存了命令的实现函数、命令标志、 命令应该给定的参数个数、命令的总执行次数和总消耗时长等统计信息
 
-<img src="./Redis笔记Img/Redis-命令查找.png" style="zoom:67%;" />
+<img src="./assets/Redis笔记Img/Redis-命令查找.png" style="zoom:67%;" />
 
 
 
@@ -1389,7 +1389,7 @@ obuf_soft_limit_reached_time 属性记录了**输出缓冲区第一次到达软�
 
 如果客户端是通过网络连接与服务器进行连接的普通客户端，那么在客户端使用 connect 函数连接到服务器时，服务器就会调用连接应答处理器为客户端创建相应的客户端状态，并将这个新的客户端状态添加到服务器状态结构 clients 链表的末尾
 
-![](./Redis笔记Img/Redis-服务器clients链表.png)
+![](./assets/Redis笔记Img/Redis-服务器clients链表.png)
 
 服务器会在初始化时创建负责执行 Lua 脚本中包含的 Redis 命令的伪客户端，并将伪客户端关联在服务器状态的 lua_client 属性
 
@@ -2021,7 +2021,7 @@ struct sdshdr {
 
 SDS 遵循 C 字符串**以空字符结尾**的惯例，保存空字符的 1 字节不计算在 len 属性，SDS 会自动为空字符分配额外的 1 字节空间和添加空字符到字符串末尾，所以空字符对于 SDS 的使用者来说是完全透明的
 
-![](./Redis笔记Img/Redis-SDS底层结构.png)
+![](./assets/Redis笔记Img/Redis-SDS底层结构.png)
 
 
 
@@ -2042,7 +2042,7 @@ SDS 遵循 C 字符串**以空字符结尾**的惯例，保存空字符的 1 字
 
   s1 和 s2 是内存中相邻的字符串，执行 `strcat(s1, " Cluster")`（有空格）：
 
-  ![](./Redis笔记Img/Redis-内存溢出问题.png)
+  ![](./assets/Redis笔记Img/Redis-内存溢出问题.png)
 
 * SDS 空间分配策略：当对 SDS 进行修改时，首先检查 SDS 的空间是否满足修改所需的要求， 如果不满足会自动将 SDS 的空间扩展至执行修改所需的大小，然后执行实际的修改操作， 避免了缓冲区溢出的问题
 
@@ -2073,7 +2073,7 @@ SDS 通过未使用空间解除了字符串长度和底层数组长度之间的�
 
     s 为 Redis，执行 `sdscat(s, " Cluster")` 后，len 变为 13 字节，所以也分配了 13 字节的 free 空间，总长度变为 27 字节（额外的一字节保存空字符，13 + 13 + 1 = 27）
 
-    ![](./Redis笔记Img/Redis-SDS内存预分配.png)
+    ![](./assets/Redis笔记Img/Redis-SDS内存预分配.png)
 
   * 对 SDS 修改之后，SDS 的长度大于等于 1MB，程序会分配 1MB 的未使用空间
 
@@ -2112,7 +2112,7 @@ typedef struct listNode {
 
 多个 listNode 通过 prev 和 next 指针组成**双端链表**：
 
-![](./Redis笔记Img/Redis-链表节点底层结构.png)
+![](./assets/Redis笔记Img/Redis-链表节点底层结构.png)
 
 list 链表结构：提供了表头指针 head 、表尾指针 tail 以及链表长度计数器 len
 
@@ -2135,7 +2135,7 @@ typedef struct list {
 } list;
 ```
 
-![](./Redis笔记Img/Redis-链表底层结构.png)
+![](./assets/Redis笔记Img/Redis-链表底层结构.png)
 
 Redis 链表的特性：
 
@@ -2194,7 +2194,7 @@ typedef struct dictEntry {
 } dictEntry;
 ```
 
-![](./Redis笔记Img/Redis-哈希表底层结构.png)
+![](./assets/Redis笔记Img/Redis-哈希表底层结构.png)
 
 
 
@@ -2228,7 +2228,7 @@ type 属性和 privdata 属性是针对不同类型的键值对， 为创建多�
 * type 属性是指向 dictType 结构的指针， 每个 dictType 结构保存了一簇用于操作特定类型键值对的函数， Redis 会为用途不同的字典设置不同的类型特定函数
 * privdata 属性保存了需要传给那些类型特定函数的可选参数
 
-![](./Redis笔记Img/Redis-字典底层结构.png)
+![](./assets/Redis笔记Img/Redis-字典底层结构.png)
 
 
 
@@ -2252,7 +2252,7 @@ Redis 的哈希表使用链地址法（separate chaining）来解决键哈希冲
 
 dictEntry 节点组成的链表没有指向链表表尾的指针，为了速度考虑，程序总是将新节点添加到链表的表头位置（**头插法**），时间复杂度为 O(1)
 
-![](./Redis笔记Img/Redis-字典解决哈希冲突.png)
+![](./assets/Redis笔记Img/Redis-字典解决哈希冲突.png)
 
 
 
@@ -2364,7 +2364,7 @@ typedef struct zskiplistNode {
 } zskiplistNode;
 ```
 
-![](./Redis笔记Img/Redis-跳表底层结构.png)
+![](./assets/Redis笔记Img/Redis-跳表底层结构.png)
 
 
 
@@ -2427,7 +2427,7 @@ encoding 取值为三种：INTSET_ENC_INT16、INTSET_ENC_INT32、INTSET_ENC_INT6
 
 整数集合的每个元素都是 contents 数组的一个数组项（item），在数组中按值的大小从小到大**有序排列**，并且数组中**不包含任何重复项**。虽然 contents 属性声明为 int8_t 类型，但实际上数组并不保存任何 int8_t 类型的值， 真正类型取决于 encoding 属性
 
-![](./Redis笔记Img/Redis-整数集合底层结构.png)
+![](./assets/Redis笔记Img/Redis-整数集合底层结构.png)
 
 说明：底层存储结构是数组，所以为了保证有序性和不重复性，每次添加一个元素的时间复杂度是 O(N)
 
@@ -2449,7 +2449,7 @@ encoding 取值为三种：INTSET_ENC_INT16、INTSET_ENC_INT32、INTSET_ENC_INT6
 
 * 将新元素添加到底层数组里
 
-![](./Redis笔记Img/Redis-整数集合升级.png)
+![](./assets/Redis笔记Img/Redis-整数集合升级.png)
 
 每次向整数集合添加新元素都可能会引起升级，而每次升级都需要对底层数组中的所有元素进行类型转换，所以向整数集合添加新元素的时间复杂度为 O(N)
 
@@ -2480,7 +2480,7 @@ encoding 取值为三种：INTSET_ENC_INT16、INTSET_ENC_INT32、INTSET_ENC_INT6
 
 压缩列表（ziplist）是 Redis 为了节约内存而开发的，是列表键和哈希键的底层实现之一。是由一系列特殊编码的连续内存块组成的顺序型（sequential）数据结构，一个压缩列表可以包含任意多个节点（entry），每个节点可以保存一个字节数组或者一个整数值
 
-![](./Redis笔记Img/Redis-压缩列表底层结构.png)
+![](./assets/Redis笔记Img/Redis-压缩列表底层结构.png)
 
 * zlbytes：uint32_t 类型 4 字节，记录整个压缩列表占用的内存字节数，在对压缩列表进行内存重分配或者计算 zlend 的位置时使用
 * zltail：uint32_t 类型 4 字节，记录压缩列表表尾节点距离起始地址有多少字节，通过这个偏移量程序无须遍历整个压缩列表就可以确定表尾节点的地址
@@ -2488,7 +2488,7 @@ encoding 取值为三种：INTSET_ENC_INT16、INTSET_ENC_INT32、INTSET_ENC_INT6
 * entryX：列表节点，压缩列表中的各个节点，**节点的长度由节点保存的内容决定**
 * zlend：uint8_t 类型 1 字节，是一个特殊值 0xFF (255)，用于标记压缩列表的末端
 
-![](./Redis笔记Img/Redis-压缩列表示例.png)
+![](./assets/Redis笔记Img/Redis-压缩列表示例.png)
 
 列表 zlbytes 属性的值为 0x50 (十进制 80)，表示压缩列表的总长为 80 字节，列表 zltail 属性的值为 0x3c (十进制 60)，假设表的起始地址为 p，计算得出表尾节点 entry3 的地址 p + 60
 
@@ -2502,7 +2502,7 @@ encoding 取值为三种：INTSET_ENC_INT16、INTSET_ENC_INT32、INTSET_ENC_INT6
 
 列表节点 entry 的数据结构：
 
-![](./Redis笔记Img/Redis-压缩列表节点.png)
+![](./assets/Redis笔记Img/Redis-压缩列表节点.png)
 
 previous_entry_length：以字节为单位记录了压缩列表中前一个节点的长度，程序可以通过指针运算，根据当前节点的起始地址来计算出前一个节点的起始地址，完成**从表尾向表头遍历**操作
 
@@ -2513,11 +2513,11 @@ encoding：记录了节点的 content 属性所保存的数据类型和长度
 
 * **长度为 1 字节、2 字节或者 5 字节**，值的最高位为 00、01 或者 10 的是字节数组编码，数组的长度由编码除去最高两位之后的其他位记录，下划线 `_` 表示留空，而 `b`、`x` 等变量则代表实际的二进制数据
 
-  ![](./Redis笔记Img/Redis-压缩列表字节数组编码.png)
+  ![](./assets/Redis笔记Img/Redis-压缩列表字节数组编码.png)
 
 * 长度为 1 字节，值的最高位为 11 的是整数编码，整数值的类型和长度由编码除去最高两位之后的其他位记录
 
-  ![](./Redis笔记Img/Redis-压缩列表整数编码.png)
+  ![](./assets/Redis笔记Img/Redis-压缩列表整数编码.png)
 
 content：每个压缩列表节点可以保存一个字节数组或者一个整数值
 
@@ -2555,11 +2555,11 @@ Redis 将在特殊情况下产生的连续多次空间扩展操作称之为连�
 
 假设在一个压缩列表中，有多个连续的、长度介于 250 到 253 字节之间的节点 e1 至 eN。将一个长度大于等于 254 字节的新节点 new 设置为压缩列表的头节点，new 就成为 e1 的前置节点。e1 的 previous_entry_length 属性仅为 1 字节，无法保存新节点 new 的长度，所以要对压缩列表执行空间重分配操作，并将 e1 节点的 previous_entry_length 属性从 1 字节长扩展为 5 字节长。由于 e1 原本的长度介于 250 至 253 字节之间，所以扩展后 e1 的长度就变成了 254 至 257 字节之间，导致 e2 的  previous_entry_length 属性无法保存 e1 的长度，程序需要不断地对压缩列表执行空间重分配操作，直到 eN 为止
 
-![](./Redis笔记Img/Redis-压缩列表连锁更新1.png)
+![](./assets/Redis笔记Img/Redis-压缩列表连锁更新1.png)
 
  删除节点也可能会引发连锁更新，big.length >= 254，small.length < 254，删除 small 节点
 
-![](./Redis笔记Img/Redis-压缩列表连锁更新2.png)
+![](./assets/Redis笔记Img/Redis-压缩列表连锁更新2.png)
 
 连锁更新在最坏情况下需要对压缩列表执行 N 次空间重分配，每次重分配的最坏复杂度为 O(N)，所以连锁更新的最坏复杂度为 O(N^2)
 
@@ -2602,7 +2602,7 @@ Redis 并没有直接使用数据结构来实现键值对数据库，而是基�
 
 Redis 是一个 Map 类型，其中所有的数据都是采用 key : value 的形式存储，**键对象都是字符串对象**，而值对象有五种基本类型和三种高级类型对象
 
-![](./Redis笔记Img/Redis-对象编码.png)
+![](./assets/Redis笔记Img/Redis-对象编码.png)
 
 * 对一个数据库键执行 TYPE 命令，返回的结果为数据库键对应的值对象的类型，而不是键对象的类型
 * 对一个数据库键执行 OBJECT ENCODING 命令，查看数据库键对应的值对象的编码
@@ -2661,7 +2661,7 @@ typedef struct redisObiect {
 
 * 将被共享的值对象的引用计数增一
 
-  <img src="./Redis笔记Img/Redis-对象共享.png" style="zoom:67%;" />
+  <img src="./assets/Redis笔记Img/Redis-对象共享.png" style="zoom:67%;" />
 
 Redis 在初始化服务器时创建一万个（配置文件可以修改）字符串对象，包含了**从 0 到 9999 的所有整数值**，当服务器需要用到值为 0 到 9999 的字符串对象时，服务器就会使用这些共享对象，而不是新创建对象
 
@@ -2727,7 +2727,7 @@ redis> OBJECT IDLETIME msg
 
 存储内容：通常使用字符串，如果字符串以整数的形式展示，可以作为数字操作使用
 
-<img src="./Redis笔记Img/Redis-string结构图.png" style="zoom:50%;" />
+<img src="./assets/Redis笔记Img/Redis-string结构图.png" style="zoom:50%;" />
 
 Redis 所有操作都是**原子性**的，采用**单线程**机制，命令是单个顺序执行，无需考虑并发带来影响，原子性就是有一个失败则都失败
 
@@ -2811,7 +2811,7 @@ Redis 所有操作都是**原子性**的，采用**单线程**机制，命令是
 * 单数据执行 3 条指令的过程：3 次发送 + 3 次处理 + 3 次返回
 * 多数据执行 1 条指令的过程：1 次发送 + 3 次处理 + 1 次返回（发送和返回的事件略高于单数据）
 
-<img src="./Redis笔记Img/string单数据与多数据操作.png" style="zoom: 33%;" />
+<img src="./assets/Redis笔记Img/string单数据与多数据操作.png" style="zoom: 33%;" />
 
 
 
@@ -2827,15 +2827,15 @@ Redis 所有操作都是**原子性**的，采用**单线程**机制，命令是
 
 * int：字符串对象保存的是**整数值**，并且整数值可以用 long 类型来表示，那么对象会将整数值保存在字符串对象结构的 ptr 属性面（将 void * 转换成 long)，并将字符串对象的编码设置为 int（浮点数用另外两种方式）
 
-  <img src="./Redis笔记Img/Redis-字符串对象int编码.png" style="zoom:67%;" />
+  <img src="./assets/Redis笔记Img/Redis-字符串对象int编码.png" style="zoom:67%;" />
 
 * raw：字符串对象保存的是一个字符串值，并且值的长度大于 39 字节，那么对象将使用简单动态字符串（SDS）来保存该值，并将对象的编码设置为 raw
 
-  ![](./Redis笔记Img/Redis-字符串对象raw编码.png)
+  ![](./assets/Redis笔记Img/Redis-字符串对象raw编码.png)
 
 * embstr：字符串对象保存的是一个字符串值，并且值的长度小于等于 39 字节，那么对象将使用 embstr 编码的方式来保存这个字符串值，并将对象的编码设置为 embstr
 
-  ![](./Redis笔记Img/Redis-字符串对象embstr编码.png)
+  ![](./assets/Redis笔记Img/Redis-字符串对象embstr编码.png)
 
   上图所示，embstr 与 raw 都使用了 redisObject 和 sdshdr 来表示字符串对象，但是 raw 需要调用两次内存分配函数分别创建两种结构，embstr 只需要一次内存分配来分配一块**连续的空间**
 
@@ -2916,7 +2916,7 @@ redis> OBJECT ENCODING pi
 
 hash 类型：底层使用**哈希表**结构实现数据存储
 
-<img src="./Redis笔记Img/hash结构图.png" style="zoom: 33%;" />
+<img src="./assets/Redis笔记Img/hash结构图.png" style="zoom: 33%;" />
 
 Redis 中的 hash 类似于 Java 中的  `Map<String, Map<Object,object>>`，左边是 key，右边是值，中间叫 field 字段，本质上 **hash 存了一个 key-value 的存储空间**
 
@@ -2988,11 +2988,11 @@ hash 是指的一个数据类型，并不是一个数据
 
 * 压缩列表实现哈希对象：同一键值对的节点总是挨在一起，保存键的节点在前，保存值的节点在后
 
-  ![](./Redis笔记Img/Redis-哈希对象ziplist.png)
+  ![](./assets/Redis笔记Img/Redis-哈希对象ziplist.png)
 
 * 字典实现哈希对象：字典的每一个键都是一个字符串对象，每个值也是
 
-  <img src="./Redis笔记Img/Redis-哈希对象dict.png" style="zoom:67%;" />
+  <img src="./assets/Redis笔记Img/Redis-哈希对象dict.png" style="zoom:67%;" />
 
 当存储的数据量比较小的情况下，Redis 才使用压缩列表来实现字典类型，具体需要满足两个条件：
 
@@ -3019,7 +3019,7 @@ user:id:3506728370 → {"name":"春晚","fans":12210862,"blogs":83}
 
 假如现在粉丝数量发生了变化，要把整个值都改变，但是用单条存就不存在这个问题，只需要改其中一个就可以
 
-<img src="./Redis笔记Img/hash应用场景结构图.png" style="zoom: 33%;" />
+<img src="./assets/Redis笔记Img/hash应用场景结构图.png" style="zoom: 33%;" />
 
 可以实现购物车的功能，key 对应着每个用户，存储空间存储购物车的信息
 
@@ -3041,7 +3041,7 @@ user:id:3506728370 → {"name":"春晚","fans":12210862,"blogs":83}
 
 list 类型：保存多个数据，底层使用**双向链表**存储结构实现，类似于 LinkedList
 
-<img src="./Redis笔记Img/list结构图.png" style="zoom:33%;" />
+<img src="./assets/Redis笔记Img/list结构图.png" style="zoom:33%;" />
 
 如果两端都能存取数据的话，这就是双端队列，如果只能从一端进一端出，这个模型叫栈
 
@@ -3107,11 +3107,11 @@ list 类型：保存多个数据，底层使用**双向链表**存储结构实�
 
 * 压缩列表实现的列表对象：PUSH 1、three、5 三个元素
 
-  ![](./Redis笔记Img/Redis-列表对象ziplist.png)
+  ![](./assets/Redis笔记Img/Redis-列表对象ziplist.png)
 
 * 链表实现的列表对象：为了简化字符串对象的表示，使用了 StringObject 的结构，底层其实是 sdshdr 结构
 
-  ![](./Redis笔记Img/Redis-列表对象linkedlist.png)
+  ![](./assets/Redis笔记Img/Redis-列表对象linkedlist.png)
 
 列表中存储的数据量比较小的时候，列表就会使用一块连续的内存存储，采用压缩列表的方式实现的条件：
 
@@ -3122,7 +3122,7 @@ list 类型：保存多个数据，底层使用**双向链表**存储结构实�
 
 在 Redis3.2 版本 以后对列表数据结构进行了改造，使用 **quicklist（快速列表）**代替了 linkedlist，quicklist 实际上是 ziplist 和 linkedlist 的混合体，将 linkedlist 按段切分，每一段使用 ziplist 来紧凑存储，多个 ziplist 之间使用双向指针串接起来，既满足了快速的插入删除性能，又不会出现太大的空间冗余
 
-<img src="./Redis笔记Img/Redis-快速列表数据结构.png" style="zoom: 50%;" />
+<img src="./assets/Redis笔记Img/Redis-快速列表数据结构.png" style="zoom: 50%;" />
 
 
 
@@ -3160,7 +3160,7 @@ list 类型：保存多个数据，底层使用**双向链表**存储结构实�
 
 set 类型：与 hash 存储结构哈希表完全相同，只是仅存储键不存储值（nil），所以添加，删除，查找的复杂度都是 O(1)，并且**值是不允许重复且无序的**
 
-<img src="./Redis笔记Img/set结构图.png" style="zoom: 33%;" />
+<img src="./assets/Redis笔记Img/set结构图.png" style="zoom: 33%;" />
 
 
 
@@ -3230,11 +3230,11 @@ set 类型：与 hash 存储结构哈希表完全相同，只是仅存储键不�
 
 * 整数集合实现的集合对象：
 
-  <img src="./Redis笔记Img/Redis-集合对象intset.png" style="zoom:67%;" />
+  <img src="./assets/Redis笔记Img/Redis-集合对象intset.png" style="zoom:67%;" />
 
 * 字典实现的集合对象：键值对的值为 NULL
 
-  <img src="./Redis笔记Img/Redis-集合对象dict.png" style="zoom:80%;" />
+  <img src="./assets/Redis笔记Img/Redis-集合对象dict.png" style="zoom:80%;" />
 
 当集合对象可以同时满足以下两个条件时，对象使用 intset 编码：
 
@@ -3344,7 +3344,7 @@ set 类型：与 hash 存储结构哈希表完全相同，只是仅存储键不�
 
 * 压缩列表实现有序集合对象：ziplist 本身是有序、不可重复的，符合有序集合的特性
 
-  ![](./Redis笔记Img/Redis-有序集合对象ziplist.png)
+  ![](./assets/Redis笔记Img/Redis-有序集合对象ziplist.png)
 
 * 跳跃表实现有序集合对象：**底层是 zset 结构，zset 同时包含字典和跳跃表的结构**，图示字典和跳跃表中重复展示了各个元素的成员和分值，但实际上两者会**通过指针来共享相同元素的成员和分值**，不会产生空间浪费
 
@@ -3355,7 +3355,7 @@ set 类型：与 hash 存储结构哈希表完全相同，只是仅存储键不�
   } zset;
   ```
 
-  ![](./Redis笔记Img/Redis-有序集合对象zset.png)
+  ![](./assets/Redis笔记Img/Redis-有序集合对象zset.png)
 
 使用字典加跳跃表的优势：
 
@@ -3400,7 +3400,7 @@ set 类型：与 hash 存储结构哈希表完全相同，只是仅存储键不�
 
 Bitmaps 是二进制位数组（bit array），底层使用 SDS 字符串表示，因为 SDS 是二进制安全的
 
-![](./Redis笔记Img/Redis-位数组结构.png)
+![](./assets/Redis笔记Img/Redis-位数组结构.png)
 
 buf 数组的每个字节用一行表示，buf[1] 是 `'\0'`，保存位数组的顺序和书写位数组的顺序是完全相反的，图示的位数组 0100 1101
 
@@ -3506,7 +3506,7 @@ AND、OR、XOR 三个命令可以接受多个位数组作为输入，需要遍�
 
 - **解决 Redis 缓存穿透**，判断给定数据是否存在， 防止缓存穿透
 
-  <img src="./Redis笔记Img/Redis-Bitmaps应用之缓存穿透.png" style="zoom: 67%;" />
+  <img src="./assets/Redis笔记Img/Redis-Bitmaps应用之缓存穿透.png" style="zoom: 67%;" />
 
 - 垃圾邮件过滤，对每一个发送邮件的地址进行判断是否在布隆的黑名单中，如果在就判断为垃圾邮件
 
@@ -3612,7 +3612,7 @@ Redis 应用于地理位置计算
 作用：持久化用于防止数据的意外丢失，确保数据安全性，因为 Redis 是内存级，所以需要持久化到磁盘
 
 计算机中的数据全部都是二进制，保存一组数据有两种方式
-<img src="./Redis笔记Img/Redis-持久化的两种方式.png" style="zoom: 33%;" />
+<img src="./assets/Redis笔记Img/Redis-持久化的两种方式.png" style="zoom: 33%;" />
 
 RDB：将当前数据状态进行保存，快照形式，存储数据结果，存储格式简单
 
@@ -3659,7 +3659,7 @@ BGSAVE：bg 是 background，代表后台执行，命令的完成需要两个进
 
 工作原理：
 
-<img src="./Redis笔记Img/Redis-bgsave工作原理.png" style="zoom:67%;" />
+<img src="./assets/Redis笔记Img/Redis-bgsave工作原理.png" style="zoom:67%;" />
 
 流程：客户端发出 BGSAVE 指令，Redis 服务器使用 fork 函数创建一个子进程，然后响应后台已经开始执行的信息给客户端。子进程会异步执行持久化的操作，持久化过程是先将数据写入到一个临时文件中，持久化操作结束再用这个临时文件**替换**上次持久化的文件
 
@@ -3828,7 +3828,7 @@ Redis 的服务器周期性操作函数 serverCron 默认每隔 100 毫秒就会
 
 serverCron 函数的其中一项工作是检查 save 选项所设置的保存条件是否满足，会遍历 saveparams 数组中的**所有保存条件**，只要有任意一个条件被满足服务器就会执行 BGSAVE 命令
 
-![](./Redis笔记Img/Redis-BGSAVE执行原理.png)
+![](./assets/Redis笔记Img/Redis-BGSAVE执行原理.png)
 
 
 
@@ -3842,7 +3842,7 @@ serverCron 函数的其中一项工作是检查 save 选项所设置的保存条
 
 RDB 的存储结构：图示全大写单词标示常量，用全小写单词标示变量和数据
 
-![](./Redis笔记Img/Redis-RDB文件结构.png)
+![](./assets/Redis笔记Img/Redis-RDB文件结构.png)
 
 * REDIS：长度为 5 字节，保存着 `REDIS` 五个字符，是 RDB 文件的开头，在载入文件时可以快速检查所载入的文件是否 RDB 文件
 * db_version：长度为 4 字节，是一个用字符串表示的整数，记录 RDB 的版本号
@@ -3870,7 +3870,7 @@ AOF 主要作用是解决了**数据持久化的实时性**，目前已经是 Re
 
 AOF 写数据过程：
 
-<img src="./Redis笔记Img/Redis-AOF工作原理.png" style="zoom:67%;" />
+<img src="./assets/Redis笔记Img/Redis-AOF工作原理.png" style="zoom:67%;" />
 
 Redis 只会将对数据库进行了修改的命令写入到 AOF 文件，并复制到各个从服务器，但是 PUBSUB 和 SCRIPT LOAD 命令例外：
 
@@ -4034,7 +4034,7 @@ bgrewriteaof
 
 * 子进程带有服务器进程的数据副本，使用子进程而不是线程，可以在避免使用锁的情况下， 保证数据安全性
 
-  ![](./Redis笔记Img/Redis-AOF手动重写原理.png)
+  ![](./assets/Redis笔记Img/Redis-AOF手动重写原理.png)
 
 子进程在进行 AOF 重写期间，服务器进程还需要继续处理命令请求，而新命令可能会对现有的数据库状态进行修改，从而使得服务器当前的数据库状态和重写后的 AOF 文件所保存的数据库状态不一致，所以 Redis 设置了 AOF 重写缓冲区
 
@@ -4225,7 +4225,7 @@ int main(void)
 */
 ```
 
-<img src="./Redis笔记Img/Redis-fork函数使用演示.png" style="zoom: 80%;" />
+<img src="./assets/Redis笔记Img/Redis-fork函数使用演示.png" style="zoom: 80%;" />
 
 在 p3224 和 p3225 执行完第二个循环后，main 函数退出，进程死亡。所以 p3226，p3227 就没有父进程了，成为孤儿进程，所以 p3226 和 p3227 的父进程就被置为 ID 为 1 的 init 进程（笔记 Tool → Linux → 进程管理详解）
 
@@ -4245,7 +4245,7 @@ fork() 调用之后父子进程的内存关系
 
 * 父子进程的代码段是相同的，所以代码段是没必要复制的，只需内核将代码段标记为只读，父子进程就共享此代码段。fork() 之后在进程创建代码段时，子进程的进程级页表项都指向和父进程相同的物理页帧
 
-  <img src="./Redis笔记Img/Redis-fork以后内存关系1.png" style="zoom: 67%;" />
+  <img src="./assets/Redis笔记Img/Redis-fork以后内存关系1.png" style="zoom: 67%;" />
 
 * 对于父进程的数据段，堆段，栈段中的各页，由于父子进程相互独立，采用**写时复制 COW** 的技术，来提高内存以及内核的利用率
 
@@ -4253,7 +4253,7 @@ fork() 调用之后父子进程的内存关系
 
   fork 之后内核会将子进程放在队列的前面，让子进程先执行，以免父进程执行导致写时复制，而后子进程再执行，因无意义的复制而造成效率的下降
 
-  <img src="./Redis笔记Img/Redis-fork以后内存关系2.png" style="zoom:67%;" />
+  <img src="./assets/Redis笔记Img/Redis-fork以后内存关系2.png" style="zoom:67%;" />
 
 补充知识：
 
@@ -4430,11 +4430,11 @@ Redis 不支持事务回滚机制（rollback），即使事务队列中的某个
 
 * 入队错误：命令格式输入错误，出现语法错误造成，**整体事务中所有命令均不会执行**，包括那些语法正确的命令
 
-  <img src="./Redis笔记Img/Redis-命令的语法错误.png" style="zoom:80%;" />
+  <img src="./assets/Redis笔记Img/Redis-命令的语法错误.png" style="zoom:80%;" />
 
 * 执行错误：命令执行出现错误，例如对字符串进行 incr 操作，事务中正确的命令会被执行，运行错误的命令不会被执行
 
-  <img src="./Redis笔记Img/Redis-事务中执行错误.png" style="zoom:80%;" />
+  <img src="./assets/Redis笔记Img/Redis-事务中执行错误.png" style="zoom:80%;" />
 
 * 服务器停机：
 
@@ -4578,7 +4578,7 @@ Redis 服务器为 Lua 环境创建了一个伪客户端负责处理 Lua 脚本�
 *  Lua 将命令结果返回给 redis.call 函数或者 redis.pcall 函数
 *  redis.call 函数或者 redis.pcall 函数会将命令结果作为返回值返回给脚本的调用者
 
-![](./Redis笔记Img/Redis-Lua伪客户端执行.png)
+![](./assets/Redis笔记Img/Redis-Lua伪客户端执行.png)
 
 
 
@@ -5154,7 +5154,7 @@ PSYNC 命令具有完整重同步（full resynchronization）和**部分重同�
 
 当主服务器进行**命令传播时，不仅会将写命令发送给所有从服务器，还会将写命令入队到复制积压缓冲区**，缓冲区会保存着一部分最近传播的写命令，并且缓冲区会为队列中的每个字节记录相应的复制偏移量
 
-![](./Redis笔记Img/Redis-复制积压缓冲区.png)
+![](./assets/Redis笔记Img/Redis-复制积压缓冲区.png)
 
 从服务器会通过 PSYNC 命令将自己的复制偏移量 offset 发送给主服务器，主服务器会根据这个复制偏移量来决定对从服务器执行何种同步操作：
 
@@ -5272,7 +5272,7 @@ PSYNC 命令的调用方法有两种
 
 #### 复制图示
 
-![](./Redis笔记Img/Redis-主从复制流程更新.png)
+![](./assets/Redis笔记Img/Redis-主从复制流程更新.png)
 
 
 
@@ -5459,7 +5459,7 @@ slave 与 master 连接断开
 
 Sentinel（哨兵）是 Redis 的高可用性（high availability）解决方案，由一个或多个 Sentinel 实例 instance 组成的 Sentinel 系统可以监视任意多个主服务器，以及这些主服务器的所有从服务器，并在被监视的主服务器下线时进行故障转移
 
-<img src="./Redis笔记Img/Redis-哨兵系统.png" style="zoom:67%;" />
+<img src="./assets/Redis笔记Img/Redis-哨兵系统.png" style="zoom:67%;" />
 
 * 双环图案表示主服务器
 * 单环图案表示三个从服务器
@@ -5703,7 +5703,7 @@ typedef struct sentinelAddr {
 
 说明：断线的意思就是网络连接断开
 
-![](./Redis笔记Img/Redis-哨兵系统建立连接.png)
+![](./assets/Redis笔记Img/Redis-哨兵系统建立连接.png)
 
 
 
@@ -5955,7 +5955,7 @@ Sentinel 集群至少 3 个节点的原因：
 
 示例：sever1 是主，sever2、sever3、sever4 是从服务器，sever1 故障后选中 sever2 升级
 
-![](./Redis笔记Img/Redis-哨兵执行故障转移.png)
+![](./assets/Redis笔记Img/Redis-哨兵执行故障转移.png)
 
 
 
@@ -6005,7 +6005,7 @@ Redis 集群是 Redis 提供的分布式数据库方案，集群通过分片（s
 
 节点会继续使用所有在单机模式中使用的服务器组件，使用 redisServer 结构来保存服务器的状态，使用 redisClient 结构来保存客户端的状态，也有集群特有的数据结构
 
-![](./Redis笔记Img/Redis-集群模式.png)
+![](./assets/Redis笔记Img/Redis-集群模式.png)
 
 
 
@@ -6111,7 +6111,7 @@ CLUSTER MEET <ip> <port>
 * 节点 A 收到 PONG 消息后，代表节点 A 可以知道节点 B 已经成功地接收到了自已发送的 MEET 消息，此时节点 A 将向节点 B **返回一条 PING 消息**
 * 节点 B 收到 PING 消息后， 代表节点 B 可以知道节点 A 已经成功地接收到了自己返回的 PONG 消息，握手完成
 
-![](./Redis笔记Img/Redis-集群节点握手.png)
+![](./assets/Redis笔记Img/Redis-集群节点握手.png)
 
 节点 A 会将节点 B 的信息通过 Gossip 协议传播给集群中的其他节点，让其他节点也与节点 B 进行握手，最终经过一段时间之后，节点 B 会被集群中的所有节点认识
 
@@ -6174,7 +6174,7 @@ slots 是一个二进制位数组（bit array），长度为 `16384/8 = 2048` �
 * 在索引 i 上的二进制位的值为 1，那么表示节点负责处理槽 i
 * 在索引 i 上的二进制位的值为 0，那么表示节点不负责处理槽 i
 
-![](./Redis笔记Img/Redis-集群槽指派信息.png)
+![](./assets/Redis笔记Img/Redis-集群槽指派信息.png)
 
 取出和设置 slots 数组中的任意一个二进制位的值的**复杂度仅为 O(1)**，所以对于一个给定节点的 slots 数组来说，检查节点是否负责处理某个槽或者将某个槽指派给节点负责，这两个动作的复杂度都是 O(1)
 
@@ -6228,7 +6228,7 @@ slots_to_keys 跳跃表每个节点的分值（score）都是一个槽号，而�
 * 当节点往数据库中添加一个新的键值对时，节点就会将这个键以及键的槽号关联到 slots_to_keys 跳跃表
 * 当节点删除数据库中的某个键值对时，节点就会在 slots_to_keys 跳跃表解除被删除键与槽号的关联
 
-![](./Redis笔记Img/Redis-槽和键跳跃表.png)
+![](./assets/Redis笔记Img/Redis-槽和键跳跃表.png)
 
 通过在 slots_to_keys 跳跃表中记录各个数据库键所属的槽，可以很方便地对属于某个或某些槽的所有数据库键进行批量操作，比如 `CLUSTER GETKEYSINSLOT <slot> <count>` 命令返回最多 count 个属于槽 slot 的数据库键，就是通过该跳表实现
 
@@ -6338,7 +6338,7 @@ Redis 的集群管理软件 redis-trib 负责执行重新分片操作，redis-tr
 * 重复上述步骤，直到源节点保存的所有槽 slot 的键值对都被迁移至目标节点为止
 * redis-trib 向集群中的任意一个节点发送 `CLUSTER SETSLOT <slot> NODE <target _id>` 命令，将槽 slot 指派给目标节点，这一指派信息会通过消息传播至整个集群，最终集群中的所有节点都直到槽 slot 已经指派给了目标节点
 
-![](./Redis笔记Img/Redis-集群重新分片.png)
+![](./assets/Redis笔记Img/Redis-集群重新分片.png)
 
 如果重新分片涉及多个槽，那么 redis-trib 将对每个给定的槽分别执行上面给出的步骤
 
@@ -6920,7 +6920,7 @@ Redis 发布订阅（pub/sub）是一种消息通信模式：发送者（pub）�
 
 Redis 客户端可以订阅任意数量的频道，每当有客户端向被订阅的频道发送消息（message）时，频道的**所有订阅者都会收到消息**
 
-![](./Redis笔记Img/Redis-发布订阅.png)
+![](./assets/Redis笔记Img/Redis-发布订阅.png)
 
 操作过程：
 
@@ -6930,7 +6930,7 @@ Redis 客户端可以订阅任意数量的频道，每当有客户端向被订�
 
 * 第一个客户端可以看到发送的消息
 
-<img src="./Redis笔记Img/Redis-发布订阅指令操作.png" style="zoom:67%;" />
+<img src="./assets/Redis笔记Img/Redis-发布订阅指令操作.png" style="zoom:67%;" />
 
 客户端还可以通过 PSUBSCRIBE 命令订阅一个或多个模式，每当有其他客户端向某个频道发送消息时，消息不仅会被发送给这个频道的所有订阅者，还会被**发送给所有与这个频道相匹配的模式的订阅者**，比如 `PSUBSCRIBE channel*` 订阅模式，与 channel1 匹配
 
@@ -7048,7 +7048,7 @@ PUBSUB 命令用来查看频道或者模式的相关信息
 
 Redis ACL 是 Access Control List（访问控制列表）的缩写，该功能允许根据可以执行的命令和可以访问的键来限制某些连接
 
-![](./Redis笔记Img/Redis-ACL指令.png)
+![](./assets/Redis笔记Img/Redis-ACL指令.png)
 
 * acl cat：查看添加权限指令类别
 * acl whoami：查看当前用户
@@ -7081,7 +7081,7 @@ def MONITOR():
 
 服务器每次处理命令请求都会调用 replicationFeedMonitors 函数，函数将被处理的命令请求的相关信息**发送给各个监视器**
 
-<img src="./Redis笔记Img/Redis-监视器.png" style="zoom:50%;" />
+<img src="./assets/Redis笔记Img/Redis-监视器.png" style="zoom:50%;" />
 
 ```sh
 redis> MONITOR 
